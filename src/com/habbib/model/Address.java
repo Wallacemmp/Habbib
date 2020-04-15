@@ -8,6 +8,15 @@ public class Address {
     private String neighborhood;
     private String City;
     private String UF;
+    private String street;
+
+    public String getStreet() {
+        return street;
+    }
+
+    public void setStreet(String street) {
+        this.street = street;
+    }
 
     public int getId() {
         return id;

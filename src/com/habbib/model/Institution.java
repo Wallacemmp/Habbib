@@ -7,7 +7,7 @@ public class Institution {
     private int cnpj;
     private String nome;
     private String password;
-    private long contactNumber;
+    private String contactNumber;
     private InstitutionType type;
     private Address address;
 
@@ -43,11 +43,11 @@ public class Institution {
         this.password = password;
     }
 
-    public long getContactNumber() {
+    public String getContactNumber() {
         return contactNumber;
     }
 
-    public void setContactNumber(long contactNumber) {
+    public void setContactNumber(String contactNumber) {
         this.contactNumber = contactNumber;
     }
 
