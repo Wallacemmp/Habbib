@@ -17,16 +17,15 @@ public class InstitutionService
                 String password = JOptionPane.showInputDialog("Informe a senha: ");
                 String contactNumber = JOptionPane.showInputDialog("Informe o número de contato: ");
                 //Pequisar como trabalhar com enum
-                InstitutionType type = PrivateHospital(0);
-                Address address = institute.insertAddress();
+                //InstitutionType type = PrivateHospital(0);
+                //Address address = institute.insertAddress();
 
-                intitutionAddress.insertAddress(address1.getZipCode(), address1.getNumber(), address1.getComplement(), address1.getNeighborhood(), address1.getCity(), address1.getUF(), address1.getStreet());
+                //intitutionAddress.insertAddress(address1.getZipCode(), address1.getNumber(), address1.getComplement(), address1.getNeighborhood(), address1.getCity(), address1.getUF(), address1.getStreet());
         }
 
         public void insertAddress()
         {
                 Address address1 = new Address();
-
 
                 int zipCode = Integer.parseInt(JOptionPane.showInputDialog("Informe o CEP: "));
                 int number = Integer.parseInt(JOptionPane.showInputDialog("Informe o Número: "));
@@ -44,8 +43,4 @@ public class InstitutionService
                 address1.setUF(UF);
                 address1.setStreet(street);
         }
-
-
-
-
 }
