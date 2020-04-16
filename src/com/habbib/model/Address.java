@@ -6,8 +6,8 @@ public class Address {
     private int number;
     private String complement;
     private String neighborhood;
-    private String City;
-    private String UF;
+    private String city;
+    private String uf;
 
     public int getId() {
         return id;
@@ -50,18 +50,18 @@ public class Address {
     }
 
     public String getCity() {
-        return City;
+        return city;
     }
 
     public void setCity(String city) {
-        City = city;
+        this.city = city;
     }
 
     public String getUF() {
-        return UF;
+        return uf;
     }
 
     public void setUF(String UF) {
-        this.UF = UF;
+        this.uf = UF;
     }
 }
