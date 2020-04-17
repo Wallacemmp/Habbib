@@ -1,13 +1,12 @@
 package com.habbib;
-import com.habbib.model.InstitutionService;
+import com.habbib.controller.InstitutionService;
 
 public class Main
 {
 
     public static void main(String[] args)
     {
-        InstitutionService institute = new InstitutionService();
-
-        institute.insertAddress();
+        InstitutionService address = new InstitutionService();
+        address.insertAddress();
     }
 }
