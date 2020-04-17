@@ -1,3 +1,5 @@
+# Badges
+[![Build Status](https://travis-ci.org/HabbibCorona/Habbib.svg?branch=master)](https://travis-ci.org/HabbibCorona/Habbib)
 # Habbib
 
 Habbib is a solution for Health Institutions to solve the over crowded situations like we've lived in COVID-19 pandemic.
