@@ -30,7 +30,7 @@
   </component>
   <component name="PropertiesComponent">
     <property name="SHARE_PROJECT_CONFIGURATION_FILES" value="true" />
-    <property name="project.structure.last.edited" value="Facets" />
+    <property name="project.structure.last.edited" value="SDKs" />
     <property name="project.structure.proportion" value="0.15" />
     <property name="project.structure.side.proportion" value="0.2" />
   </component>
@@ -83,10 +83,10 @@
       <screen x="0" y="0" width="1920" height="1040" />
     </state>
     <state x="614" y="114" key="CommitChangelistDialog2/0.0.1920.1040/1920.0.1600.860@0.0.1920.1040" timestamp="1586908863127" />
-    <state x="336" y="5" key="SettingsEditor" timestamp="1587001236736">
+    <state x="336" y="5" key="SettingsEditor" timestamp="1587162068997">
       <screen x="0" y="0" width="1920" height="1040" />
     </state>
-    <state x="336" y="5" key="SettingsEditor/0.0.1920.1040/1920.0.1600.860@0.0.1920.1040" timestamp="1587001236736" />
+    <state x="336" y="5" key="SettingsEditor/0.0.1920.1040/1920.0.1600.860@0.0.1920.1040" timestamp="1587162068997" />
     <state x="2200" y="4" key="SettingsEditor/0.0.1920.1040/1920.0.1600.860@1920.0.1600.860" timestamp="1586999890502" />
     <state x="616" y="240" key="run.anything.popup" timestamp="1586908933180">
       <screen x="0" y="0" width="1920" height="1040" />
