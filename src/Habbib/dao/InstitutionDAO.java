@@ -1,6 +1,8 @@
 package Habbib.dao;
 
 import Habbib.connection.ConnectionFactory;
+import Habbib.model.Institution;
+
 import java.sql.Connection;
 import java.sql.PreparedStatement;
 import java.sql.ResultSet;
@@ -8,44 +10,39 @@ import java.sql.SQLException;
 
 public class InstitutionDAO {
 
-    public static int loginValidator(String user, String password){
+    private Connection con;
 
-        Connection con = ConnectionFactory.getConnection();
+    public  InstitutionDAO ()
+    {
+        con = ConnectionFactory.getConnection();
+    }
+
+    public Institution getInstitutionByName(String name)
+    {
         PreparedStatement stmt = null;
         ResultSet rs = null;
         int validation = 0;
 
+        Institution institution = null;
+
         try{
             stmt = con.prepareStatement("SELECT Nome FROM Instituicao WHERE Nome = ?");
-            stmt.setString(1, user);
+            stmt.setString(1, name);
             rs = stmt.executeQuery();
 
             if(rs.next()){
-
-                try {
-                    stmt = con.prepareStatement("SELECT Nome,Senha FROM Instituicao WHERE Nome = ? AND Senha = ?");
-                    stmt.setString(1, user);
-                    stmt.setString(2, password);
-                    rs = stmt.executeQuery();
-
-                    if(rs.next()){
-                        validation = 1;
-                    } else{
-                        validation = 2;
-                    }
-
-                } catch (SQLException e) {
-                    e.printStackTrace();
-                }
-            }else {
-                validation = 3;
+                //TODO: Wallace implementar os outros campos
+                institution = new Institution();
+                institution.setNome(rs.getString("Nome"));
+                institution.setCnpj(Integer.parseInt(rs.getString("CNPJ")));
+                institution.setPassword(rs.getString("Senha"));
+                institution.setContactNumber(Integer.parseInt(rs.getString("Telefone")));
             }
         } catch (SQLException e) {
             e.printStackTrace();
         } finally {
             ConnectionFactory.closeConnection(con, stmt, rs);
         }
-
-        return validation;
+        return institution;
     }
 }

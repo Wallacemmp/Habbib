@@ -1,28 +1,25 @@
 package Habbib.controller;
 
 import Habbib.dao.InstitutionDAO;
+import Habbib.model.Institution;
 import Habbib.view.ViewLogin;
 
 import javax.swing.*;
 
 public class SessionController {
 
-    public static void login(String user, String password){
+    public Institution login(String user, String password) throws Exception{
 
-        ViewLogin vl = new ViewLogin();
+        InstitutionDAO institutionDAO = new InstitutionDAO();
 
-        int validator = InstitutionDAO.loginValidator(user,password);
+        Institution institution = institutionDAO.getInstitutionByName(user);
 
-        if(validator == 1){
-            JOptionPane.showMessageDialog(null,"Voce ta logadisso mona !!");
+        if(institution == null)
+            throw new Exception("User not find!");
+        else if(institution.getPassword() == password){
+            return institution;
         }else {
-            if(validator == 2){
-                JOptionPane.showMessageDialog(null,"Bixa, tu errou a senha :C");
-            } else {
-                if(validator == 3){
-                    JOptionPane.showMessageDialog(null,"NÃO ENCONTRAMO ESSE USUARIO NÃO AMOR");
-                }
-            }
+            throw new Exception("Password dosent match!");
         }
     }
 }
