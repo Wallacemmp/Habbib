@@ -2,9 +2,6 @@ package Habbib.controller;
 
 import Habbib.dao.InstitutionDAO;
 import Habbib.model.Institution;
-import Habbib.view.ViewLogin;
-
-import javax.swing.*;
 
 public class SessionController {
 
