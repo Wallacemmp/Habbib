@@ -1,6 +1,6 @@
-package com.habbib.model;
+package Habbib.model;
 
-import com.habbib.enumerator.InstitutionType;
+import Habbib.enumerator.InstitutionType;
 
 public class Institution {
     private int id;

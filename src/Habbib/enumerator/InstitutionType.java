@@ -1,4 +1,4 @@
-package com.habbib.enumerator;
+package Habbib.enumerator;
 
 public enum InstitutionType {
     PrivateHospital(0),

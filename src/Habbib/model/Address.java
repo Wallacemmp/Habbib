@@ -1,4 +1,4 @@
-package com.habbib.model;
+package Habbib.model;
 
 public class Address {
     private int id;
