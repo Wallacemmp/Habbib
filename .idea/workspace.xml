@@ -1,24 +1,9 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <project version="4">
   <component name="ChangeListManager">
-    <list default="true" id="4d915d0f-415e-4cdc-9714-c923372ddaf0" name="Default Changelist" comment="Feature de login com JOPtionPanes">
-      <change afterPath="$PROJECT_DIR$/.idea/.gitignore" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/.idea/dataSources.xml" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/.idea/dictionaries/air.xml" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/.idea/libraries/mysql_mysql_connector_java_8_0_19.xml" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/.idea/sqldialects.xml" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/.idea/uiDesigner.xml" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/src/Habbib/controller/SessionController.java" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/src/Habbib/dao/InstitutionDAO.java" afterDir="false" />
+    <list default="true" id="4d915d0f-415e-4cdc-9714-c923372ddaf0" name="Default Changelist" comment="">
       <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/Habbib.iml" beforeDir="false" afterPath="$PROJECT_DIR$/Habbib.iml" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/com/habbib/Main.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/Habbib/Main.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/com/habbib/connection/ConnectionFactory.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/Habbib/connection/ConnectionFactory.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/com/habbib/controller/SessionManager.java" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/com/habbib/enumerator/InstitutionType.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/Habbib/enumerator/InstitutionType.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/com/habbib/model/Address.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/Habbib/model/Address.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/com/habbib/model/Institution.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/Habbib/model/Institution.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/com/habbib/view/ViewLogin.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/Habbib/view/ViewLogin.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/Habbib/dao/InstitutionDAO.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/Habbib/dao/InstitutionDAO.java" afterDir="false" />
     </list>
     <option name="SHOW_DIALOG" value="false" />
     <option name="HIGHLIGHT_CONFLICTS" value="true" />
@@ -55,6 +40,9 @@
     </expand>
     <select />
   </component>
+  <component name="FavoritesManager">
+    <favorites_list name="Git" />
+  </component>
   <component name="FileTemplateManagerImpl">
     <option name="RECENT_TEMPLATES">
       <list>
@@ -70,6 +58,13 @@
       </map>
     </option>
     <option name="RECENT_GIT_ROOT_PATH" value="$PROJECT_DIR$" />
+  </component>
+  <component name="GithubPullRequestsUISettings">
+    <option name="hiddenUrls">
+      <set>
+        <option value="https://github.com/HabbibCorona/Habbib.git" />
+      </set>
+    </option>
   </component>
   <component name="IgnoredFileRootStore">
     <option name="generatedRoots">
@@ -169,7 +164,7 @@
       <workItem from="1587145029335" duration="2317000" />
       <workItem from="1587324111912" duration="1003000" />
       <workItem from="1587350142622" duration="576000" />
-      <workItem from="1587505887920" duration="13078000" />
+      <workItem from="1587505887920" duration="13637000" />
     </task>
     <task id="LOCAL-00001" summary="Feature de login com JOPtionPanes">
       <created>1587081063156</created>
@@ -178,7 +173,14 @@
       <option name="project" value="LOCAL" />
       <updated>1587081063157</updated>
     </task>
-    <option name="localTasksCounter" value="2" />
+    <task id="LOCAL-00002" summary="Segregacão da conexão com o banco de dados, utilizando o package DAO e implementado melhorias nos tratamentos de erros no login.">
+      <created>1587531737055</created>
+      <option name="number" value="00002" />
+      <option name="presentableId" value="LOCAL-00002" />
+      <option name="project" value="LOCAL" />
+      <updated>1587531737055</updated>
+    </task>
+    <option name="localTasksCounter" value="3" />
     <servers />
   </component>
   <component name="TypeScriptGeneratedFilesManager">
@@ -199,7 +201,8 @@
   </component>
   <component name="VcsManagerConfiguration">
     <MESSAGE value="Feature de login com JOPtionPanes" />
-    <option name="LAST_COMMIT_MESSAGE" value="Feature de login com JOPtionPanes" />
+    <MESSAGE value="Segregacão da conexão com o banco de dados, utilizando o package DAO e implementado melhorias nos tratamentos de erros no login." />
+    <option name="LAST_COMMIT_MESSAGE" value="Segregacão da conexão com o banco de dados, utilizando o package DAO e implementado melhorias nos tratamentos de erros no login." />
   </component>
   <component name="WindowStateProjectService">
     <state x="1649" y="49" key="#Inspections" timestamp="1587529078513">
@@ -223,35 +226,35 @@
       <screen x="0" y="0" width="1920" height="1040" />
     </state>
     <state x="664" y="203" key="#com.intellij.refactoring.encapsulateFields.EncalpsulateFieldsDialog/0.0.1920.1040/1920.0.1600.860@0.0.1920.1040" timestamp="1586908205410" />
-    <state x="1803" y="0" key="CommitChangelistDialog2" timestamp="1587081062508">
+    <state x="1658" y="0" key="CommitChangelistDialog2" timestamp="1587531736603">
       <screen x="1366" y="0" width="1366" height="768" />
     </state>
     <state x="614" y="114" key="CommitChangelistDialog2/0.0.1920.1040/1920.0.1600.860@0.0.1920.1040" timestamp="1586908863127" />
-    <state x="1803" y="0" key="CommitChangelistDialog2/1366.0.1366.768/0.0.1366.717@1366.0.1366.768" timestamp="1587081062508" />
-    <state x="1640" y="86" key="DiffContextDialog" timestamp="1587080890483">
+    <state x="1658" y="0" key="CommitChangelistDialog2/1366.0.1366.768/0.0.1366.717@1366.0.1366.768" timestamp="1587531736603" />
+    <state x="1640" y="86" width="1092" height="573" key="DiffContextDialog" timestamp="1587532231126">
       <screen x="1366" y="0" width="1366" height="768" />
     </state>
-    <state x="1640" y="86" key="DiffContextDialog/1366.0.1366.768/0.0.1366.717@1366.0.1366.768" timestamp="1587080890483" />
-    <state width="1324" height="192" key="GridCell.Tab.0.bottom" timestamp="1587531475752">
+    <state x="1640" y="86" width="1092" height="573" key="DiffContextDialog/1366.0.1366.768/0.0.1366.717@1366.0.1366.768" timestamp="1587532231126" />
+    <state width="1324" height="192" key="GridCell.Tab.0.bottom" timestamp="1587531744134">
       <screen x="1366" y="0" width="1366" height="768" />
     </state>
     <state width="1324" height="177" key="GridCell.Tab.0.bottom/1366.0.1366.768/0.0.1366.717@0.0.1366.717" timestamp="1587075115115" />
-    <state width="1324" height="192" key="GridCell.Tab.0.bottom/1366.0.1366.768/0.0.1366.717@1366.0.1366.768" timestamp="1587531475752" />
-    <state width="1324" height="192" key="GridCell.Tab.0.center" timestamp="1587531475751">
+    <state width="1324" height="192" key="GridCell.Tab.0.bottom/1366.0.1366.768/0.0.1366.717@1366.0.1366.768" timestamp="1587531744134" />
+    <state width="1324" height="192" key="GridCell.Tab.0.center" timestamp="1587531744131">
       <screen x="1366" y="0" width="1366" height="768" />
     </state>
     <state width="1324" height="177" key="GridCell.Tab.0.center/1366.0.1366.768/0.0.1366.717@0.0.1366.717" timestamp="1587075115110" />
-    <state width="1324" height="192" key="GridCell.Tab.0.center/1366.0.1366.768/0.0.1366.717@1366.0.1366.768" timestamp="1587531475751" />
-    <state width="1324" height="192" key="GridCell.Tab.0.left" timestamp="1587531475750">
+    <state width="1324" height="192" key="GridCell.Tab.0.center/1366.0.1366.768/0.0.1366.717@1366.0.1366.768" timestamp="1587531744131" />
+    <state width="1324" height="192" key="GridCell.Tab.0.left" timestamp="1587531744130">
       <screen x="1366" y="0" width="1366" height="768" />
     </state>
     <state width="1324" height="177" key="GridCell.Tab.0.left/1366.0.1366.768/0.0.1366.717@0.0.1366.717" timestamp="1587075115103" />
-    <state width="1324" height="192" key="GridCell.Tab.0.left/1366.0.1366.768/0.0.1366.717@1366.0.1366.768" timestamp="1587531475750" />
-    <state width="1324" height="192" key="GridCell.Tab.0.right" timestamp="1587531475751">
+    <state width="1324" height="192" key="GridCell.Tab.0.left/1366.0.1366.768/0.0.1366.717@1366.0.1366.768" timestamp="1587531744130" />
+    <state width="1324" height="192" key="GridCell.Tab.0.right" timestamp="1587531744133">
       <screen x="1366" y="0" width="1366" height="768" />
     </state>
     <state width="1324" height="177" key="GridCell.Tab.0.right/1366.0.1366.768/0.0.1366.717@0.0.1366.717" timestamp="1587075115113" />
-    <state width="1324" height="192" key="GridCell.Tab.0.right/1366.0.1366.768/0.0.1366.717@1366.0.1366.768" timestamp="1587531475751" />
+    <state width="1324" height="192" key="GridCell.Tab.0.right/1366.0.1366.768/0.0.1366.717@1366.0.1366.768" timestamp="1587531744133" />
     <state width="1324" height="221" key="GridCell.Tab.1.bottom" timestamp="1587082022654">
       <screen x="1366" y="0" width="1366" height="768" />
     </state>
@@ -293,6 +296,10 @@
       <screen x="0" y="0" width="1366" height="717" />
     </state>
     <state x="409" y="259" key="com.intellij.jarRepository.RepositoryAttachDialog-DOWNLOAD/1366.0.1366.768/0.0.1366.717@0.0.1366.717" timestamp="1587074970877" />
+    <state x="1854" y="308" key="com.intellij.openapi.vcs.update.UpdateOrStatusOptionsDialogupdate-v2" timestamp="1587531948073">
+      <screen x="1366" y="0" width="1366" height="768" />
+    </state>
+    <state x="1854" y="308" key="com.intellij.openapi.vcs.update.UpdateOrStatusOptionsDialogupdate-v2/1366.0.1366.768/0.0.1366.717@1366.0.1366.768" timestamp="1587531948073" />
     <state x="1366" y="0" width="782" height="768" key="find.popup" timestamp="1587527349054">
       <screen x="1366" y="0" width="1366" height="768" />
     </state>
