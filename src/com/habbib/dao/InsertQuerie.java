@@ -7,7 +7,6 @@ public class InsertQuerie {
     Connection connection = ConnectionFactory.getConnection();
     private PreparedStatement insertNewInstitution = null;
     private PreparedStatement insertNewAddress = null;
-    private PreparedStatement selectPKAddress = null;
 
     public InsertQuerie()
     {
@@ -31,7 +30,6 @@ public class InsertQuerie {
             System.exit(1);
         }
     }
-
 
     public int insertAddress(int zipCode, int number, String complement, String neighborhood, String city, String UF, String street)
     {
