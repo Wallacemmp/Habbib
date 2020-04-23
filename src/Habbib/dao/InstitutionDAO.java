@@ -21,12 +21,11 @@ public class InstitutionDAO {
     {
         PreparedStatement stmt = null;
         ResultSet rs = null;
-        int validation = 0;
 
         Institution institution = null;
 
         try{
-            stmt = con.prepareStatement("SELECT Nome FROM Instituicao WHERE Nome = ?");
+            stmt = con.prepareStatement("SELECT * FROM Instituicao WHERE Nome = ?");
             stmt.setString(1, name);
             rs = stmt.executeQuery();
 

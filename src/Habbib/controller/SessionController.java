@@ -13,10 +13,10 @@ public class SessionController {
 
         if(institution == null)
             throw new Exception("User not find!");
-        else if(institution.getPassword() == password){
+        else if(institution.getPassword().equals(password)){
             return institution;
         }else {
-            throw new Exception("Password dosent match!");
+            throw new Exception("Password does not match!");
         }
     }
 }

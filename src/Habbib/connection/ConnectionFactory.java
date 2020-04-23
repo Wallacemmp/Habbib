@@ -1,19 +1,23 @@
 package Habbib.connection;
 
-import java.sql.*;
+import java.sql.Connection;
+import java.sql.DriverManager;
+import java.sql.SQLException;
+import java.sql.PreparedStatement;
+import java.sql.ResultSet;
 
 public class ConnectionFactory {
 
-    private static final String DRIVER = "com.mysql.cj.jdbc.Driver";
+    //private static final String DRIVER = "com.mysql.cj.jdbc.Driver";
     private static final String URL = "jdbc:mysql://localhost:3306/db_Habbib";
     private static final String USER = "root";
     private static final String PASSWORD = "cocacola";
 
     public static Connection getConnection(){
         try {
-            Class.forName(DRIVER);
+            //Class.forName(DRIVER);
             return DriverManager.getConnection(URL, USER, PASSWORD);
-        } catch (ClassNotFoundException | SQLException e) {
+        } catch (/*ClassNotFoundException|*/ SQLException e) {
             throw new RuntimeException("Erro na conexão: ",e);
         }
     }
