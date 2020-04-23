@@ -3,6 +3,7 @@ package Habbib.model;
 public class Address {
     private int id;
     private int zipCode;
+    private String address;
     private int number;
     private String complement;
     private String neighborhood;
@@ -23,6 +24,14 @@ public class Address {
 
     public void setZipCode(int zipCode) {
         this.zipCode = zipCode;
+    }
+
+    public String getAddress() {
+        return address;
+    }
+
+    public void setAddress(String address) {
+        this.address = address;
     }
 
     public int getNumber() {
@@ -57,11 +66,11 @@ public class Address {
         this.city = city;
     }
 
-    public String getUF() {
+    public String getUf() {
         return uf;
     }
 
-    public void setUF(String UF) {
-        this.uf = UF;
+    public void setUf(String uf) {
+        this.uf = uf;
     }
 }
