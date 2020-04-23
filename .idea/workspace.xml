@@ -3,12 +3,49 @@
   <component name="ChangeListManager">
     <list default="true" id="4d915d0f-415e-4cdc-9714-c923372ddaf0" name="Default Changelist" comment="">
       <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/README.md" beforeDir="false" afterPath="$PROJECT_DIR$/README.md" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/Habbib/connection/BaseDAO.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/Habbib/connection/BaseDAO.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/Habbib/dao/InstitutionDAO.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/Habbib/dao/InstitutionDAO.java" afterDir="false" />
     </list>
     <option name="SHOW_DIALOG" value="false" />
     <option name="HIGHLIGHT_CONFLICTS" value="true" />
     <option name="HIGHLIGHT_NON_ACTIVE_CHANGELIST" value="false" />
     <option name="LAST_RESOLUTION" value="IGNORE" />
+  </component>
+  <component name="CoverageViewManager">
+    <option name="myElementSize" value="241" />
+  </component>
+  <component name="DatabaseView">
+    <option name="SHOW_INTERMEDIATE" value="true" />
+    <option name="GROUP_DATA_SOURCES" value="true" />
+    <option name="GROUP_SCHEMA" value="true" />
+    <option name="GROUP_CONTENTS" value="false" />
+    <option name="SORT_POSITIONED" value="false" />
+    <option name="SHOW_EMPTY_GROUPS" value="false" />
+    <option name="AUTO_SCROLL_FROM_SOURCE" value="false" />
+    <option name="HIDDEN_KINDS">
+      <set />
+    </option>
+    <expand>
+      <path>
+        <item name="Database" type="3277223f:DatabaseStructure$DbRootGroup" />
+        <item name="MySQL - db_Habbib@localhost" type="feb32156:DbDataSourceImpl" />
+      </path>
+      <path>
+        <item name="Database" type="3277223f:DatabaseStructure$DbRootGroup" />
+        <item name="MySQL - db_Habbib@localhost" type="feb32156:DbDataSourceImpl" />
+        <item name="schemas" type="d4e8921:DatabaseStructure$FamilyGroup" />
+      </path>
+      <path>
+        <item name="Database" type="3277223f:DatabaseStructure$DbRootGroup" />
+        <item name="MySQL - db_Habbib@localhost" type="feb32156:DbDataSourceImpl" />
+        <item name="schemas" type="d4e8921:DatabaseStructure$FamilyGroup" />
+        <item name="db_Habbib: schema" type="76f4a085:MysqlImplModel$Schema" />
+      </path>
+    </expand>
+    <select />
+  </component>
+  <component name="FavoritesManager">
+    <favorites_list name="Git" />
   </component>
   <component name="FileTemplateManagerImpl">
     <option name="RECENT_TEMPLATES">
@@ -19,19 +56,71 @@
     </option>
   </component>
   <component name="Git.Settings">
+    <option name="RECENT_BRANCH_BY_REPOSITORY">
+      <map>
+        <entry key="$PROJECT_DIR$" value="develop" />
+      </map>
+    </option>
     <option name="RECENT_GIT_ROOT_PATH" value="$PROJECT_DIR$" />
   </component>
+  <component name="GithubPullRequestsUISettings">
+    <option name="hiddenUrls">
+      <set>
+        <option value="https://github.com/HabbibCorona/Habbib.git" />
+      </set>
+    </option>
+  </component>
+  <component name="IgnoredFileRootStore">
+    <option name="generatedRoots">
+      <set>
+        <option value="$PROJECT_DIR$/.idea" />
+      </set>
+    </option>
+  </component>
   <component name="ProjectId" id="1aYLRc3E0KJtCZpuHJjAs1uoMuD" />
-  <component name="ProjectLevelVcsManager" settingsEditedManually="true" />
+  <component name="ProjectLevelVcsManager" settingsEditedManually="true">
+    <ConfirmationsSetting value="2" id="Add" />
+  </component>
   <component name="ProjectViewState">
     <option name="hideEmptyMiddlePackages" value="true" />
     <option name="showExcludedFiles" value="true" />
     <option name="showLibraryContents" value="true" />
   </component>
   <component name="PropertiesComponent">
+    <property name="ASKED_ADD_EXTERNAL_FILES" value="true" />
+    <property name="DatabaseDriversLRU" value="mysql" />
+    <property name="Downloaded.Files.Path.Enabled" value="false" />
+    <property name="Repository.Attach.Annotations" value="false" />
+    <property name="Repository.Attach.JavaDocs" value="false" />
+    <property name="Repository.Attach.Sources" value="false" />
+    <property name="RunOnceActivity.ShowReadmeOnStart" value="true" />
     <property name="SHARE_PROJECT_CONFIGURATION_FILES" value="true" />
+    <property name="WebServerToolWindowFactoryState" value="false" />
+    <property name="aspect.path.notification.shown" value="true" />
+    <property name="project.structure.last.edited" value="Libraries" />
+    <property name="project.structure.proportion" value="0.15" />
+    <property name="project.structure.side.proportion" value="0.2" />
+    <property name="settings.editor.selected.configurable" value="project.propVCSSupport.Mappings" />
   </component>
-  <component name="RunManager">
+  <component name="RecentsManager">
+    <key name="CopyClassDialog.RECENTS_KEY">
+      <recent name="Habbib" />
+    </key>
+  </component>
+  <component name="RunManager" selected="Application.Main (1)">
+    <configuration name="Main (1)" type="Application" factoryName="Application" temporary="true" nameIsGenerated="true">
+      <option name="MAIN_CLASS_NAME" value="Habbib.Main" />
+      <module name="Habbib" />
+      <extension name="coverage">
+        <pattern>
+          <option name="PATTERN" value="Habbib.*" />
+          <option name="ENABLED" value="true" />
+        </pattern>
+      </extension>
+      <method v="2">
+        <option name="Make" enabled="true" />
+      </method>
+    </configuration>
     <configuration name="Main" type="Application" factoryName="Application" temporary="true">
       <option name="MAIN_CLASS_NAME" value="com.habbib.Main" />
       <module name="Habbib" />
@@ -42,6 +131,34 @@
         <option name="Make" enabled="true" />
       </method>
     </configuration>
+    <recent_temporary>
+      <list>
+        <item itemvalue="Application.Main (1)" />
+        <item itemvalue="Application.Main" />
+      </list>
+    </recent_temporary>
+  </component>
+  <component name="ServiceViewManager">
+    <option name="viewStates">
+      <list>
+        <serviceView>
+          <treeState>
+            <expand>
+              <path>
+                <item name="services root" type="e789fda9:ObjectUtils$Sentinel" />
+                <item name="MySQL - db_Habbib@localhost: root" type="7427dc5b:ServiceModel$ServiceGroupNode" />
+              </path>
+              <path>
+                <item name="services root" type="e789fda9:ObjectUtils$Sentinel" />
+                <item name="MySQL - db_Habbib@localhost: root" type="7427dc5b:ServiceModel$ServiceGroupNode" />
+                <item name="com.intellij.database.console.session.MessageBusSession@3fce95c0" type="9fbbdea:ServiceModel$ServiceNode" />
+              </path>
+            </expand>
+            <select />
+          </treeState>
+        </serviceView>
+      </list>
+    </option>
   </component>
   <component name="SvnConfiguration">
     <configuration />
@@ -53,36 +170,191 @@
       <option name="number" value="Default" />
       <option name="presentableId" value="Default" />
       <updated>1586907573926</updated>
+      <workItem from="1586998404655" duration="15115000" />
+      <workItem from="1587145029335" duration="2317000" />
+      <workItem from="1587324111912" duration="1003000" />
+      <workItem from="1587350142622" duration="576000" />
+      <workItem from="1587505887920" duration="13637000" />
     </task>
+    <task id="LOCAL-00001" summary="Feature de login com JOPtionPanes">
+      <created>1587081063156</created>
+      <option name="number" value="00001" />
+      <option name="presentableId" value="LOCAL-00001" />
+      <option name="project" value="LOCAL" />
+      <updated>1587081063157</updated>
+    </task>
+    <task id="LOCAL-00002" summary="Segregacão da conexão com o banco de dados, utilizando o package DAO e implementado melhorias nos tratamentos de erros no login.">
+      <created>1587531737055</created>
+      <option name="number" value="00002" />
+      <option name="presentableId" value="LOCAL-00002" />
+      <option name="project" value="LOCAL" />
+      <updated>1587531737055</updated>
+    </task>
+    <option name="localTasksCounter" value="3" />
     <servers />
+  </component>
+  <component name="TypeScriptGeneratedFilesManager">
+    <option name="version" value="1" />
   </component>
   <component name="Vcs.Log.Tabs.Properties">
     <option name="TAB_STATES">
       <map>
         <entry key="MAIN">
           <value>
-            <State />
+            <State>
+              <option name="COLUMN_ORDER" />
+            </State>
           </value>
         </entry>
       </map>
     </option>
   </component>
+  <component name="VcsManagerConfiguration">
+    <option name="ADD_EXTERNAL_FILES_SILENTLY" value="true" />
+    <MESSAGE value="Feature de login com JOPtionPanes" />
+    <MESSAGE value="Segregacão da conexão com o banco de dados, utilizando o package DAO e implementado melhorias nos tratamentos de erros no login." />
+    <option name="LAST_COMMIT_MESSAGE" value="Segregacão da conexão com o banco de dados, utilizando o package DAO e implementado melhorias nos tratamentos de erros no login." />
+  </component>
   <component name="WindowStateProjectService">
-    <state x="765" y="204" key="#com.intellij.ide.util.MemberChooser" timestamp="1586908187229">
-      <screen x="0" y="0" width="1920" height="1040" />
+    <state x="1649" y="49" key="#Inspections" timestamp="1587529078513">
+      <screen x="1366" y="0" width="1366" height="768" />
+    </state>
+    <state x="1649" y="49" key="#Inspections/1366.0.1366.768/0.0.1366.717@1366.0.1366.768" timestamp="1587529078513" />
+    <state x="1649" y="49" key="#SQL_Dialects" timestamp="1587528906879">
+      <screen x="1366" y="0" width="1366" height="768" />
+    </state>
+    <state x="1649" y="49" key="#SQL_Dialects/1366.0.1366.768/0.0.1366.717@1366.0.1366.768" timestamp="1587528906879" />
+    <state x="240" y="25" key="#com.intellij.execution.impl.EditConfigurationsDialog" timestamp="1587007469344">
+      <screen x="0" y="0" width="1280" height="720" />
+    </state>
+    <state x="240" y="25" key="#com.intellij.execution.impl.EditConfigurationsDialog/0.0.1280.720@0.0.1280.720" timestamp="1587007469344" />
+    <state x="2557" y="168" key="#com.intellij.ide.util.MemberChooser" timestamp="1587597008275">
+      <screen x="1920" y="0" width="1600" height="860" />
     </state>
     <state x="765" y="204" key="#com.intellij.ide.util.MemberChooser/0.0.1920.1040/1920.0.1600.860@0.0.1920.1040" timestamp="1586908187229" />
+    <state x="2557" y="168" key="#com.intellij.ide.util.MemberChooser/0.0.1920.1040/1920.0.1600.860@1920.0.1600.860" timestamp="1587597008275" />
+    <state x="1910" y="150" key="#com.intellij.ide.util.MemberChooser/1366.0.1366.768/0.0.1366.717@1366.0.1366.768" timestamp="1587525109151" />
     <state x="664" y="203" key="#com.intellij.refactoring.encapsulateFields.EncalpsulateFieldsDialog" timestamp="1586908205410">
       <screen x="0" y="0" width="1920" height="1040" />
     </state>
     <state x="664" y="203" key="#com.intellij.refactoring.encapsulateFields.EncalpsulateFieldsDialog/0.0.1920.1040/1920.0.1600.860@0.0.1920.1040" timestamp="1586908205410" />
-    <state x="614" y="114" key="CommitChangelistDialog2" timestamp="1586908863127">
-      <screen x="0" y="0" width="1920" height="1040" />
+    <state x="1658" y="0" key="CommitChangelistDialog2" timestamp="1587531736603">
+      <screen x="1366" y="0" width="1366" height="768" />
     </state>
     <state x="614" y="114" key="CommitChangelistDialog2/0.0.1920.1040/1920.0.1600.860@0.0.1920.1040" timestamp="1586908863127" />
-    <state x="616" y="240" key="run.anything.popup" timestamp="1586908933180">
+    <state x="1658" y="0" key="CommitChangelistDialog2/1366.0.1366.768/0.0.1366.717@1366.0.1366.768" timestamp="1587531736603" />
+    <state x="1640" y="86" width="1092" height="573" key="DiffContextDialog" timestamp="1587532231126">
+      <screen x="1366" y="0" width="1366" height="768" />
+    </state>
+    <state x="1640" y="86" width="1092" height="573" key="DiffContextDialog/1366.0.1366.768/0.0.1366.717@1366.0.1366.768" timestamp="1587532231126" />
+    <state x="540" y="212" key="FileChooserDialogImpl" timestamp="1587602079676">
       <screen x="0" y="0" width="1920" height="1040" />
     </state>
+    <state x="540" y="212" key="FileChooserDialogImpl/0.0.1920.1040/1920.0.1600.860@0.0.1920.1040" timestamp="1587602079676" />
+    <state width="1877" height="282" key="GridCell.Tab.0.bottom" timestamp="1587602818415">
+      <screen x="0" y="0" width="1920" height="1040" />
+    </state>
+    <state width="1877" height="282" key="GridCell.Tab.0.bottom/0.0.1920.1040/1920.0.1600.860@0.0.1920.1040" timestamp="1587602818415" />
+    <state width="1324" height="177" key="GridCell.Tab.0.bottom/1366.0.1366.768/0.0.1366.717@0.0.1366.717" timestamp="1587075115115" />
+    <state width="1324" height="192" key="GridCell.Tab.0.bottom/1366.0.1366.768/0.0.1366.717@1366.0.1366.768" timestamp="1587531744134" />
+    <state width="1877" height="282" key="GridCell.Tab.0.center" timestamp="1587602818415">
+      <screen x="0" y="0" width="1920" height="1040" />
+    </state>
+    <state width="1877" height="282" key="GridCell.Tab.0.center/0.0.1920.1040/1920.0.1600.860@0.0.1920.1040" timestamp="1587602818415" />
+    <state width="1324" height="177" key="GridCell.Tab.0.center/1366.0.1366.768/0.0.1366.717@0.0.1366.717" timestamp="1587075115110" />
+    <state width="1324" height="192" key="GridCell.Tab.0.center/1366.0.1366.768/0.0.1366.717@1366.0.1366.768" timestamp="1587531744131" />
+    <state width="1877" height="282" key="GridCell.Tab.0.left" timestamp="1587602818415">
+      <screen x="0" y="0" width="1920" height="1040" />
+    </state>
+    <state width="1877" height="282" key="GridCell.Tab.0.left/0.0.1920.1040/1920.0.1600.860@0.0.1920.1040" timestamp="1587602818415" />
+    <state width="1324" height="177" key="GridCell.Tab.0.left/1366.0.1366.768/0.0.1366.717@0.0.1366.717" timestamp="1587075115103" />
+    <state width="1324" height="192" key="GridCell.Tab.0.left/1366.0.1366.768/0.0.1366.717@1366.0.1366.768" timestamp="1587531744130" />
+    <state width="1877" height="282" key="GridCell.Tab.0.right" timestamp="1587602818415">
+      <screen x="0" y="0" width="1920" height="1040" />
+    </state>
+    <state width="1877" height="282" key="GridCell.Tab.0.right/0.0.1920.1040/1920.0.1600.860@0.0.1920.1040" timestamp="1587602818415" />
+    <state width="1324" height="177" key="GridCell.Tab.0.right/1366.0.1366.768/0.0.1366.717@0.0.1366.717" timestamp="1587075115113" />
+    <state width="1324" height="192" key="GridCell.Tab.0.right/1366.0.1366.768/0.0.1366.717@1366.0.1366.768" timestamp="1587531744133" />
+    <state width="1877" height="348" key="GridCell.Tab.1.bottom" timestamp="1587602383850">
+      <screen x="0" y="0" width="1920" height="1040" />
+    </state>
+    <state width="1877" height="348" key="GridCell.Tab.1.bottom/0.0.1920.1040/1920.0.1600.860@0.0.1920.1040" timestamp="1587602383850" />
+    <state width="1324" height="221" key="GridCell.Tab.1.bottom/1366.0.1366.768/0.0.1366.717@0.0.1366.717" timestamp="1587074997562" />
+    <state width="1324" height="221" key="GridCell.Tab.1.bottom/1366.0.1366.768/0.0.1366.717@1366.0.1366.768" timestamp="1587082022654" />
+    <state width="1877" height="348" key="GridCell.Tab.1.center" timestamp="1587602383850">
+      <screen x="0" y="0" width="1920" height="1040" />
+    </state>
+    <state width="1877" height="348" key="GridCell.Tab.1.center/0.0.1920.1040/1920.0.1600.860@0.0.1920.1040" timestamp="1587602383850" />
+    <state width="1324" height="221" key="GridCell.Tab.1.center/1366.0.1366.768/0.0.1366.717@0.0.1366.717" timestamp="1587074997561" />
+    <state width="1324" height="221" key="GridCell.Tab.1.center/1366.0.1366.768/0.0.1366.717@1366.0.1366.768" timestamp="1587082022653" />
+    <state width="1877" height="348" key="GridCell.Tab.1.left" timestamp="1587602383850">
+      <screen x="0" y="0" width="1920" height="1040" />
+    </state>
+    <state width="1877" height="348" key="GridCell.Tab.1.left/0.0.1920.1040/1920.0.1600.860@0.0.1920.1040" timestamp="1587602383850" />
+    <state width="1324" height="221" key="GridCell.Tab.1.left/1366.0.1366.768/0.0.1366.717@0.0.1366.717" timestamp="1587074997561" />
+    <state width="1324" height="221" key="GridCell.Tab.1.left/1366.0.1366.768/0.0.1366.717@1366.0.1366.768" timestamp="1587082022652" />
+    <state width="1877" height="348" key="GridCell.Tab.1.right" timestamp="1587602383850">
+      <screen x="0" y="0" width="1920" height="1040" />
+    </state>
+    <state width="1877" height="348" key="GridCell.Tab.1.right/0.0.1920.1040/1920.0.1600.860@0.0.1920.1040" timestamp="1587602383850" />
+    <state width="1324" height="221" key="GridCell.Tab.1.right/1366.0.1366.768/0.0.1366.717@0.0.1366.717" timestamp="1587074997562" />
+    <state width="1324" height="221" key="GridCell.Tab.1.right/1366.0.1366.768/0.0.1366.717@1366.0.1366.768" timestamp="1587082022654" />
+    <state width="219" height="457" key="HiddenNamespacesPopup" timestamp="1587007479256">
+      <screen x="0" y="0" width="1280" height="720" />
+    </state>
+    <state width="219" height="457" key="HiddenNamespacesPopup/0.0.1280.720@0.0.1280.720" timestamp="1587007479256" />
+    <state x="1842" y="102" key="RollbackChangesDialog" timestamp="1587528997153">
+      <screen x="1366" y="0" width="1366" height="768" />
+    </state>
+    <state x="1842" y="102" key="RollbackChangesDialog/1366.0.1366.768/0.0.1366.717@1366.0.1366.768" timestamp="1587528997153" />
+    <state x="240" y="91" width="1040" height="760" key="SettingsEditor" timestamp="1587602173976">
+      <screen x="0" y="0" width="1920" height="1040" />
+    </state>
+    <state x="240" y="91" width="1040" height="760" key="SettingsEditor/0.0.1920.1040/1920.0.1600.860@0.0.1920.1040" timestamp="1587602173976" />
+    <state x="171" y="0" key="SettingsEditor/1366.0.1366.768/0.0.1366.717@0.0.1366.717" timestamp="1587155633160" />
+    <state x="1537" y="0" key="SettingsEditor/1366.0.1366.768/0.0.1366.717@1366.0.1366.768" timestamp="1587513092167" />
+    <state x="1811" y="145" key="com.intellij.database.run.ParametersPanel.Standalone" timestamp="1587529104395">
+      <screen x="1366" y="0" width="1366" height="768" />
+    </state>
+    <state x="1811" y="145" key="com.intellij.database.run.ParametersPanel.Standalone/1366.0.1366.768/0.0.1366.717@1366.0.1366.768" timestamp="1587529104395" />
+    <state x="2415" y="254" key="com.intellij.ide.util.TipDialog" timestamp="1587599000165">
+      <screen x="1920" y="0" width="1600" height="860" />
+    </state>
+    <state x="2415" y="254" key="com.intellij.ide.util.TipDialog/0.0.1920.1040/1920.0.1600.860@1920.0.1600.860" timestamp="1587599000165" />
+    <state x="575" y="376" key="com.intellij.jarRepository.RepositoryAttachDialog-DOWNLOAD" timestamp="1587602164648">
+      <screen x="0" y="0" width="1920" height="1040" />
+    </state>
+    <state x="575" y="376" key="com.intellij.jarRepository.RepositoryAttachDialog-DOWNLOAD/0.0.1920.1040/1920.0.1600.860@0.0.1920.1040" timestamp="1587602164648" />
+    <state x="409" y="259" key="com.intellij.jarRepository.RepositoryAttachDialog-DOWNLOAD/1366.0.1366.768/0.0.1366.717@0.0.1366.717" timestamp="1587074970877" />
+    <state x="1854" y="308" key="com.intellij.openapi.vcs.update.UpdateOrStatusOptionsDialogupdate-v2" timestamp="1587531948073">
+      <screen x="1366" y="0" width="1366" height="768" />
+    </state>
+    <state x="1854" y="308" key="com.intellij.openapi.vcs.update.UpdateOrStatusOptionsDialogupdate-v2/1366.0.1366.768/0.0.1366.717@1366.0.1366.768" timestamp="1587531948073" />
+    <state x="372" y="0" width="1092" height="597" maximized="true" key="dock-window-1" timestamp="1587595779516">
+      <screen x="0" y="0" width="1920" height="1040" />
+    </state>
+    <state x="372" y="0" width="1092" height="597" maximized="true" key="dock-window-1/0.0.1920.1040/1920.0.1600.860@1920.0.1600.860" timestamp="1587595779516" />
+    <state x="1366" y="0" width="782" height="768" key="find.popup" timestamp="1587527349054">
+      <screen x="1366" y="0" width="1366" height="768" />
+    </state>
+    <state x="1366" y="0" width="782" height="768" key="find.popup/1366.0.1366.768/0.0.1366.717@1366.0.1366.768" timestamp="1587527349054" />
+    <state width="600" height="424" key="javadoc.popup" timestamp="1587528962462">
+      <screen x="1366" y="0" width="1366" height="768" />
+    </state>
+    <state width="600" height="424" key="javadoc.popup/1366.0.1366.768/0.0.1366.717@1366.0.1366.768" timestamp="1587528962462" />
+    <state x="2433" y="198" key="run.anything.popup" timestamp="1587597102906">
+      <screen x="1920" y="0" width="1600" height="860" />
+    </state>
     <state x="616" y="240" key="run.anything.popup/0.0.1920.1040/1920.0.1600.860@0.0.1920.1040" timestamp="1586908933180" />
+    <state x="2433" y="198" key="run.anything.popup/0.0.1920.1040/1920.0.1600.860@1920.0.1600.860" timestamp="1587597102906" />
+    <state x="1806" y="106" width="670" height="676" key="search.everywhere.popup" timestamp="1587512769170">
+      <screen x="1366" y="0" width="1366" height="768" />
+    </state>
+    <state x="1806" y="106" width="670" height="676" key="search.everywhere.popup/1366.0.1366.768/0.0.1366.717@1366.0.1366.768" timestamp="1587512769170" />
+  </component>
+  <component name="com.intellij.coverage.CoverageDataManagerImpl">
+    <SUITE FILE_PATH="coverage/Habbib$Main__1_.ic" NAME="Main (1) Coverage Results" MODIFIED="1587601849850" SOURCE_PROVIDER="com.intellij.coverage.DefaultCoverageFileProvider" RUNNER="idea" COVERAGE_BY_TEST_ENABLED="false" COVERAGE_TRACING_ENABLED="false">
+      <FILTER>Habbib.*</FILTER>
+    </SUITE>
   </component>
 </project>
