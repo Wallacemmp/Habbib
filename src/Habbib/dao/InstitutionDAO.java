@@ -37,7 +37,7 @@ public class InstitutionDAO extends BaseDAO {
                 institution.setContactNumber(Integer.parseInt(rs.getString("Telefone")));
             }
         } catch (SQLException e) {
-            e.printStackTrace();
+            throw new RuntimeException("Error connecting to database", e);
         }
 
         return institution;

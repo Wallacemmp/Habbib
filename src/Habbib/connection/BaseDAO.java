@@ -18,7 +18,7 @@ public  class BaseDAO implements Closeable {
         try {
             connection = DriverManager.getConnection(URL, USER, PASSWORD);
         } catch (SQLException e) {
-            throw new RuntimeException("Erro na conexão: ",e);
+            throw new RuntimeException("Failed to connect to database", e);
         }
     }
 
@@ -29,7 +29,7 @@ public  class BaseDAO implements Closeable {
                 connection.close();
             }
         } catch (SQLException e) {
-            e.printStackTrace();
+            throw new IOException("Failed to close connection of database", e);
         }
     }
 }
