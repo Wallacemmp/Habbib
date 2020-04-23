@@ -7,16 +7,22 @@ public class SessionController {
 
     public Institution login(String user, String password) throws Exception{
 
-        InstitutionDAO institutionDAO = new InstitutionDAO();
+        try(InstitutionDAO institutionDAO = new InstitutionDAO())
+        {
+            Institution institution = institutionDAO.getInstitutionByName(user);
 
-        Institution institution = institutionDAO.getInstitutionByName(user);
-
-        if(institution == null)
-            throw new Exception("User not find!");
-        else if(institution.getPassword() == password){
-            return institution;
-        }else {
-            throw new Exception("Password dosent match!");
+            if(institution == null)
+                throw new Exception("User not find!");
+            else if(institution.getPassword() == password){
+                return institution;
+            }else {
+                throw new Exception("Password dosent match!");
+            }
+        }catch (Exception ex){
+            throw ex;
         }
+
+
+
     }
 }

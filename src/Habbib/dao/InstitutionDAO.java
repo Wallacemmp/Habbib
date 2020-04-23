@@ -1,20 +1,18 @@
 package Habbib.dao;
 
-import Habbib.connection.ConnectionFactory;
+import Habbib.connection.BaseDAO;
 import Habbib.model.Institution;
 
-import java.sql.Connection;
 import java.sql.PreparedStatement;
 import java.sql.ResultSet;
 import java.sql.SQLException;
 
-public class InstitutionDAO {
+public class InstitutionDAO extends BaseDAO {
 
-    private Connection con;
 
     public  InstitutionDAO ()
     {
-        con = ConnectionFactory.getConnection();
+        super();
     }
 
     public Institution getInstitutionByName(String name)
@@ -26,7 +24,7 @@ public class InstitutionDAO {
         Institution institution = null;
 
         try{
-            stmt = con.prepareStatement("SELECT Nome FROM Instituicao WHERE Nome = ?");
+            stmt = connection.prepareStatement("SELECT Nome FROM Instituicao WHERE Nome = ?");
             stmt.setString(1, name);
             rs = stmt.executeQuery();
 
@@ -40,9 +38,8 @@ public class InstitutionDAO {
             }
         } catch (SQLException e) {
             e.printStackTrace();
-        } finally {
-            ConnectionFactory.closeConnection(con, stmt, rs);
         }
+
         return institution;
     }
 }
