@@ -19,12 +19,12 @@ public class InstitutionDAO extends BaseDAO {
     {
         PreparedStatement stmt = null;
         ResultSet rs = null;
-        int validation = 0;
 
         Institution institution = null;
 
         try{
-            stmt = connection.prepareStatement("SELECT Nome FROM Instituicao WHERE Nome = ?");
+            stmt = connection.prepareStatement("SELECT * FROM Instituicao WHERE Nome = ?");
+
             stmt.setString(1, name);
             rs = stmt.executeQuery();
 
