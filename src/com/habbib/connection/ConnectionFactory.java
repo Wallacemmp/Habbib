@@ -4,16 +4,20 @@ import java.sql.*;
 
 public class ConnectionFactory {
 
-    private static final String DRIVER = "com.mysql.jdbc.Driver";
-    private static final String URL = "jdbc:mysql://localhost:3306/db_Habbib";
+    //private static final String DRIVER = "com.mysql.jdbc.Driver";
+    private static final String URL = "jdbc:mysql://127.0.0.1:3306/db_Habbib?useUnicode=true&characterEncoding=UTF-8&serverTimezone=GMT&useSSL=false";
     private static final String USER = "root";
-    private static final String PASSWORD = "cocacola";
+    private static final String PASSWORD = "password";
+    private Connection connection = null;
 
-    public static Connection getConnection(){
-        try {
-            Class.forName(DRIVER);
+    public static Connection getConnection()
+    {
+        try
+        {
             return DriverManager.getConnection(URL, USER, PASSWORD);
-        } catch (ClassNotFoundException | SQLException e) {
+        }
+        catch (SQLException e)
+        {
             throw new RuntimeException("Erro na conexão: ",e);
         }
     }

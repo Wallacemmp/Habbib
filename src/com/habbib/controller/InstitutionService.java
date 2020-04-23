@@ -8,26 +8,28 @@ import javax.swing.*;
 
 public class InstitutionService
 {
-//        public void InstitutionRegister()
-//        {
-//                InsertQuerie intitutionAddress = new InsertQuerie();
-//                Institution newInstitution = new Institution();
-//
-//                //TODO
-//                int cnpj = Integer.parseInt(JOptionPane.showInputDialog("Informe o CNPJ: "));
-//                String nome = JOptionPane.showInputDialog("Informe o Nome da Instituição: ");
-//                String password = JOptionPane.showInputDialog("Informe a senha: ");
-//                String contactNumber = JOptionPane.showInputDialog("Informe o número de contato: ");
-//
-//
-//
-//
-//
-//        }
-
-        public void insertAddress()
+        public void InstitutionRegister()
         {
-                InsertQuerie intitutionAddress = new InsertQuerie();
+                InsertQuerie institutionAddress = new InsertQuerie();
+                Institution newInstitution = new Institution();
+                InsertQuerie Institution = new InsertQuerie();
+
+                String cnpj = JOptionPane.showInputDialog("Informe o CNPJ: ");
+                String nome = JOptionPane.showInputDialog("Informe o Nome da Instituição: ");
+                String password = JOptionPane.showInputDialog("Informe a senha: ");
+                String contactNumber = JOptionPane.showInputDialog("Informe o número de contato: ");
+                String Tipo = JOptionPane.showInputDialog("Tipo: ");
+                int address = InstitutionService.addAddress();
+
+                Institution.insertInstitution(nome, cnpj, password, Tipo, contactNumber, address);
+
+                System.out.println(address);
+
+        }
+
+        public static int addAddress()
+        {
+                InsertQuerie institutionAddress = new InsertQuerie();
                 Address address1 = new Address();
 
                 int zipCode = Integer.parseInt(JOptionPane.showInputDialog("Informe o CEP: "));
@@ -46,6 +48,7 @@ public class InstitutionService
                 address1.setUF(UF);
                 address1.setStreet(street);
 
-                intitutionAddress.insertAddress(address1.getZipCode(), address1.getNumber(), address1.getComplement(), address1.getNeighborhood(), address1.getCity(), address1.getUF(), address1.getStreet());
+                return institutionAddress.insertAddress(address1.getZipCode(), address1.getNumber(), address1.getComplement(), address1.getNeighborhood(), address1.getCity(), address1.getUF(), address1.getStreet());
+
         }
 }

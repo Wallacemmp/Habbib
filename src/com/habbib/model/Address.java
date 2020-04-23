@@ -8,6 +8,7 @@ public class Address {
     private String neighborhood;
     private String city;
     private String uf;
+    private String street;
 
     public int getId() {
         return id;
@@ -63,5 +64,13 @@ public class Address {
 
     public void setUF(String UF) {
         this.uf = UF;
+    }
+
+    public String getStreet() {
+        return street;
+    }
+
+    public void setStreet(String street) {
+        this.street = street;
     }
 }
