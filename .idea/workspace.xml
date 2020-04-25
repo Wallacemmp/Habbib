@@ -1,9 +1,9 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <project version="4">
   <component name="ChangeListManager">
-    <list default="true" id="4d915d0f-415e-4cdc-9714-c923372ddaf0" name="Default Changelist" comment="">
+    <list default="true" id="4d915d0f-415e-4cdc-9714-c923372ddaf0" name="Default Changelist" comment="Segregacão da conexão com o banco de dados, utilizando o package DAO e implementado melhorias nos tratamentos de erros no login.">
+      <change afterPath="$PROJECT_DIR$/src/Habbib/view/LoginView.java" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/Habbib/connection/BaseDAO.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/Habbib/connection/BaseDAO.java" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/src/Habbib/dao/InstitutionDAO.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/Habbib/dao/InstitutionDAO.java" afterDir="false" />
     </list>
     <option name="SHOW_DIALOG" value="false" />
