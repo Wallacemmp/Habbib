@@ -9,7 +9,6 @@ import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
 
 public class LoginView extends JFrame{
-    private JFrame frame;
     private JLabel headerLabel,loginLabel;
     private JButton loginButton, registerButton;
     private SessionController sessionController;
@@ -31,6 +30,7 @@ public class LoginView extends JFrame{
         setContentPane(initComponents());
         setMaximizedBounds(rc);
         setVisible(true);
+        setResizable(false);
         setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
 
     }

@@ -1,19 +1,13 @@
 package Habbib;
 
-import Habbib.controller.SessionController;
-import Habbib.model.Institution;
+import Habbib.view.LoginView;
 
 public class Main {
 
     public static void main(String[] args) {
 
-        try
-        {
-            SessionController sessionController = new SessionController();
-            Institution institution = sessionController.login("Wallace", "cocacola");
-        }
-        catch (Exception ex){
-            System.out.println(ex.getMessage());
-        }
+        LoginView loginView = new LoginView();
+
+        loginView.showWindow();
     }
 }

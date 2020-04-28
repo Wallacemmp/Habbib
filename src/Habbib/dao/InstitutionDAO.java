@@ -4,11 +4,9 @@ import Habbib.connection.BaseDAO;
 import Habbib.model.Address;
 import Habbib.model.Institution;
 
-import javax.swing.*;
 import java.sql.PreparedStatement;
 import java.sql.ResultSet;
 import java.sql.SQLException;
-import java.util.ArrayList;
 
 public class InstitutionDAO extends BaseDAO {
 
@@ -24,16 +22,16 @@ public class InstitutionDAO extends BaseDAO {
         ResultSet rs;
 
         Institution institution = null;
-
+        Address address;
         try{
-            stmt = super.connection.prepareStatement("SELECT * FROM Institution i JOIN Address a ON Nome = ? AND Id_Address = a.Id");
+            stmt = super.connection.prepareStatement("SELECT * FROM Institution i JOIN Address a ON Name = ? AND Id_Address = a.Id");
             stmt.setString(1, name);
             rs = stmt.executeQuery();
 
             if(rs.next()){
 
                 institution = new Institution();
-                Address address = new Address();
+                address = new Address();
 
                 institution.setId(rs.getInt("Id"));
                 institution.setNome(rs.getString("Name"));
@@ -42,7 +40,7 @@ public class InstitutionDAO extends BaseDAO {
                 institution.setType(rs.getString("Type"));
                 institution.setContactNumber(rs.getString("ContactNumber"));
                 address.setId(rs.getInt("Id" ));
-                address.setZipCode(rs.getInt("ZipCode"));
+                address.setZipCode(rs.getString("ZipCode"));
                 address.setAddress(rs.getString("Address"));
                 address.setNumber(rs.getInt("AddressNumber"));
                 address.setComplement(rs.getString("Complement"));

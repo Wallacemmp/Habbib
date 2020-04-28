@@ -2,7 +2,7 @@ package Habbib.model;
 
 public class Address {
     private int id;
-    private int zipCode;
+    private String zipCode;
     private String address;
     private int number;
     private String complement;
@@ -18,11 +18,11 @@ public class Address {
         this.id = id;
     }
 
-    public int getZipCode() {
+    public String getZipCode() {
         return zipCode;
     }
 
-    public void setZipCode(int zipCode) {
+    public void setZipCode(String zipCode) {
         this.zipCode = zipCode;
     }
 
