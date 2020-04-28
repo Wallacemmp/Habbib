@@ -4,6 +4,9 @@ public class Requisition {
     private int id;
     private String status;
     private Patient patient;
+    private String Description;
+    private Institution sourceInsitituion;
+    private Bed bed;
 
     public int getId() {
         return id;
@@ -37,14 +40,6 @@ public class Requisition {
         Description = description;
     }
 
-    public Institution getDestinyInsitituion() {
-        return destinyInsitituion;
-    }
-
-    public void setDestinyInsitituion(Institution destinyInsitituion) {
-        this.destinyInsitituion = destinyInsitituion;
-    }
-
     public Bed getBed() {
         return bed;
     }
@@ -53,7 +48,11 @@ public class Requisition {
         this.bed = bed;
     }
 
-    private String Description;
-    private Institution destinyInsitituion;
-    private Bed bed;
+    public Institution getSourceInsitituion() {
+        return sourceInsitituion;
+    }
+
+    public void setSourceInsitituion(Institution sourceInsitituion) {
+        this.sourceInsitituion = sourceInsitituion;
+    }
 }

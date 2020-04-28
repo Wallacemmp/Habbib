@@ -2,11 +2,8 @@
 <project version="4">
   <component name="ChangeListManager">
     <list default="true" id="4d915d0f-415e-4cdc-9714-c923372ddaf0" name="Default Changelist" comment="Segregacão da conexão com o banco de dados, utilizando o package DAO e implementado melhorias nos tratamentos de erros no login.">
-      <change afterPath="$PROJECT_DIR$/src/Habbib/model/Bed.java" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/src/Habbib/model/Patient.java" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/src/Habbib/model/Requisition.java" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/Habbib/dao/InstitutionDAO.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/Habbib/dao/InstitutionDAO.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/Habbib/model/Requisition.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/Habbib/model/Requisition.java" afterDir="false" />
     </list>
     <option name="SHOW_DIALOG" value="false" />
     <option name="HIGHLIGHT_CONFLICTS" value="true" />
@@ -230,10 +227,10 @@
       <screen x="0" y="0" width="1280" height="720" />
     </state>
     <state x="240" y="25" key="#com.intellij.execution.impl.EditConfigurationsDialog/0.0.1280.720@0.0.1280.720" timestamp="1587007469344" />
-    <state x="765" y="204" key="#com.intellij.ide.util.MemberChooser" timestamp="1588035079610">
+    <state x="765" y="204" key="#com.intellij.ide.util.MemberChooser" timestamp="1588035227966">
       <screen x="0" y="0" width="1920" height="1040" />
     </state>
-    <state x="765" y="204" key="#com.intellij.ide.util.MemberChooser/0.0.1920.1040/1920.0.1600.860@0.0.1920.1040" timestamp="1588035079610" />
+    <state x="765" y="204" key="#com.intellij.ide.util.MemberChooser/0.0.1920.1040/1920.0.1600.860@0.0.1920.1040" timestamp="1588035227966" />
     <state x="2557" y="168" key="#com.intellij.ide.util.MemberChooser/0.0.1920.1040/1920.0.1600.860@1920.0.1600.860" timestamp="1587597008275" />
     <state x="1910" y="150" key="#com.intellij.ide.util.MemberChooser/1366.0.1366.768/0.0.1366.717@1366.0.1366.768" timestamp="1587525109151" />
     <state x="664" y="203" key="#com.intellij.refactoring.encapsulateFields.EncalpsulateFieldsDialog" timestamp="1586908205410">
