@@ -49,6 +49,7 @@ public class InstitutionDAO extends BaseDAO {
                 address.setNeighborhood(rs.getString("Bairro"));
                 address.setCity(rs.getString("Cidade"));
                 address.setUf(rs.getString("UF"));
+                institution.setAddress(address);
 
             }
         } catch (SQLException e) {
