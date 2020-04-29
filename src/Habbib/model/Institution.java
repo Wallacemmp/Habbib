@@ -2,11 +2,11 @@ package Habbib.model;
 
 public class Institution {
     private int id;
+    private String name;
     private String cnpj;
-    private String nome;
     private String password;
-    private String contactNumber;
     private String type;
+    private String contactNumber;
     private Address address;
 
     public int getId() {
@@ -26,11 +26,11 @@ public class Institution {
     }
 
     public String getNome() {
-        return nome;
+        return name;
     }
 
     public void setNome(String nome) {
-        this.nome = nome;
+        this.name = nome;
     }
 
     public String getPassword() {

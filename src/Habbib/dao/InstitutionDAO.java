@@ -20,11 +20,12 @@ public class InstitutionDAO extends BaseDAO {
     {
         PreparedStatement stmt;
         ResultSet rs;
-
         Institution institution = null;
         Address address;
+
         try{
-            stmt = super.connection.prepareStatement("SELECT * FROM Institution i JOIN Address a ON Name = ? AND Id_Address = a.Id");
+            String select = "SELECT * FROM Institution i JOIN Address a ON Name = ? AND Id_Address = a.Id";
+            stmt = super.connection.prepareStatement(select);
             stmt.setString(1, name);
             rs = stmt.executeQuery();
 
@@ -55,5 +56,21 @@ public class InstitutionDAO extends BaseDAO {
         }
 
         return institution;
+    }
+    //TODO:Testar
+    public boolean RemoveInstitutionByName(String name)
+    {
+        PreparedStatement stmt;
+
+        try{
+            stmt = super.connection.prepareStatement("DELETE a,i FROM Address a, Institution i WHERE i.Name = ? AND a.Id = i.Id_Address");
+            stmt.setString(1, name);
+
+            return stmt.execute();
+
+        } catch (SQLException e) {
+            throw new RuntimeException("Error connecting to database", e);
+        }
+
     }
 }

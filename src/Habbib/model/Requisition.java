@@ -3,9 +3,7 @@ package Habbib.model;
 public class Requisition {
     private int id;
     private String status;
-    private Patient patient;
-    private String Description;
-    private Institution sourceInsitituion;
+    private String description;
     private Bed bed;
 
     public int getId() {
@@ -24,20 +22,12 @@ public class Requisition {
         this.status = status;
     }
 
-    public Patient getPatient() {
-        return patient;
-    }
-
-    public void setPatient(Patient patient) {
-        this.patient = patient;
-    }
-
     public String getDescription() {
-        return Description;
+        return description;
     }
 
     public void setDescription(String description) {
-        Description = description;
+        this.description = description;
     }
 
     public Bed getBed() {
@@ -46,13 +36,5 @@ public class Requisition {
 
     public void setBed(Bed bed) {
         this.bed = bed;
-    }
-
-    public Institution getSourceInsitituion() {
-        return sourceInsitituion;
-    }
-
-    public void setSourceInsitituion(Institution sourceInsitituion) {
-        this.sourceInsitituion = sourceInsitituion;
     }
 }
