@@ -51,6 +51,7 @@ public class InstitutionDAO extends BaseDAO {
 
             }
         } catch (SQLException e) {
+            System.out.println(e);
             throw new RuntimeException("Error connecting to database", e);
         }
 

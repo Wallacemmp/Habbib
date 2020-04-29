@@ -2,16 +2,13 @@ package Habbib.connection;
 
 import java.io.Closeable;
 import java.io.IOException;
-import java.sql.Connection;
-import java.sql.DriverManager;
-import java.sql.SQLException;
-
+import java.sql.*;
 
 public class BaseDAO implements Closeable {
 
     private static final String URL = "jdbc:mysql://localhost:3306/db_Habbib?useTimezone=true&serverTimezone=UTC";
     private static final String USER = "root";
-    private static final String PASSWORD = "cocacola";
+    private static final String PASSWORD = "meleca123";
 
     protected Connection connection;
 
