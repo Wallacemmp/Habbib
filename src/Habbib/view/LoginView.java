@@ -13,8 +13,10 @@ public class LoginView extends JFrame{
     private JLabel headerLabel;
     private JButton loginButton, registerButton;
     private SessionController sessionController;
-    private Container containerMenu;
-    private Container containerRegister;
+    private Container initContainer;
+    private Container menuContainer;
+    private Container registerContainer;
+
 
 
     public LoginView() {
@@ -24,17 +26,16 @@ public class LoginView extends JFrame{
     }
     public void showWindow(){
         setSize(620,520);
-        setLocationRelativeTo(null); //apresentando centralizada
-
-        setContentPane(initComponents());
         setResizable(false);
+        setLocationRelativeTo(null);
+        setContentPane(initComponents());
         setVisible(true);
         setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
 
     }
 
     private Container initComponents(){
-        Container initContainer = getContentPane();
+        initContainer = new JPanel();
         initContainer.setLayout(null);
 
         headerLabel = new JLabel("Habbib beds");
@@ -88,6 +89,7 @@ public class LoginView extends JFrame{
         initContainer.add(loginButton);
         initContainer.add(registerLabel);
         initContainer.add(registerButton);
+        initContainer.setVisible(true);
         loginButton.addActionListener(new ActionListener() {
             @Override
             public void actionPerformed(ActionEvent e) {
@@ -123,32 +125,61 @@ public class LoginView extends JFrame{
             }
         });
 
-
-
-        return initContainer;
+       return initContainer;
     }
     private Container initMenu(){
-        containerMenu = new Container();
-        containerMenu.setLayout(null);
+        menuContainer = new JPanel();
+        menuContainer.setLayout(null);
 
 
-        headerLabel = new JLabel("Menu");
-        headerLabel.setBounds(230,50,140,40);
+        headerLabel = new JLabel("Bem - vindo");
+        headerLabel.setBounds(178,10,251,32);
         headerLabel.setHorizontalAlignment(SwingConstants.CENTER);
         headerLabel.setFont(new Font("Segoe UI Historic", 1, 24));
 
-        JButton seila = new JButton();
-        seila.setBounds(219,232,200,20);
+        //Fornecedor
+        JButton provider = new JButton("Fornecedor");
+        provider.setBounds(84,166,167,61);
+        provider.setFont(new Font("Segoe UI Historic", 0, 16));
 
-        containerMenu.add(headerLabel);
-        containerMenu.add(seila);
+
+        //Solicitante
+        JButton requester = new JButton("Solicitante");
+        requester.setBounds(351,166,167,61);
+        requester.setFont(new Font("Segoe UI Historic", 0, 16));
+
+        //Cadastrar Leito
+        JButton registerBed = new JButton("Cadastrar Leito");
+        registerBed.setBounds(84,287,167,61);
+        registerBed.setFont(new Font("Segoe UI Historic", 0, 16));
+
+        //Solicitar Leito
+        JButton requestBed = new JButton("Solicitar Leito");
+        requestBed.setBounds(351,287,167,61);
+        requestBed.setFont(new Font("Segoe UI Historic", 0, 16));
+
+        //Sair
+        JButton exit = new JButton("Sair");
+        exit.setBounds(10, 427,78, 30 );
+        exit.setFont(new Font("Segoe UI Historic", 0, 16));
+
+
+        //Adicionando no container:
+        menuContainer.add(headerLabel);
+        menuContainer.add(provider);
+        menuContainer.add(requester);
+        menuContainer.add(registerBed);
+        menuContainer.add(requestBed);
+        menuContainer.add(exit);
+
         setVisible(true);
 
-        return containerMenu;
+
+        return menuContainer;
     }
     private Container initRegister(){
-        containerRegister = new Container();
-        containerRegister.setLayout(null);
+        registerContainer = new JPanel();
+        registerContainer.setLayout(null);
 
         headerLabel = new JLabel("Cadastre sua instituição");
         headerLabel.setBounds(169,10, 251, 32 );
@@ -161,7 +192,7 @@ public class LoginView extends JFrame{
         nameLabel.setVerticalAlignment(SwingConstants.CENTER);
         nameLabel.setFont(new Font("Segoe UI Historic", 0, 14));
         JTextField  nameInput = new JTextField();
-        nameInput.setBounds(60,60,530,20);
+        nameInput.setBounds(79,60,512,22);
 
         JLabel cnpjLabel = new JLabel("CNPJ:");
         cnpjLabel.setBounds(10,99,40,20);
@@ -169,7 +200,7 @@ public class LoginView extends JFrame{
         cnpjLabel.setVerticalAlignment(SwingConstants.CENTER);
         cnpjLabel.setFont(new Font("Segoe UI Historic", 0, 14));
         JTextField  cpnjInput = new JTextField();
-        cpnjInput.setBounds(60,100,350,20);
+        cpnjInput.setBounds(79,100,330,22);
 
         JLabel typeLabel = new JLabel("Tipo:");
         typeLabel.setBounds(408,99,40,20);
@@ -178,7 +209,7 @@ public class LoginView extends JFrame{
         typeLabel.setFont(new Font("Segoe UI Historic", 0, 14));
         JComboBox typeCB= new JComboBox();
         typeCB.setModel(new DefaultComboBoxModel<>(new String[] { "Selecionar","Privado", "Público"}));
-        typeCB.setBounds(448,100,142,20);
+        typeCB.setBounds(448,100,142,22);
 
 
         JLabel adressLabel = new JLabel("Endereço:");
@@ -187,7 +218,7 @@ public class LoginView extends JFrame{
         adressLabel.setVerticalAlignment(SwingConstants.CENTER);
         adressLabel.setFont(new Font("Segoe UI Historic", 0, 14));
         JTextField  adressInput = new JTextField();
-        adressInput.setBounds(79,139,511,20);
+        adressInput.setBounds(79,139,330,22);
 
 
 
@@ -197,116 +228,134 @@ public class LoginView extends JFrame{
         zipCodeLabel.setVerticalAlignment(SwingConstants.CENTER);
         zipCodeLabel.setFont(new Font("Segoe UI Historic", 0, 14));
         JTextField  zipCodeInput = new JTextField();
-        zipCodeInput.setBounds(47,180,124,20);
+        zipCodeInput.setBounds(79,180,114,22);
 
         JLabel neighborhoodLabel = new JLabel("Bairro:");
-        neighborhoodLabel.setBounds(175,179,39,20);
+        neighborhoodLabel.setBounds(195,179,39,20);
         neighborhoodLabel.setHorizontalAlignment(SwingConstants.CENTER);
         neighborhoodLabel.setVerticalAlignment(SwingConstants.CENTER);
         neighborhoodLabel.setFont(new Font("Segoe UI Historic", 0, 14));
         JTextField  neighborhoodInput = new JTextField();
-        neighborhoodInput.setBounds(224,180,198,20);
+        neighborhoodInput.setBounds(236,180,174,22);
 
         JLabel numberLabel = new JLabel("Número:");
-        numberLabel.setBounds(426,179,53,20);
+        numberLabel.setBounds(426,139,53,20);
         numberLabel.setHorizontalAlignment(SwingConstants.CENTER);
         numberLabel.setVerticalAlignment(SwingConstants.CENTER);
         numberLabel.setFont(new Font("Segoe UI Historic", 0, 14));
         JTextField  numberInput = new JTextField();
-        numberInput.setBounds(489,180,101,20);
+        numberInput.setBounds(489,139,101,22);
 
-        JLabel complementLabel = new JLabel("Complemento:");
-        complementLabel.setBounds(10,219,90,20);
+        JLabel complementLabel = new JLabel("Compl:");
+        complementLabel.setBounds(404,179,90,20);
         complementLabel.setHorizontalAlignment(SwingConstants.CENTER);
         complementLabel.setVerticalAlignment(SwingConstants.CENTER);
         complementLabel.setFont(new Font("Segoe UI Historic", 0, 14));
         JTextField  complementInput = new JTextField();
-        complementInput.setBounds(110,220,128,20);
+        complementInput.setBounds(489,180,101,22);
 
         JLabel cityLabel = new JLabel("Cidade:");
-        cityLabel.setBounds(242,219,45,20);
+        cityLabel.setBounds(10,219,45,20);
         cityLabel.setHorizontalAlignment(SwingConstants.CENTER);
         cityLabel.setVerticalAlignment(SwingConstants.CENTER);
         cityLabel.setFont(new Font("Segoe UI Historic", 0, 14));
         JTextField  cityInput = new JTextField();
-        cityInput.setBounds(297,220,187,20);
+        cityInput.setBounds(79,220,220,22);
 
         JLabel UFLabel = new JLabel("UF:");
-        UFLabel.setBounds(488,219,20,20);
+        UFLabel.setBounds(305,219,20,20);
         UFLabel.setHorizontalAlignment(SwingConstants.CENTER);
         UFLabel.setVerticalAlignment(SwingConstants.CENTER);
         UFLabel.setFont(new Font("Segoe UI Historic", 0, 14));
         JComboBox UFCB= new JComboBox();
         UFCB.setModel(new DefaultComboBoxModel<>(new String[] { "Selecionar","SP", "RJ"}));
-        UFCB.setBounds(517,220,75,20);
+        UFCB.setBounds(335,220,75,22);
 
         JLabel phoneLabel = new JLabel("Telefone:");
-        phoneLabel.setBounds(10,259,54,20);
+        phoneLabel.setBounds(426,219,54,20);
         phoneLabel.setHorizontalAlignment(SwingConstants.CENTER);
         phoneLabel.setVerticalAlignment(SwingConstants.CENTER);
         phoneLabel.setFont(new Font("Segoe UI Historic", 0, 14));
         JTextField  phoneInput = new JTextField();
-        phoneInput.setBounds(74,260,158,20);
+        phoneInput.setBounds(489,220,101,22);
 
         JLabel passwordLabel = new JLabel("Senha:");
-        passwordLabel.setBounds(10,299,40,20);
+        passwordLabel.setBounds(12,259,40,20);
         passwordLabel.setHorizontalAlignment(SwingConstants.CENTER);
         passwordLabel.setVerticalAlignment(SwingConstants.CENTER);
         passwordLabel.setFont(new Font("Segoe UI Historic", 0, 14));
         JPasswordField  passwordInput = new JPasswordField();
-        passwordInput.setBounds(60,300,204,20);
+        passwordInput.setBounds(78,260,192,22);
 
 
 
         JLabel cPasswordLabel = new JLabel("Confirmar senha:");
-        cPasswordLabel.setBounds(268,299,104,20);
+        cPasswordLabel.setBounds(276,259,104,20);
         cPasswordLabel.setHorizontalAlignment(SwingConstants.CENTER);
         cPasswordLabel.setVerticalAlignment(SwingConstants.CENTER);
         cPasswordLabel.setFont(new Font("Segoe UI Historic", 0, 14));
         JPasswordField  cPasswordInput = new JPasswordField();
-        cPasswordInput.setBounds(382,300,208,20);
+        cPasswordInput.setBounds(390,260,200,22);
 
 
 
         JButton backButton = new JButton("Voltar");
         backButton.setBounds(188,428,109,31);
         backButton.setFont(new Font("Segoe UI Historic", 0, 16));
+        backButton.addActionListener(new ActionListener() {
+            @Override
+            public void actionPerformed(ActionEvent e) {
+                registerContainer.setVisible(false);
+
+                setContentPane(initComponents());
+
+            }
+        });
+
         JButton registerButton = new JButton("Cadastrar");
         registerButton.setBounds(303,428,109,31);
         registerButton.setFont(new Font("Segoe UI Historic", 1, 16));
+        registerButton.addActionListener(new ActionListener() {
+            @Override
+            public void actionPerformed(ActionEvent e) {
 
-        containerRegister.add(headerLabel);
-        containerRegister.add(nameLabel);
-        containerRegister.add(nameInput );
-        containerRegister.add(cnpjLabel);
-        containerRegister.add(cpnjInput);
-        containerRegister.add(typeLabel);
-        containerRegister.add(typeCB);
-        containerRegister.add(adressLabel);
-        containerRegister.add(adressInput);
-        containerRegister.add(zipCodeLabel);
-        containerRegister.add(zipCodeInput);
-        containerRegister.add(neighborhoodLabel);
-        containerRegister.add(neighborhoodInput);
-        containerRegister.add(numberLabel);
-        containerRegister.add(numberInput);
-        containerRegister.add(complementLabel);
-        containerRegister.add(complementInput);
-        containerRegister.add(cityLabel);
-        containerRegister.add(cityInput);
-        containerRegister.add(UFLabel);
-        containerRegister.add(UFCB);
-        containerRegister.add(phoneLabel);
-        containerRegister.add(phoneInput);
-        containerRegister.add(passwordLabel);
-        containerRegister.add(passwordInput);
-        containerRegister.add(cPasswordLabel );
-        containerRegister.add(cPasswordInput);
-        containerRegister.add(backButton);
-        containerRegister.add(registerButton);
+
+            }
+        });
+
+
+        registerContainer.add(headerLabel);
+        registerContainer.add(nameLabel);
+        registerContainer.add(nameInput );
+        registerContainer.add(cnpjLabel);
+        registerContainer.add(cpnjInput);
+        registerContainer.add(typeLabel);
+        registerContainer.add(typeCB);
+        registerContainer.add(adressLabel);
+        registerContainer.add(adressInput);
+        registerContainer.add(zipCodeLabel);
+        registerContainer.add(zipCodeInput);
+        registerContainer.add(neighborhoodLabel);
+        registerContainer.add(neighborhoodInput);
+        registerContainer.add(numberLabel);
+        registerContainer.add(numberInput);
+        registerContainer.add(complementLabel);
+        registerContainer.add(complementInput);
+        registerContainer.add(cityLabel);
+        registerContainer.add(cityInput);
+        registerContainer.add(UFLabel);
+        registerContainer.add(UFCB);
+        registerContainer.add(phoneLabel);
+        registerContainer.add(phoneInput);
+        registerContainer.add(passwordLabel);
+        registerContainer.add(passwordInput);
+        registerContainer.add(cPasswordLabel );
+        registerContainer.add(cPasswordInput);
+        registerContainer.add(backButton);
+        registerContainer.add(registerButton);
 
         setVisible(true);
-        return containerRegister;
+        return registerContainer;
     }
 
 }
