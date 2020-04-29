@@ -4,8 +4,9 @@ import Habbib.dao.InstitutionDAO;
 import Habbib.model.Address;
 import Habbib.model.Institution;
 
-
-public class InstitutionRegister
+//Essa classe está estranha, eu sei.
+//O método
+public class InstitutionController
 {
         public void Register(String cnpj, String nome, String password, String contactNumber, String tipo, int address) throws Exception
         {
@@ -25,7 +26,7 @@ public class InstitutionRegister
                         {
                                 if(institutionNome.getNome().equals(nome))
                                 {
-                                        throw new Exception("Instituição com o nome" + nome + " já cadastrada.");
+                                        throw new Exception("Instituição com o nome " + nome + " já cadastrada.");
                                 }
                                 else
                                 {
@@ -46,7 +47,6 @@ public class InstitutionRegister
         {
                 try(InstitutionDAO institutionDAO = new InstitutionDAO())
                 {
-
                         Address address = new Address();
 
                         address.setZipCode(zipCode);
@@ -58,9 +58,6 @@ public class InstitutionRegister
                         address.setStreet(street);
 
                         return institutionDAO.insertAddress(address.getZipCode(), address.getNumber(), address.getComplement(), address.getNeighborhood(), address.getCity(), address.getUf(), address.getStreet());
-
                 }
-
-
         }
 }
