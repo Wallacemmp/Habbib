@@ -7,9 +7,9 @@ import org.jetbrains.annotations.NotNull;
 
 public class InstitutionController
 {
-        //TODO receber um objeto do tipo instituição
         public void Register(@NotNull Institution institution) throws Exception
         {
+                //TODO corrigir lógica de validação da instituição já cadastrada
                 try(InstitutionDAO institutionDAO = new InstitutionDAO())
                 {
                         Institution institutionNome = institutionDAO.getInstitutionByName(institution.getNome());
@@ -43,7 +43,6 @@ public class InstitutionController
                 }
         }
 
-        //TODO receber um objeto do tipo Address
         public int addAddress(@NotNull Address address) throws Exception
         {
                 try(InstitutionDAO institutionDAO = new InstitutionDAO())
