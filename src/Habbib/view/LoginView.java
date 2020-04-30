@@ -44,7 +44,6 @@ public class LoginView extends JFrame{
         headerLabel.setBounds(230,50,140,40);
         headerLabel.setHorizontalAlignment(SwingConstants.CENTER);
         headerLabel.setFont(new Font("Segoe UI Historic", 1, 20));
-
         JLabel loginLabel = new JLabel("Login");
         loginLabel.setFont(new Font("Segoe UI Historic", 0, 16));
         loginLabel.setBounds(280,125,50,30);
@@ -105,8 +104,10 @@ public class LoginView extends JFrame{
                     Institution institution = sessionController.login(user, pass);
 
                     if(institution != null){
+
                         initContainer.setVisible(false);
                         setContentPane(initMenu());
+
                     }
                 }
                 catch (Exception ex)
@@ -125,56 +126,6 @@ public class LoginView extends JFrame{
         });
 
        return initContainer;
-    }
-    private Container initMenu(){
-        menuContainer = new JPanel();
-        menuContainer.setLayout(null);
-
-
-        headerLabel = new JLabel("Bem - vindo");
-        headerLabel.setBounds(178,10,251,32);
-        headerLabel.setHorizontalAlignment(SwingConstants.CENTER);
-        headerLabel.setFont(new Font("Segoe UI Historic", 1, 24));
-
-        //Fornecedor
-        JButton provider = new JButton("Fornecedor");
-        provider.setBounds(84,166,167,61);
-        provider.setFont(new Font("Segoe UI Historic", 0, 16));
-
-
-        //Solicitante
-        JButton requester = new JButton("Solicitante");
-        requester.setBounds(351,166,167,61);
-        requester.setFont(new Font("Segoe UI Historic", 0, 16));
-
-        //Cadastrar Leito
-        JButton registerBed = new JButton("Cadastrar Leito");
-        registerBed.setBounds(84,287,167,61);
-        registerBed.setFont(new Font("Segoe UI Historic", 0, 16));
-
-        //Solicitar Leito
-        JButton requestBed = new JButton("Solicitar Leito");
-        requestBed.setBounds(351,287,167,61);
-        requestBed.setFont(new Font("Segoe UI Historic", 0, 16));
-
-        //Sair
-        JButton exit = new JButton("Sair");
-        exit.setBounds(10, 427,78, 30 );
-        exit.setFont(new Font("Segoe UI Historic", 0, 16));
-
-
-        //Adicionando no container:
-        menuContainer.add(headerLabel);
-        menuContainer.add(provider);
-        menuContainer.add(requester);
-        menuContainer.add(registerBed);
-        menuContainer.add(requestBed);
-        menuContainer.add(exit);
-
-        setVisible(true);
-
-
-        return menuContainer;
     }
     private Container initRegister(){
         registerContainer = new JPanel();
@@ -317,32 +268,41 @@ public class LoginView extends JFrame{
             {
                 try
                 {
-                    //TODO Testar objetos
-                    Institution institution = new Institution();
-                    Address address = new Address();
-                    InstitutionController registerInstitution = new InstitutionController();
+                    if(UFCB.getSelectedItem().equals("Selecionar") || typeCB.getSelectedItem().equals("Selecionar")){
+                        JOptionPane.showMessageDialog(null,"Dados inválidos, verifique se os campos estão preenchidos corretamente", "WARNING",JOptionPane.WARNING_MESSAGE);
 
-                    //Adiciona as informações no objeto address
-                    address.setZipCode((String) zipCodeInput.getText());
-                    address.setAddress((String) addressInput.getText());
-                    address.setNumber(Integer.parseInt((String) numberInput.getText()));
-                    address.setComplement((String) complementInput.getText());
-                    address.setNeighborhood((String) neighborhoodInput.getText());
-                    address.setUf((String) UFCB.getSelectedItem());
-                    address.setCity((String) cityInput.getText());
-                    address.setId(registerInstitution.addAddress(address));
+                    }else {
+                        //TODO Testar objetos
+                        Institution institution = new Institution();
+                        Address address = new Address();
+                        InstitutionController registerInstitution = new InstitutionController();
 
-                    //Adiciona as informações no objeto institution
-                    institution.setCnpj((String) cpnjInput.getText());
-                    institution.setNome((String) nameInput.getText());
-                    institution.setPassword((String) passwordInput.getText());
-                    institution.setType((String) typeCB.getSelectedItem());
-                    institution.setContactNumber((String) phoneInput.getText());
-                    institution.setAddress(address);
-                    registerInstitution.Register(institution);
+                        //Adiciona as informações no objeto address
+                        address.setZipCode((String) zipCodeInput.getText());
+                        address.setAddress((String) addressInput.getText());
+                        address.setNumber(Integer.parseInt((String) numberInput.getText()));
+                        address.setComplement((String) complementInput.getText());
+                        address.setNeighborhood((String) neighborhoodInput.getText());
+                        address.setUf((String) UFCB.getSelectedItem());
+                        address.setCity((String) cityInput.getText());
+                        address.setId(registerInstitution.addAddress(address));
+
+                        //Adiciona as informações no objeto institution
+                        institution.setCnpj((String) cpnjInput.getText());
+                        institution.setNome((String) nameInput.getText());
+                        institution.setPassword((String) passwordInput.getText());
+                        institution.setType((String) typeCB.getSelectedItem());
+                        institution.setContactNumber((String) phoneInput.getText());
+                        institution.setAddress(address);
+                        registerInstitution.Register(institution);
+                        JOptionPane.showMessageDialog(null, "Cadastrado com sucesso!", "INFORMATION", JOptionPane.INFORMATION_MESSAGE);
+                        registerContainer.setVisible(false);
+                        setContentPane(initComponents());
+                    }
                 }
                 catch (Exception ex)
                 {
+                    JOptionPane.showMessageDialog(null,"Dados inválidos, verifique se os campos estão preenchidos corretamente", "WARNING",JOptionPane.WARNING_MESSAGE);
                     System.out.println(ex);
                 }
             }
@@ -381,5 +341,67 @@ public class LoginView extends JFrame{
         setVisible(true);
         return registerContainer;
     }
+    private Container initMenu(){
+        menuContainer = new JPanel();
+        menuContainer.setLayout(null);
+
+
+        headerLabel = new JLabel("Bem - vindo");
+        headerLabel.setBounds(178,10,251,32);
+        headerLabel.setHorizontalAlignment(SwingConstants.CENTER);
+        headerLabel.setFont(new Font("Segoe UI Historic", 1, 24));
+
+        //Fornecedor
+        JButton provider = new JButton("Fornecedor");
+        provider.setBounds(84,166,167,61);
+        provider.setFont(new Font("Segoe UI Historic", 0, 16));
+
+
+        //Solicitante
+        JButton requester = new JButton("Solicitante");
+        requester.setBounds(351,166,167,61);
+        requester.setFont(new Font("Segoe UI Historic", 0, 16));
+
+        //Cadastrar Leito
+        JButton registerBed = new JButton("Cadastrar Leito");
+        registerBed.setBounds(84,287,167,61);
+        registerBed.setFont(new Font("Segoe UI Historic", 0, 16));
+
+        //Solicitar Leito
+        JButton requestBed = new JButton("Solicitar Leito");
+        requestBed.setBounds(351,287,167,61);
+        requestBed.setFont(new Font("Segoe UI Historic", 0, 16));
+
+        //Sair
+        JButton exit = new JButton("Sair");
+        exit.setBounds(10, 427,78, 30 );
+        exit.setFont(new Font("Segoe UI Historic", 0, 16));
+        exit.addActionListener(new ActionListener() {
+            @Override
+            public void actionPerformed(ActionEvent e) {
+
+                int result = JOptionPane.showConfirmDialog(null,
+                        "Deseja realmente sair?",null, JOptionPane.YES_NO_OPTION);
+                if(result == JOptionPane.YES_OPTION) {
+                    menuContainer.setVisible(false);
+                    setContentPane(initComponents());
+                }
+            }
+        });
+
+        //Adicionando no container:
+        menuContainer.add(headerLabel);
+        menuContainer.add(provider);
+        menuContainer.add(requester);
+        menuContainer.add(registerBed);
+        menuContainer.add(requestBed);
+        menuContainer.add(exit);
+
+        setVisible(true);
+
+
+        return menuContainer;
+    }
+
 
 }
