@@ -32,9 +32,7 @@
   <component name="ChangeListManager">
     <list default="true" id="4d915d0f-415e-4cdc-9714-c923372ddaf0" name="Default Changelist" comment="Container para tela de Cadastro.">
       <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/Habbib/connection/BaseDAO.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/Habbib/connection/BaseDAO.java" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/src/Habbib/controller/InstitutionController.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/Habbib/controller/InstitutionController.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/Habbib/view/LoginView.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/Habbib/view/LoginView.java" afterDir="false" />
     </list>
     <option name="SHOW_DIALOG" value="false" />
     <option name="HIGHLIGHT_CONFLICTS" value="true" />
@@ -103,7 +101,7 @@
       <recent name="Habbib" />
     </key>
   </component>
-  <component name="RunManager" selected="Application.Main (1)">
+  <component name="RunManager" selected="Application.Main">
     <configuration name="Main (1)" type="Application" factoryName="Application" temporary="true" nameIsGenerated="true">
       <option name="MAIN_CLASS_NAME" value="Habbib.Main" />
       <module name="Habbib" />
@@ -129,6 +127,7 @@
     </configuration>
     <recent_temporary>
       <list>
+        <item itemvalue="Application.Main" />
         <item itemvalue="Application.Main (1)" />
         <item itemvalue="Application.Main" />
         <item itemvalue="Application.Main (1)" />
@@ -153,6 +152,7 @@
       <workItem from="1587505887920" duration="13637000" />
       <workItem from="1588083263838" duration="26566000" />
       <workItem from="1588114460110" duration="24369000" />
+      <workItem from="1588267883866" duration="829000" />
     </task>
     <task id="LOCAL-00001" summary="Feature de login com JOPtionPanes">
       <created>1587081063156</created>
@@ -179,19 +179,20 @@
     <servers />
   </component>
   <component name="TypeScriptGeneratedFilesManager">
-    <option name="version" value="2" />
+    <option name="version" value="1" />
   </component>
   <component name="Vcs.Log.Tabs.Properties">
     <option name="TAB_STATES">
       <map>
         <entry key="MAIN">
           <value>
-            <State />
+            <State>
+              <option name="COLUMN_ORDER" />
+            </State>
           </value>
         </entry>
       </map>
     </option>
-    <option name="oldMeFiltersMigrated" value="true" />
   </component>
   <component name="VcsManagerConfiguration">
     <option name="ADD_EXTERNAL_FILES_SILENTLY" value="true" />
