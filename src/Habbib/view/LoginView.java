@@ -113,10 +113,7 @@ public class LoginView extends JFrame{
                 {
 
                 }
-
-
             }
-
         });
 
         registerButton.addActionListener(new ActionListener() {
@@ -210,6 +207,7 @@ public class LoginView extends JFrame{
         typeLabel.setVerticalAlignment(SwingConstants.CENTER);
         typeLabel.setFont(new Font("Segoe UI Historic", 0, 14));
         JComboBox typeCB= new JComboBox();
+        //TODO não permitiri selecionar a opção "Selecionar" no combobox Type
         typeCB.setModel(new DefaultComboBoxModel<>(new String[] { "Selecionar","Privado", "Público"}));
         typeCB.setBounds(448,100,142,22);
 
@@ -221,8 +219,6 @@ public class LoginView extends JFrame{
         addressLabel.setFont(new Font("Segoe UI Historic", 0, 14));
         JTextField  addressInput = new JTextField();
         addressInput.setBounds(79,139,330,22);
-
-
 
         JLabel zipCodeLabel = new JLabel("CEP:");
         zipCodeLabel.setBounds(10,179,27,20);
@@ -270,6 +266,7 @@ public class LoginView extends JFrame{
         UFLabel.setVerticalAlignment(SwingConstants.CENTER);
         UFLabel.setFont(new Font("Segoe UI Historic", 0, 14));
         JComboBox UFCB= new JComboBox();
+        //TODO não permitiri selecionar a opção "Selecionar" no combobox UF
         UFCB.setModel(new DefaultComboBoxModel<>(new String[] { "Selecionar","SP", "RJ"}));
         UFCB.setBounds(335,220,75,22);
 
@@ -313,50 +310,43 @@ public class LoginView extends JFrame{
         JButton registerButton = new JButton("Cadastrar");
         registerButton.setBounds(303,428,109,31);
         registerButton.setFont(new Font("Segoe UI Historic", 1, 16));
-        registerButton.addActionListener(new ActionListener() {
+        registerButton.addActionListener(new ActionListener()
+        {
             @Override
-            public void actionPerformed(ActionEvent e) {
+            public void actionPerformed(ActionEvent e)
+            {
                 try
                 {
                     //TODO Testar objetos
                     Institution institution = new Institution();
                     Address address = new Address();
                     InstitutionController registerInstitution = new InstitutionController();
+
                     //Adiciona as informações no objeto address
                     address.setZipCode((String) zipCodeInput.getText());
                     address.setAddress((String) addressInput.getText());
                     address.setNumber(Integer.parseInt((String) numberInput.getText()));
                     address.setComplement((String) complementInput.getText());
                     address.setNeighborhood((String) neighborhoodInput.getText());
-                    //address.setUf((String) UFCB.getModel());
-                    address.setUf("SP");
+                    address.setUf((String) UFCB.getSelectedItem());
                     address.setCity((String) cityInput.getText());
+                    address.setId(registerInstitution.addAddress(address));
 
                     //Adiciona as informações no objeto institution
                     institution.setCnpj((String) cpnjInput.getText());
                     institution.setNome((String) nameInput.getText());
-
                     institution.setPassword((String) passwordInput.getText());
-
-                    address.setId(registerInstitution.addAddress(address));
-                    institution.setType("Privado");
+                    institution.setType((String) typeCB.getSelectedItem());
                     institution.setContactNumber((String) phoneInput.getText());
                     institution.setAddress(address);
                     registerInstitution.Register(institution);
-
                 }
                 catch (Exception ex)
                 {
                     System.out.println(ex);
                 }
-
-
-
-
-
             }
         });
-
 
         registerContainer.add(headerLabel);
         registerContainer.add(nameLabel);

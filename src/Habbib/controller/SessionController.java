@@ -21,9 +21,7 @@ public class SessionController
             }
             else if(institution.getPassword().equals(password))
             {
-                System.out.println("logou!");
                 return institution;
-
             }
             else
             {
