@@ -5,21 +5,27 @@ import Habbib.model.Institution;
 
 public class SessionController {
 
+    private Institution loggedInstitution;
+
     public Institution login(String user, String password) throws Exception{
 
         try(InstitutionDAO institutionDAO = new InstitutionDAO())
         {
-            Institution institution = institutionDAO.getInstitutionByName(user);
+            this.loggedInstitution = institutionDAO.getInstitutionByName(user);
 
-            if(institution == null) {
+            if(loggedInstitution == null) {
                 throw new Exception(" User not found! ");
-            } else if(institution.getPassword().equals(password)){
-                return institution;
+            } else if(loggedInstitution.getPassword().equals(password)){
+                return loggedInstitution;
             }else {
                 throw new Exception("Password wrong !");
             }
         }catch (Exception ex){
             throw ex;
         }
+    }
+
+    public Institution getInstitutionSession(){
+        return loggedInstitution;
     }
 }

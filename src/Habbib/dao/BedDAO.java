@@ -1,9 +1,9 @@
 package Habbib.dao;
 
 import Habbib.connection.BaseDAO;
+import Habbib.controller.SessionController;
 import Habbib.model.Bed;
 import Habbib.model.Institution;
-
 import java.sql.PreparedStatement;
 import java.sql.ResultSet;
 import java.sql.SQLException;
@@ -53,34 +53,33 @@ public class BedDAO extends BaseDAO {
     //TODO:Testar
     public void addBedByType(String type) {
         PreparedStatement stmt;
-        Institution institution;
+        SessionController loggedInstitution;
 
         try{
-            institution = new Institution();
+
+            loggedInstitution = new SessionController();
             String insert = "INSERT INTO Bed VALUE (DEFAULT,?,DEFAULT,?)";
             stmt = super.connection.prepareStatement(insert);
             stmt.setString(1,type);
-            stmt.setInt(2,institution.getId());
+            stmt.setInt(2,loggedInstitution.getInstitutionSession().getId());
             stmt.execute();
 
         } catch (SQLException e){
             throw new RuntimeException("Error connecting to database", e);
         }
     }
-
-    public boolean RemoveBed(String type) {
+    ///TODO: Criar uma query que delete um leito aleatório por tipo.
+    public void removeBed(String type) {
         PreparedStatement stmt;
         Institution institution;
 
         try{
             institution = new Institution();
-            //TODO: Não consigo deletar uma linha aleatória que tenha determinado tipo.
             String insert = "DELETE FROM Bed WHERE(SELECT Id FROM Bed WHERE Type = ? AND Id_Institution = ? LIMIT 1)";
             stmt = super.connection.prepareStatement(insert);
             stmt.setString(1,type);
             stmt.setInt(2,institution.getId());
-
-            return stmt.execute();
+            stmt.execute();
 
         } catch (SQLException e){
             throw new RuntimeException("Error connecting to database", e);
