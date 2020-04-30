@@ -58,15 +58,15 @@ public class InstitutionDAO extends BaseDAO {
         return institution;
     }
     //TODO:Testar
-    public boolean RemoveInstitutionByName(String name)
+    public void removeInstitutionByName(String name)
     {
         PreparedStatement stmt;
 
         try{
-            stmt = super.connection.prepareStatement("DELETE a,i FROM Address a, Institution i WHERE i.Name = ? AND a.Id = i.Id_Address");
+            String delete = "DELETE a,i FROM Address a, Institution i WHERE i.Name = ? AND a.Id = i.Id_Address";
+            stmt = super.connection.prepareStatement(delete);
             stmt.setString(1, name);
-
-            return stmt.execute();
+            stmt.executeUpdate();
 
         } catch (SQLException e) {
             throw new RuntimeException("Error connecting to database", e);

@@ -19,22 +19,39 @@ public class BedDAO extends BaseDAO {
     public ArrayList<Bed> getBedByInstitution(String name) {
         PreparedStatement stmt;
         ResultSet rs;
-        Institution institution;
+        InstitutionDAO institutionDAO;
+        ArrayList<Bed> beds;
+        Bed bed;
 
         try{
-            institution = new Institution();
-            String insert = "SELECT * FROM Bed WHERE Id = ?";
-            stmt = super.connection.prepareStatement(insert);
-            stmt.setInt(1,institution.getId());
 
-            return stmt.execute();
+            institutionDAO = new InstitutionDAO();
+            bed = new Bed();
+            beds = new ArrayList<Bed>();
+            String select = "SELECT * FROM Bed WHERE Id_Institution = (SELECT Id FROM Institution WHERE Name = ?)";
+            stmt = super.connection.prepareStatement(select);
+            stmt.setString(1,name);
+            rs = stmt.executeQuery();
+
+            while(rs.next()){
+
+                bed.setId(rs.getInt("Id"));
+                bed.setType(rs.getString("Type"));
+                bed.setStatus(rs.getString("Status"));
+                bed.setInstitution(institutionDAO.getInstitutionByName(name));
+
+                beds.add(bed);
+
+            }
 
         } catch (SQLException e){
             throw new RuntimeException("Error connecting to database", e);
         }
+
+        return beds;
     }
     //TODO:Testar
-    public boolean AddBed(String type) {
+    public void addBedByType(String type) {
         PreparedStatement stmt;
         Institution institution;
 
@@ -44,8 +61,7 @@ public class BedDAO extends BaseDAO {
             stmt = super.connection.prepareStatement(insert);
             stmt.setString(1,type);
             stmt.setInt(2,institution.getId());
-
-            return stmt.execute();
+            stmt.execute();
 
         } catch (SQLException e){
             throw new RuntimeException("Error connecting to database", e);
