@@ -1,6 +1,8 @@
 package Habbib.view;
 
+import Habbib.controller.InstitutionController;
 import Habbib.controller.SessionController;
+import Habbib.model.Address;
 import Habbib.model.Institution;
 
 import javax.swing.*;
@@ -212,13 +214,13 @@ public class LoginView extends JFrame{
         typeCB.setBounds(448,100,142,22);
 
 
-        JLabel adressLabel = new JLabel("Endereço:");
-        adressLabel.setBounds(10,139,59,20);
-        adressLabel.setHorizontalAlignment(SwingConstants.CENTER);
-        adressLabel.setVerticalAlignment(SwingConstants.CENTER);
-        adressLabel.setFont(new Font("Segoe UI Historic", 0, 14));
-        JTextField  adressInput = new JTextField();
-        adressInput.setBounds(79,139,330,22);
+        JLabel addressLabel = new JLabel("Endereço:");
+        addressLabel.setBounds(10,139,59,20);
+        addressLabel.setHorizontalAlignment(SwingConstants.CENTER);
+        addressLabel.setVerticalAlignment(SwingConstants.CENTER);
+        addressLabel.setFont(new Font("Segoe UI Historic", 0, 14));
+        JTextField  addressInput = new JTextField();
+        addressInput.setBounds(79,139,330,22);
 
 
 
@@ -287,8 +289,6 @@ public class LoginView extends JFrame{
         JPasswordField  passwordInput = new JPasswordField();
         passwordInput.setBounds(78,260,192,22);
 
-
-
         JLabel cPasswordLabel = new JLabel("Confirmar senha:");
         cPasswordLabel.setBounds(276,259,104,20);
         cPasswordLabel.setHorizontalAlignment(SwingConstants.CENTER);
@@ -296,8 +296,6 @@ public class LoginView extends JFrame{
         cPasswordLabel.setFont(new Font("Segoe UI Historic", 0, 14));
         JPasswordField  cPasswordInput = new JPasswordField();
         cPasswordInput.setBounds(390,260,200,22);
-
-
 
         JButton backButton = new JButton("Voltar");
         backButton.setBounds(188,428,109,31);
@@ -318,6 +316,42 @@ public class LoginView extends JFrame{
         registerButton.addActionListener(new ActionListener() {
             @Override
             public void actionPerformed(ActionEvent e) {
+                try
+                {
+                    //TODO Testar objetos
+                    Institution institution = new Institution();
+                    Address address = new Address();
+                    InstitutionController registerInstitution = new InstitutionController();
+                    //Adiciona as informações no objeto address
+                    address.setZipCode((String) zipCodeInput.getText());
+                    address.setAddress((String) addressInput.getText());
+                    address.setNumber(Integer.parseInt((String) numberInput.getText()));
+                    address.setComplement((String) complementInput.getText());
+                    address.setNeighborhood((String) neighborhoodInput.getText());
+                    //address.setUf((String) UFCB.getModel());
+                    address.setUf("SP");
+                    address.setCity((String) cityInput.getText());
+
+                    //Adiciona as informações no objeto institution
+                    institution.setCnpj((String) cpnjInput.getText());
+                    institution.setNome((String) nameInput.getText());
+
+                    institution.setPassword((String) passwordInput.getText());
+
+                    address.setId(registerInstitution.addAddress(address));
+                    institution.setType("Privado");
+                    institution.setContactNumber((String) phoneInput.getText());
+                    institution.setAddress(address);
+                    registerInstitution.Register(institution);
+
+                }
+                catch (Exception ex)
+                {
+                    System.out.println(ex);
+                }
+
+
+
 
 
             }
@@ -331,8 +365,8 @@ public class LoginView extends JFrame{
         registerContainer.add(cpnjInput);
         registerContainer.add(typeLabel);
         registerContainer.add(typeCB);
-        registerContainer.add(adressLabel);
-        registerContainer.add(adressInput);
+        registerContainer.add(addressLabel);
+        registerContainer.add(addressInput);
         registerContainer.add(zipCodeLabel);
         registerContainer.add(zipCodeInput);
         registerContainer.add(neighborhoodLabel);

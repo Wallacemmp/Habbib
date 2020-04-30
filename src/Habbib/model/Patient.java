@@ -11,6 +11,8 @@ public class Patient {
     private Date DOB;
     private int gender;
     private String CID;
+    private Institution institution;
+    private Requisition requisition;
 
     public int getId() {
         return id;
@@ -68,4 +70,19 @@ public class Patient {
         this.CID = CID;
     }
 
+    public Institution getInstitution() {
+        return institution;
+    }
+
+    public void setInstitution(Institution institution) {
+        this.institution = institution;
+    }
+
+    public Requisition getRequisition() {
+        return requisition;
+    }
+
+    public void setRequisition(Requisition requisition) {
+        this.requisition = requisition;
+    }
 }

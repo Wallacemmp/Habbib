@@ -1,11 +1,9 @@
 package Habbib.model;
 
-//import com.habbib.enumerator.InstitutionType;
-
 public class Institution {
     private int id;
     private String cnpj;
-    private String nome;
+    private String name;
     private String password;
     private String contactNumber;
     private String type;
@@ -28,11 +26,11 @@ public class Institution {
     }
 
     public String getNome() {
-        return nome;
+        return name;
     }
 
-    public void setNome(String nome) {
-        this.nome = nome;
+    public void setNome(String name) {
+        this.name = name;
     }
 
     public String getPassword() {

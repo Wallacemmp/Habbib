@@ -3,15 +3,14 @@ package Habbib.dao;
 import Habbib.connection.BaseDAO;
 import Habbib.model.Address;
 import Habbib.model.Institution;
+import com.mysql.cj.x.protobuf.MysqlxPrepare;
+
 import java.sql.PreparedStatement;
 import java.sql.ResultSet;
 import java.sql.SQLException;
 import java.sql.Statement;
 
 public class InstitutionDAO extends BaseDAO {
-
-    private PreparedStatement insertNewInstitution = null;
-    private PreparedStatement insertNewAddress = null;
 
     public  InstitutionDAO ()
     {
@@ -52,8 +51,6 @@ public class InstitutionDAO extends BaseDAO {
 
             }
 
-
-
         } catch (SQLException sqlException) {
             sqlException.printStackTrace();
         }
@@ -67,7 +64,7 @@ public class InstitutionDAO extends BaseDAO {
         Institution institution = null;
 
         try {
-            stmt = super.connection.prepareStatement("SELECT * FROM Instituicao i JOIN Endereco e ON CNPJ = ? AND i.Endereco_ID_Endereco = e.ID_Endereco");
+            stmt = super.connection.prepareStatement("SELECT * FROM Institution i JOIN Address e ON cnpj = ? AND e.Id = i.Id_Address");
             stmt.setString(1, cnpj);
             rs = stmt.executeQuery();
 
@@ -76,24 +73,22 @@ public class InstitutionDAO extends BaseDAO {
                 institution = new Institution();
                 Address address = new Address();
 
-                institution.setId(rs.getInt("idInstituicao"));
-                institution.setNome(rs.getString("Nome"));
+                institution.setId(rs.getInt("Id"));
+                institution.setNome(rs.getString("Name"));
                 institution.setCnpj(rs.getString("CNPJ"));
-                institution.setPassword(rs.getString("Senha"));
-                institution.setType(rs.getString("Tipo"));
-                institution.setContactNumber(rs.getString("Telefone"));
-                address.setId(rs.getInt("ID_Endereco"));
-                address.setZipCode(rs.getInt("CEP"));
-                address.setAddress(rs.getString("Endereco"));
-                address.setNumber(rs.getInt("Número"));
-                address.setComplement(rs.getString("Complemento"));
-                address.setNeighborhood(rs.getString("Bairro"));
-                address.setCity(rs.getString("Cidade"));
+                institution.setPassword(rs.getString("Password"));
+                institution.setType(rs.getString("Type"));
+                institution.setContactNumber(rs.getString("ContactNumber"));
+                address.setId(rs.getInt("Id_Address"));
+                address.setZipCode(rs.getString("ZipCode"));
+                address.setAddress(rs.getString("Address"));
+                address.setNumber(rs.getInt("AddressNumber"));
+                address.setComplement(rs.getString("Complement"));
+                address.setNeighborhood(rs.getString("Neighborhood"));
+                address.setCity(rs.getString("City"));
                 address.setUf(rs.getString("UF"));
 
             }
-
-
 
         } catch (SQLException sqlException) {
             sqlException.printStackTrace();
@@ -101,34 +96,33 @@ public class InstitutionDAO extends BaseDAO {
         return institution;
     }
 
-    public int insertAddress(int zipCode, int number, String complement, String neighborhood, String city, String UF, String street)
+    public int insertAddress(Address address)
     {
-
-        ResultSet result = null;
+        PreparedStatement stmt;
+        ResultSet rs;
         int key = 0;
+
         try
         {
-            insertNewAddress = super.connection.prepareStatement(
-                    "INSERT INTO Endereco" +
-                            "(CEP, Endereco, Número, Complemento, Bairro, Cidade, UF)" +
-                            "VALUES (?, ?, ?, ?, ?, ?, ?)", Statement.RETURN_GENERATED_KEYS);
+            String insert = "INSERT INTO Address VALUES (DEFAULT, ?, ?, ?, ?, ?, ?, ?)";
+            stmt = super.connection.prepareStatement(insert, Statement.RETURN_GENERATED_KEYS);
 
-            insertNewAddress.setInt(1, zipCode);
-            insertNewAddress.setString(2, street);
-            insertNewAddress.setInt(3, number);
-            insertNewAddress.setString(4, complement);
-            insertNewAddress.setString(5, neighborhood);
-            insertNewAddress.setString(6, city);
-            insertNewAddress.setString(7, UF);
+            stmt.setString(1, address.getZipCode());
+            stmt.setString(2, address.getAddress());
+            stmt.setInt(3, address.getNumber());
+            stmt.setString(4, address.getComplement());
+            stmt.setString(5, address.getNeighborhood());
+            stmt.setString(6, address.getCity());
+            stmt.setString(7, address.getUf());
 
-            insertNewAddress.executeUpdate();
-            result = insertNewAddress.getGeneratedKeys();
+            stmt.executeUpdate();
+            rs = stmt.getGeneratedKeys();
 
-            while (result.next())
+            //TODO testar com if
+            while(rs.next())
             {
-                key = result.getInt(1);
+                key = rs.getInt(1);
             }
-
         }
         catch(SQLException sqlException)
         {
@@ -138,33 +132,27 @@ public class InstitutionDAO extends BaseDAO {
         return key;
     }
 
-    public int insertInstitution(String Nome, String CNPJ, String Senha, String Tipo, String Telefone, int Endereco_ID_Endereco)
+    public void insertInstitution(Institution institution)
     {
-
-        int result = 0;
-        ResultSet resultSet = null;
+        PreparedStatement stmt;
         try
         {
-            insertNewInstitution = super.connection.prepareStatement(
-                    "INSERT INTO Instituicao" +
-                            "(Nome, CNPJ, Senha, Tipo, Telefone, Endereco_ID_Endereco)" +
-                            "VALUES(?, ?, ?, ?, ?, ?)");
 
-            insertNewInstitution.setString(1, Nome);
-            insertNewInstitution.setString(2, CNPJ);
-            insertNewInstitution.setString(3, Senha);
-            insertNewInstitution.setString(4, Tipo);
-            insertNewInstitution.setString(5, Telefone);
-            insertNewInstitution.setInt(6, Endereco_ID_Endereco);
-            insertNewInstitution.executeUpdate();
+            String insert = "INSERT INTO Institution VALUES (DEFAULT, ?, ?, ?, ?, ?, ?)";
+
+            stmt = super.connection.prepareStatement(insert);
+
+            stmt.setString(1, institution.getNome());
+            stmt.setString(2, institution.getCnpj());
+            stmt.setString(3, institution.getPassword());
+            stmt.setString(4, institution.getType());
+            stmt.setString(5, institution.getContactNumber());
+            stmt.setInt(6, institution.getAddress().getId());
+            stmt.executeUpdate();
         }
         catch(SQLException e)
         {
             throw new RuntimeException("Error connecting to database", e);
         }
-
-        return result;
     }
-
-
 }
