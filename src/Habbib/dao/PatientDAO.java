@@ -17,7 +17,7 @@ public class PatientDAO extends BaseDAO {
         super();
     }
 
-    public ArrayList<Patient> getPatient(){
+    /*public ArrayList<Patient> getPatient(){
         SessionController sessionController;
         Institution institution;
         Patient patient;
@@ -58,5 +58,5 @@ public class PatientDAO extends BaseDAO {
         }
 
         return patients;
-    }
+    }*/
 }

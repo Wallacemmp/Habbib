@@ -5,7 +5,7 @@ import Habbib.model.Address;
 import Habbib.model.Institution;
 
 public class InstitutionController {
-    public void register(Institution institution) throws Exception {
+    public void registerInstitution(Institution institution) throws Exception {
 
         //TODO corrigir lógica de validação da instituição já cadastrada
         try (InstitutionDAO institutionDAO = new InstitutionDAO()) {
@@ -31,9 +31,9 @@ public class InstitutionController {
         }
     }
 
-    public int addAddress(Address address) throws Exception {
+    public int registerAddress(Address address) throws Exception {
         try (InstitutionDAO institutionDAO = new InstitutionDAO()) {
-            address.setId(institutionDAO.addAddress(address));
+            address.setId(institutionDAO.addAddressInstitution(address));
             return address.getId();
         }
     }

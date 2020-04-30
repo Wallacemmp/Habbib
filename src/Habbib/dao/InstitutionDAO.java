@@ -26,9 +26,9 @@ public class InstitutionDAO extends BaseDAO {
 
         // Utilizando JOIN na query para trazer o endereço ligado a instituição.
         try{
-            String select = "SELECT * FROM Institution i JOIN Address a ON Name = ? AND Id_Address = a.Id";
+            String select = "SELECT * FROM Institution i JOIN Address a ON i.Name = ? AND Id_Address = a.Id";
             stmt = super.connection.prepareStatement(select);
-            stmt.setString(1, name);
+            stmt.setString(1,name);
             rs = stmt.executeQuery();
 
             // Caso encontre alguma instituição com o nome informado, os objetos institution e address são carregados com sua informações.
@@ -64,8 +64,8 @@ public class InstitutionDAO extends BaseDAO {
     public Institution getInstitutionByCNPJ(String cnpj) {
         PreparedStatement stmt;
         ResultSet rs;
-
         Institution institution = null;
+
         try {
             String select = "SELECT * FROM Institution i JOIN Address a ON i.cnpj = ? AND i.Id_Address = a.Id";
             stmt = super.connection.prepareStatement(select);
@@ -114,13 +114,12 @@ public class InstitutionDAO extends BaseDAO {
         }
     }
 
-    public int addAddress(Address address) {
+    public int addAddressInstitution(Address address) {
         PreparedStatement stmt;
         ResultSet rs;
         int key = 0;
 
-        try
-        {
+        try {
             String insert = "INSERT INTO Address VALUES (DEFAULT, ?, ?, ?, ?, ?, ?, ?)";
             stmt = super.connection.prepareStatement(insert, Statement.RETURN_GENERATED_KEYS);
 
@@ -135,14 +134,10 @@ public class InstitutionDAO extends BaseDAO {
             stmt.executeUpdate();
             rs = stmt.getGeneratedKeys();
 
-            //TODO testar com if
-            while(rs.next())
-            {
+            if (rs.next()) {
                 key = rs.getInt(1);
             }
-        }
-        catch(SQLException sqlException)
-        {
+        } catch(SQLException sqlException) {
             sqlException.printStackTrace();
         }
 

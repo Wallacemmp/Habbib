@@ -13,18 +13,20 @@ import java.awt.event.ActionListener;
 public class Views extends JFrame{
 
     private JLabel headerLabel;
-    private JButton loginButton, registerButton;
     private SessionController sessionController;
-    private Container initContainer,menuContainer, registerContainer, providerContainer, requesterContainer, registerBedContainer, requestBedContainer;
-
-
-
+    private Container initContainer;
+    private Container menuContainer;
+    private Container registerContainer;
+    private Container providerContainer;
+    private Container requesterContainer;
+    private Container registerBedContainer;
+    private Container requestBedContainer;
 
     public Views() {
-        super("Habbib beds");
+        super("Habbib Corp.");
         showWindow();
-
     }
+
     public void showWindow(){
         setSize(620,520);
         setResizable(false);
@@ -53,7 +55,7 @@ public class Views extends JFrame{
         userLabel.setVerticalAlignment(SwingConstants.CENTER);
         userLabel.setFont(new Font("Segoe UI Historic", 0, 14));
 
-        JTextField  userInput = new JTextField();
+        JTextField userInput = new JTextField();
         userInput.setBounds(219,180,200,20);
 
         JLabel passLabel = new JLabel("Senha:");
@@ -65,41 +67,18 @@ public class Views extends JFrame{
         JPasswordField passInput = new JPasswordField();
         passInput.setBounds(219,206,200,20);
 
-        loginButton = new JButton();
+        JButton loginButton = new JButton();
         loginButton.setText("Entrar");
         loginButton.setBounds(219,232,200,20);
 
-        JLabel registerLabel = new JLabel("Não tem uma conta?");
-        registerLabel.setBounds(219,400,120,20);
-        registerLabel.setHorizontalAlignment(SwingConstants.CENTER);
-        registerLabel.setVerticalAlignment(SwingConstants.CENTER);
-        registerLabel.setFont(new Font("Segoe UI Historic", 0, 12));
-
-        registerButton = new JButton();
-        registerButton.setText("Crie uma");
-        registerButton.setBounds(340,400,81,20);
-        registerButton.setFont(new Font("Segoe UI Historic", 0, 10));
-
-        initContainer.add(headerLabel);
-        initContainer.add(loginLabel);
-        initContainer.add(userLabel);
-        initContainer.add(userInput);
-        initContainer.add(passLabel);
-        initContainer.add(passInput);
-        initContainer.add(loginButton);
-        initContainer.add(registerLabel);
-        initContainer.add(registerButton);
-        initContainer.setVisible(true);
         loginButton.addActionListener(new ActionListener() {
             @Override
             public void actionPerformed(ActionEvent e) {
                 try
                 {
                     sessionController = new SessionController();
-                    String user = (String) userInput.getText();
-                    String pass = (String) passInput.getText();
-
-                    System.out.println(user +" "+ pass);
+                    String user = userInput.getText();
+                    String pass = new String(passInput.getPassword());
                     Institution institution = sessionController.login(user, pass);
 
                     if(institution != null){
@@ -111,7 +90,7 @@ public class Views extends JFrame{
                 }
                 catch (Exception ex)
                 {
-                    if(userInput.getText().equals("") || passInput.getText().equals("")){
+                    if((userInput.getText()).equals("") || (passInput.getPassword()).equals("")){
                         JOptionPane.showMessageDialog(null,"Seu usuário ou senha está vazio", "WARNING",JOptionPane.WARNING_MESSAGE);
 
                     }else{
@@ -122,6 +101,17 @@ public class Views extends JFrame{
             }
         });
 
+        JLabel registerLabel = new JLabel("Não tem uma conta?");
+        registerLabel.setBounds(219,400,120,20);
+        registerLabel.setHorizontalAlignment(SwingConstants.CENTER);
+        registerLabel.setVerticalAlignment(SwingConstants.CENTER);
+        registerLabel.setFont(new Font("Segoe UI Historic", 0, 12));
+
+        JButton registerButton = new JButton();
+        registerButton.setText("Crie uma");
+        registerButton.setBounds(340,400,81,20);
+        registerButton.setFont(new Font("Segoe UI Historic", 0, 10));
+
         registerButton.addActionListener(new ActionListener() {
             @Override
             public void actionPerformed(ActionEvent e) {
@@ -130,8 +120,20 @@ public class Views extends JFrame{
             }
         });
 
-       return initContainer;
+        initContainer.add(headerLabel);
+        initContainer.add(loginLabel);
+        initContainer.add(userLabel);
+        initContainer.add(userInput);
+        initContainer.add(passLabel);
+        initContainer.add(passInput);
+        initContainer.add(loginButton);
+        initContainer.add(registerLabel);
+        initContainer.add(registerButton);
+        initContainer.setVisible(true);
+
+        return initContainer;
     }
+
     private Container initRegister(){
         registerContainer = new JPanel();
         registerContainer.setLayout(null);
@@ -146,7 +148,7 @@ public class Views extends JFrame{
         nameLabel.setHorizontalAlignment(SwingConstants.CENTER);
         nameLabel.setVerticalAlignment(SwingConstants.CENTER);
         nameLabel.setFont(new Font("Segoe UI Historic", 0, 14));
-        JTextField  nameInput = new JTextField();
+        JTextField nameInput = new JTextField();
         nameInput.setBounds(79,60,512,22);
 
         JLabel cnpjLabel = new JLabel("CNPJ:");
@@ -154,7 +156,7 @@ public class Views extends JFrame{
         cnpjLabel.setHorizontalAlignment(SwingConstants.CENTER);
         cnpjLabel.setVerticalAlignment(SwingConstants.CENTER);
         cnpjLabel.setFont(new Font("Segoe UI Historic", 0, 14));
-        JTextField  cpnjInput = new JTextField();
+        JTextField cpnjInput = new JTextField();
         cpnjInput.setBounds(79,100,330,22);
 
         JLabel typeLabel = new JLabel("Tipo:");
@@ -162,11 +164,9 @@ public class Views extends JFrame{
         typeLabel.setHorizontalAlignment(SwingConstants.CENTER);
         typeLabel.setVerticalAlignment(SwingConstants.CENTER);
         typeLabel.setFont(new Font("Segoe UI Historic", 0, 14));
-        JComboBox typeCB= new JComboBox();
-        //TODO não permitiri selecionar a opção "Selecionar" no combobox Type
+        JComboBox typeCB = new JComboBox();
         typeCB.setModel(new DefaultComboBoxModel<>(new String[] { "Selecionar","Privado", "Público"}));
         typeCB.setBounds(448,100,142,22);
-
 
         JLabel addressLabel = new JLabel("Endereço:");
         addressLabel.setBounds(10,139,59,20);
@@ -221,9 +221,8 @@ public class Views extends JFrame{
         UFLabel.setHorizontalAlignment(SwingConstants.CENTER);
         UFLabel.setVerticalAlignment(SwingConstants.CENTER);
         UFLabel.setFont(new Font("Segoe UI Historic", 0, 14));
-        JComboBox UFCB= new JComboBox();
-        //TODO não permitiri selecionar a opção "Selecionar" no combobox UF
-        UFCB.setModel(new DefaultComboBoxModel<>(new String[] { "Selecionar","SP", "RJ"}));
+        JComboBox UFCB = new JComboBox();
+        UFCB.setModel(new DefaultComboBoxModel<>(new String[] { "Selecionar","SP","RJ"}));
         UFCB.setBounds(335,220,75,22);
 
         JLabel phoneLabel = new JLabel("Telefone:");
@@ -239,7 +238,7 @@ public class Views extends JFrame{
         passwordLabel.setHorizontalAlignment(SwingConstants.CENTER);
         passwordLabel.setVerticalAlignment(SwingConstants.CENTER);
         passwordLabel.setFont(new Font("Segoe UI Historic", 0, 14));
-        JPasswordField  passwordInput = new JPasswordField();
+        JPasswordField passwordInput = new JPasswordField();
         passwordInput.setBounds(78,260,192,22);
 
         JLabel cPasswordLabel = new JLabel("Confirmar senha:");
@@ -247,7 +246,7 @@ public class Views extends JFrame{
         cPasswordLabel.setHorizontalAlignment(SwingConstants.CENTER);
         cPasswordLabel.setVerticalAlignment(SwingConstants.CENTER);
         cPasswordLabel.setFont(new Font("Segoe UI Historic", 0, 14));
-        JPasswordField  cPasswordInput = new JPasswordField();
+        JPasswordField cPasswordInput = new JPasswordField();
         cPasswordInput.setBounds(390,260,200,22);
 
         JButton backButton = new JButton("Voltar");
@@ -280,26 +279,27 @@ public class Views extends JFrame{
                         //TODO Testar objetos
                         Institution institution = new Institution();
                         Address address = new Address();
-                        InstitutionController registerInstitution = new InstitutionController();
+                        InstitutionController institutionController = new InstitutionController();
 
                         //Adiciona as informações no objeto address
-                        address.setZipCode((String) zipCodeInput.getText());
-                        address.setAddress((String) addressInput.getText());
-                        address.setNumber(Integer.parseInt((String) numberInput.getText()));
-                        address.setComplement((String) complementInput.getText());
-                        address.setNeighborhood((String) neighborhoodInput.getText());
+                        address.setZipCode(zipCodeInput.getText());
+                        address.setAddress(addressInput.getText());
+                        address.setNumber(Integer.parseInt(numberInput.getText()));
+                        address.setComplement(complementInput.getText());
+                        address.setNeighborhood(neighborhoodInput.getText());
                         address.setUf((String) UFCB.getSelectedItem());
-                        address.setCity((String) cityInput.getText());
-                        address.setId(registerInstitution.addAddress(address));
+                        address.setCity(cityInput.getText());
+                        address.setId(institutionController.registerAddress(address));
 
                         //Adiciona as informações no objeto institution
-                        institution.setCnpj((String) cpnjInput.getText());
-                        institution.setNome((String) nameInput.getText());
-                        institution.setPassword((String) passwordInput.getText());
+                        institution.setCnpj(cpnjInput.getText());
+                        institution.setNome(nameInput.getText());
+                        //TODO Fazer validação do password digitado
+                        institution.setPassword(new String(passwordInput.getPassword()));
                         institution.setType((String) typeCB.getSelectedItem());
-                        institution.setContactNumber((String) phoneInput.getText());
+                        institution.setContactNumber(phoneInput.getText());
                         institution.setAddress(address);
-                        registerInstitution.register(institution);
+                        institutionController.registerInstitution(institution);
                         JOptionPane.showMessageDialog(null, "Cadastrado com sucesso!", "INFORMATION", JOptionPane.INFORMATION_MESSAGE);
                         registerContainer.setVisible(false);
                         setContentPane(initComponents());

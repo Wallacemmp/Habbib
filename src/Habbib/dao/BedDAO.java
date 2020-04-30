@@ -51,7 +51,7 @@ public class BedDAO extends BaseDAO {
         return beds;
     }
     //TODO:Testar
-    public void addBedByType(String type) {
+    /*public void addBedByType(String type) {
         PreparedStatement stmt;
         SessionController sessionController;
         Institution institution;
@@ -69,9 +69,9 @@ public class BedDAO extends BaseDAO {
         } catch (SQLException e){
             throw new RuntimeException("Error connecting to database", e);
         }
-    }
+    }*/
     ///TODO: Criar uma query que delete um leito aleatório por tipo.
-    public void removeBed(String type) {
+    /*public void removeBed(String type) {
         PreparedStatement stmt;
         SessionController sessionController;
         Institution institution;
@@ -88,6 +88,6 @@ public class BedDAO extends BaseDAO {
         } catch (SQLException e){
             throw new RuntimeException("Error connecting to database", e);
         }
-    }
+    }*/
 
 }
