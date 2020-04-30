@@ -10,18 +10,17 @@ import java.awt.*;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
 
-public class LoginView extends JFrame{
+public class Views extends JFrame{
 
     private JLabel headerLabel;
     private JButton loginButton, registerButton;
     private SessionController sessionController;
-    private Container initContainer;
-    private Container menuContainer;
-    private Container registerContainer;
+    private Container initContainer,menuContainer, registerContainer, providerContainer, requesterContainer, registerBedContainer, requestBedContainer;
 
 
 
-    public LoginView() {
+
+    public Views() {
         super("Habbib beds");
         showWindow();
 
@@ -112,6 +111,12 @@ public class LoginView extends JFrame{
                 }
                 catch (Exception ex)
                 {
+                    if(userInput.getText().equals("") || passInput.getText().equals("")){
+                        JOptionPane.showMessageDialog(null,"Seu usuário ou senha está vazio", "WARNING",JOptionPane.WARNING_MESSAGE);
+
+                    }else{
+                        JOptionPane.showMessageDialog(null,"Seu usuário ou senha está incorreto.", "WARNING",JOptionPane.WARNING_MESSAGE);
+                    }
 
                 }
             }
@@ -356,21 +361,50 @@ public class LoginView extends JFrame{
         provider.setBounds(84,166,167,61);
         provider.setFont(new Font("Segoe UI Historic", 0, 16));
 
+        provider.addActionListener(new ActionListener() {
+            @Override
+            public void actionPerformed(ActionEvent e) {
+                menuContainer.setVisible(false);
+                setContentPane(initProvider());
+            }
+        });
+
 
         //Solicitante
         JButton requester = new JButton("Solicitante");
         requester.setBounds(351,166,167,61);
         requester.setFont(new Font("Segoe UI Historic", 0, 16));
+        requester.addActionListener(new ActionListener() {
+            @Override
+            public void actionPerformed(ActionEvent e) {
+                menuContainer.setVisible(false);
+                setContentPane(initRequester());
+            }
+        });
 
         //Cadastrar Leito
         JButton registerBed = new JButton("Cadastrar Leito");
         registerBed.setBounds(84,287,167,61);
         registerBed.setFont(new Font("Segoe UI Historic", 0, 16));
+        registerBed.addActionListener(new ActionListener() {
+            @Override
+            public void actionPerformed(ActionEvent e) {
+                menuContainer.setVisible(false);
+                setContentPane(initRegisterBed());
+            }
+        });
 
         //Solicitar Leito
         JButton requestBed = new JButton("Solicitar Leito");
         requestBed.setBounds(351,287,167,61);
         requestBed.setFont(new Font("Segoe UI Historic", 0, 16));
+        requestBed.addActionListener(new ActionListener() {
+            @Override
+            public void actionPerformed(ActionEvent e) {
+                menuContainer.setVisible(false);
+                setContentPane(initRequestBed());
+            }
+        });
 
         //Sair
         JButton exit = new JButton("Sair");
@@ -402,6 +436,110 @@ public class LoginView extends JFrame{
 
         return menuContainer;
     }
+    private Container initProvider(){
+        providerContainer = new JPanel();
+        providerContainer.setLayout(null);
 
+        headerLabel = new JLabel("Tela de fornecedor");
+        headerLabel.setBounds(178,10,251,32);
+        headerLabel.setHorizontalAlignment(SwingConstants.CENTER);
+        headerLabel.setFont(new Font("Segoe UI Historic", 1, 24));
+
+        JButton exit = new JButton("Sair");
+        exit.setBounds(10, 427,78, 30 );
+        exit.setFont(new Font("Segoe UI Historic", 0, 16));
+        exit.addActionListener(new ActionListener() {
+            @Override
+            public void actionPerformed(ActionEvent e) {
+
+                    providerContainer.setVisible(false);
+                    setContentPane(initMenu());
+            }
+        });
+
+        providerContainer.add(headerLabel);
+        providerContainer.add(exit);
+
+        return providerContainer;
+    }
+    private Container initRequester(){
+        requesterContainer = new JPanel();
+        requesterContainer.setLayout(null);
+
+        headerLabel = new JLabel("Tela do solicitante");
+        headerLabel.setBounds(178,10,251,32);
+        headerLabel.setHorizontalAlignment(SwingConstants.CENTER);
+        headerLabel.setFont(new Font("Segoe UI Historic", 1, 24));
+
+        JButton exit = new JButton("Sair");
+        exit.setBounds(10, 427,78, 30 );
+        exit.setFont(new Font("Segoe UI Historic", 0, 16));
+        exit.addActionListener(new ActionListener() {
+            @Override
+            public void actionPerformed(ActionEvent e) {
+
+                requesterContainer.setVisible(false);
+                setContentPane(initMenu());
+            }
+        });
+
+        requesterContainer.add(headerLabel);
+        requesterContainer.add(exit);
+
+        return requesterContainer;
+    }
+    private Container initRegisterBed(){
+        registerBedContainer= new JPanel();
+        registerBedContainer.setLayout(null);
+
+        headerLabel = new JLabel("Tela do cadastrar leito");
+        headerLabel.setBounds(150,10,300,32);
+        headerLabel.setHorizontalAlignment(SwingConstants.CENTER);
+        headerLabel.setFont(new Font("Segoe UI Historic", 1, 24));
+
+        JButton exit = new JButton("Sair");
+        exit.setBounds(10, 427,78, 30 );
+        exit.setFont(new Font("Segoe UI Historic", 0, 16));
+        exit.addActionListener(new ActionListener() {
+            @Override
+            public void actionPerformed(ActionEvent e) {
+
+                registerBedContainer.setVisible(false);
+                setContentPane(initMenu());
+            }
+        });
+
+        registerBedContainer.add(headerLabel);
+        registerBedContainer.add(exit);
+
+        return registerBedContainer;
+    }
+
+    private Container initRequestBed(){
+        requestBedContainer= new JPanel();
+        requestBedContainer.setLayout(null);
+
+        headerLabel = new JLabel("Tela de solicitar leito");
+        headerLabel.setBounds(160,10,251,32);
+        headerLabel.setHorizontalAlignment(SwingConstants.CENTER);
+        headerLabel.setFont(new Font("Segoe UI Historic", 1, 24));
+
+        JButton exit = new JButton("Sair");
+        exit.setBounds(10, 427,78, 30 );
+        exit.setFont(new Font("Segoe UI Historic", 0, 16));
+        exit.addActionListener(new ActionListener() {
+            @Override
+            public void actionPerformed(ActionEvent e) {
+
+                requestBedContainer.setVisible(false);
+                setContentPane(initMenu());
+            }
+        });
+
+        requestBedContainer.add(headerLabel);
+        requestBedContainer.add(exit);
+
+        return  requestBedContainer;
+    }
 
 }
