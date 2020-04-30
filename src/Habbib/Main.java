@@ -2,7 +2,7 @@ package Habbib;
 
 
 import Habbib.controller.InstitutionController;
-import Habbib.view.LoginView;
+import Habbib.view.Views;
 
 public class Main {
 
@@ -10,9 +10,9 @@ public class Main {
         InstitutionController newInstitution = new InstitutionController();
         try
         {
-            LoginView loginView = new LoginView();
+            Views views = new Views();
 
-            loginView.showWindow();
+            views.showWindow();
         }
         catch (Exception ex)
         {

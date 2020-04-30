@@ -30,7 +30,7 @@
     <select />
   </component>
   <component name="ChangeListManager">
-    <list default="true" id="4d915d0f-415e-4cdc-9714-c923372ddaf0" name="Default Changelist" comment="Container para tela de Cadastro.">
+    <list default="true" id="4d915d0f-415e-4cdc-9714-c923372ddaf0" name="Default Changelist" comment="Atualizado evento do botão cadastrar aplicando novas regras para cadastro.Implementado a funcionalidade do botão Sair da tela de menu, caso o usuario deseja sair.">
       <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/src/Habbib/connection/BaseDAO.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/Habbib/connection/BaseDAO.java" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/src/Habbib/controller/InstitutionController.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/Habbib/controller/InstitutionController.java" afterDir="false" />
@@ -175,7 +175,14 @@
       <option name="project" value="LOCAL" />
       <updated>1588125977135</updated>
     </task>
-    <option name="localTasksCounter" value="4" />
+    <task id="LOCAL-00004" summary="Atualizado evento do botão cadastrar aplicando novas regras para cadastro.Implementado a funcionalidade do botão Sair da tela de menu, caso o usuario deseja sair.">
+      <created>1588260743278</created>
+      <option name="number" value="00004" />
+      <option name="presentableId" value="LOCAL-00004" />
+      <option name="project" value="LOCAL" />
+      <updated>1588260743278</updated>
+    </task>
+    <option name="localTasksCounter" value="5" />
     <servers />
   </component>
   <component name="TypeScriptGeneratedFilesManager">
@@ -198,7 +205,8 @@
     <MESSAGE value="Feature de login com JOPtionPanes" />
     <MESSAGE value="Segregacão da conexão com o banco de dados, utilizando o package DAO e implementado melhorias nos tratamentos de erros no login." />
     <MESSAGE value="Container para tela de Cadastro." />
-    <option name="LAST_COMMIT_MESSAGE" value="Container para tela de Cadastro." />
+    <MESSAGE value="Atualizado evento do botão cadastrar aplicando novas regras para cadastro.Implementado a funcionalidade do botão Sair da tela de menu, caso o usuario deseja sair." />
+    <option name="LAST_COMMIT_MESSAGE" value="Atualizado evento do botão cadastrar aplicando novas regras para cadastro.Implementado a funcionalidade do botão Sair da tela de menu, caso o usuario deseja sair." />
   </component>
   <component name="WindowStateProjectService">
     <state x="1649" y="49" key="#Inspections" timestamp="1587529078513">
@@ -236,32 +244,32 @@
       <screen x="0" y="0" width="1920" height="1040" />
     </state>
     <state x="540" y="212" key="FileChooserDialogImpl/0.0.1920.1040/1920.0.1600.860@0.0.1920.1040" timestamp="1587602079676" />
-    <state width="1877" height="91" key="GridCell.Tab.0.bottom" timestamp="1588259470150">
+    <state width="1877" height="91" key="GridCell.Tab.0.bottom" timestamp="1588276170062">
       <screen x="0" y="40" width="1920" height="1040" />
     </state>
     <state width="1877" height="282" key="GridCell.Tab.0.bottom/0.0.1920.1040/1920.0.1600.860@0.0.1920.1040" timestamp="1587602818415" />
-    <state width="1877" height="91" key="GridCell.Tab.0.bottom/0.40.1920.1040@0.40.1920.1040" timestamp="1588259470150" />
+    <state width="1877" height="91" key="GridCell.Tab.0.bottom/0.40.1920.1040@0.40.1920.1040" timestamp="1588276170038" />
     <state width="1324" height="177" key="GridCell.Tab.0.bottom/1366.0.1366.768/0.0.1366.717@0.0.1366.717" timestamp="1587075115115" />
     <state width="1324" height="192" key="GridCell.Tab.0.bottom/1366.0.1366.768/0.0.1366.717@1366.0.1366.768" timestamp="1587531744134" />
-    <state width="1877" height="91" key="GridCell.Tab.0.center" timestamp="1588259470150">
+    <state width="1877" height="91" key="GridCell.Tab.0.center" timestamp="1588276170038">
       <screen x="0" y="40" width="1920" height="1040" />
     </state>
     <state width="1877" height="282" key="GridCell.Tab.0.center/0.0.1920.1040/1920.0.1600.860@0.0.1920.1040" timestamp="1587602818415" />
-    <state width="1877" height="91" key="GridCell.Tab.0.center/0.40.1920.1040@0.40.1920.1040" timestamp="1588259470150" />
+    <state width="1877" height="91" key="GridCell.Tab.0.center/0.40.1920.1040@0.40.1920.1040" timestamp="1588276170038" />
     <state width="1324" height="177" key="GridCell.Tab.0.center/1366.0.1366.768/0.0.1366.717@0.0.1366.717" timestamp="1587075115110" />
     <state width="1324" height="192" key="GridCell.Tab.0.center/1366.0.1366.768/0.0.1366.717@1366.0.1366.768" timestamp="1587531744131" />
-    <state width="1877" height="91" key="GridCell.Tab.0.left" timestamp="1588259470149">
+    <state width="1877" height="91" key="GridCell.Tab.0.left" timestamp="1588276170038">
       <screen x="0" y="40" width="1920" height="1040" />
     </state>
     <state width="1877" height="282" key="GridCell.Tab.0.left/0.0.1920.1040/1920.0.1600.860@0.0.1920.1040" timestamp="1587602818415" />
-    <state width="1877" height="91" key="GridCell.Tab.0.left/0.40.1920.1040@0.40.1920.1040" timestamp="1588259470149" />
+    <state width="1877" height="91" key="GridCell.Tab.0.left/0.40.1920.1040@0.40.1920.1040" timestamp="1588276170038" />
     <state width="1324" height="177" key="GridCell.Tab.0.left/1366.0.1366.768/0.0.1366.717@0.0.1366.717" timestamp="1587075115103" />
     <state width="1324" height="192" key="GridCell.Tab.0.left/1366.0.1366.768/0.0.1366.717@1366.0.1366.768" timestamp="1587531744130" />
-    <state width="1877" height="91" key="GridCell.Tab.0.right" timestamp="1588259470150">
+    <state width="1877" height="91" key="GridCell.Tab.0.right" timestamp="1588276170038">
       <screen x="0" y="40" width="1920" height="1040" />
     </state>
     <state width="1877" height="282" key="GridCell.Tab.0.right/0.0.1920.1040/1920.0.1600.860@0.0.1920.1040" timestamp="1587602818415" />
-    <state width="1877" height="91" key="GridCell.Tab.0.right/0.40.1920.1040@0.40.1920.1040" timestamp="1588259470150" />
+    <state width="1877" height="91" key="GridCell.Tab.0.right/0.40.1920.1040@0.40.1920.1040" timestamp="1588276170038" />
     <state width="1324" height="177" key="GridCell.Tab.0.right/1366.0.1366.768/0.0.1366.717@0.0.1366.717" timestamp="1587075115113" />
     <state width="1324" height="192" key="GridCell.Tab.0.right/1366.0.1366.768/0.0.1366.717@1366.0.1366.768" timestamp="1587531744133" />
     <state width="1877" height="348" key="GridCell.Tab.1.bottom" timestamp="1587602383850">
@@ -307,10 +315,10 @@
     <state x="240" y="91" width="1040" height="760" key="SettingsEditor/0.0.1920.1040/1920.0.1600.860@0.0.1920.1040" timestamp="1587602173976" />
     <state x="171" y="0" key="SettingsEditor/1366.0.1366.768/0.0.1366.717@0.0.1366.717" timestamp="1587155633160" />
     <state x="1537" y="0" key="SettingsEditor/1366.0.1366.768/0.0.1366.717@1366.0.1366.768" timestamp="1587513092167" />
-    <state x="487" y="256" key="Vcs.Push.Dialog.v2" timestamp="1588126211419">
+    <state x="487" y="256" key="Vcs.Push.Dialog.v2" timestamp="1588260766015">
       <screen x="0" y="40" width="1920" height="1040" />
     </state>
-    <state x="487" y="256" key="Vcs.Push.Dialog.v2/0.40.1920.1040@0.40.1920.1040" timestamp="1588126211419" />
+    <state x="487" y="256" key="Vcs.Push.Dialog.v2/0.40.1920.1040@0.40.1920.1040" timestamp="1588260766015" />
     <state x="1811" y="145" key="com.intellij.database.run.ParametersPanel.Standalone" timestamp="1587529104395">
       <screen x="1366" y="0" width="1366" height="768" />
     </state>
