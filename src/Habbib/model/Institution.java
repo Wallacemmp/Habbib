@@ -1,5 +1,7 @@
 package Habbib.model;
 
+//import com.habbib.enumerator.InstitutionType;
+
 public class Institution {
     private int id;
     private String cnpj;
@@ -61,7 +63,7 @@ public class Institution {
         return address;
     }
 
-    public void setAddress(Address address)  {
+    public void setAddress(Address address) {
         this.address = address;
     }
 }
