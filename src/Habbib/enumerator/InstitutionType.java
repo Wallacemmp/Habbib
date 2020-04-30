@@ -1,12 +1,19 @@
 package Habbib.enumerator;
 
-public enum InstitutionType {
+public enum InstitutionType
+{
     PrivateHospital(0),
     PublicHospital(1);
 
     private int value;
 
-    InstitutionType(int value) {
+    InstitutionType(int value)
+    {
         this.value = value;
+    }
+
+    public int getValue()
+    {
+        return value;
     }
 }

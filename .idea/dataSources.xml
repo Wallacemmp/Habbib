@@ -1,11 +1,11 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <project version="4">
   <component name="DataSourceManagerImpl" format="xml" multifile-model="true">
-    <data-source source="LOCAL" name="MySQL - db_Habbib@localhost" uuid="b302f1ff-7686-4f53-8c5e-0ef7c360be45">
+    <data-source source="LOCAL" name="Habbib" uuid="d4f11c32-1723-476c-a088-7a738c342ca1">
       <driver-ref>mysql.8</driver-ref>
       <synchronize>true</synchronize>
       <jdbc-driver>com.mysql.cj.jdbc.Driver</jdbc-driver>
-      <jdbc-url>jdbc:mysql://localhost:3306/db_Habbib</jdbc-url>
+      <jdbc-url>jdbc:mysql://localhost:3306</jdbc-url>
     </data-source>
   </component>
 </project>
