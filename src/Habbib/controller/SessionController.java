@@ -9,8 +9,8 @@ public class SessionController {
 
     public Institution login(String user, String password) throws Exception{
 
-        try(InstitutionDAO institutionDAO = new InstitutionDAO())
-        {
+        try(InstitutionDAO institutionDAO = new InstitutionDAO()) {
+
             this.loggedInstitution = institutionDAO.getInstitutionByName(user);
 
             if(loggedInstitution == null) {
@@ -25,7 +25,7 @@ public class SessionController {
         }
     }
 
-    public Institution getInstitutionSession(){
+    public Institution getLoggedInstitution(){
         return loggedInstitution;
     }
 }

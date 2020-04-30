@@ -7,9 +7,9 @@ public class Patient {
     private int id;
     private String FirstName;
     private String LastName;
-    private int cpf;
+    private String cpf;
     private Date dob;
-    private int gender;
+    private String gender;
     private String cid;
     private Institution institution;
     private Requisition requisition;
@@ -38,11 +38,11 @@ public class Patient {
         LastName = lastName;
     }
 
-    public int getCpf() {
+    public String getCpf() {
         return cpf;
     }
 
-    public void setCpf(int cpf) {
+    public void setCpf(String cpf) {
         this.cpf = cpf;
     }
 
@@ -54,11 +54,11 @@ public class Patient {
         this.dob = dob;
     }
 
-    public int getGender() {
+    public String getGender() {
         return gender;
     }
 
-    public void setGender(int gender) {
+    public void setGender(String gender) {
         this.gender = gender;
     }
 

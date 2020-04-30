@@ -21,7 +21,6 @@ public class InstitutionDAO extends BaseDAO {
     public Institution getInstitutionByName(String name) {
         PreparedStatement stmt;
         ResultSet rs;
-
         Institution institution = null;
         Address address;
 
@@ -56,6 +55,7 @@ public class InstitutionDAO extends BaseDAO {
         } catch (SQLException e) {
             throw new RuntimeException("Error connecting to database", e);
         }
+
         return institution;
     }
 
@@ -101,7 +101,7 @@ public class InstitutionDAO extends BaseDAO {
     public void removeInstitutionByName(String name) {
         PreparedStatement stmt;
 
-        try {
+        try{
             String delete = "DELETE a,i FROM Address a, Institution i WHERE i.Name = ? AND a.Id = i.Id_Address";
             stmt = super.connection.prepareStatement(delete);
             stmt.setString(1, name);
@@ -148,11 +148,9 @@ public class InstitutionDAO extends BaseDAO {
         return key;
     }
 
-    public void insertInstitution(Institution institution)
-    {
+    public void insertInstitution(Institution institution) {
         PreparedStatement stmt;
-        try
-        {
+        try {
 
             String insert = "INSERT INTO Institution VALUES (DEFAULT, ?, ?, ?, ?, ?, ?)";
 
@@ -165,9 +163,7 @@ public class InstitutionDAO extends BaseDAO {
             stmt.setString(5, institution.getContactNumber());
             stmt.setInt(6, institution.getAddress().getId());
             stmt.executeUpdate();
-        }
-        catch(SQLException e)
-        {
+        } catch (SQLException e) {
             throw new RuntimeException("Error connecting to database", e);
         }
     }
