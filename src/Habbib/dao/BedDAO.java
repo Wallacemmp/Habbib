@@ -53,15 +53,17 @@ public class BedDAO extends BaseDAO {
     //TODO:Testar
     public void addBedByType(String type) {
         PreparedStatement stmt;
-        SessionController loggedInstitution;
+        SessionController sessionController;
+        Institution institution;
 
         try{
 
-            loggedInstitution = new SessionController();
+            sessionController = new SessionController();
+            institution = sessionController.getLoggedInstitution();
             String insert = "INSERT INTO Bed VALUE (DEFAULT,?,DEFAULT,?)";
             stmt = super.connection.prepareStatement(insert);
             stmt.setString(1,type);
-            stmt.setInt(2,loggedInstitution.getInstitutionSession().getId());
+            stmt.setInt(2,institution.getId());
             stmt.execute();
 
         } catch (SQLException e){
@@ -71,10 +73,12 @@ public class BedDAO extends BaseDAO {
     ///TODO: Criar uma query que delete um leito aleatório por tipo.
     public void removeBed(String type) {
         PreparedStatement stmt;
+        SessionController sessionController;
         Institution institution;
 
         try{
-            institution = new Institution();
+            sessionController = new SessionController();
+            institution = sessionController.getLoggedInstitution();
             String insert = "DELETE FROM Bed WHERE(SELECT Id FROM Bed WHERE Type = ? AND Id_Institution = ? LIMIT 1)";
             stmt = super.connection.prepareStatement(insert);
             stmt.setString(1,type);

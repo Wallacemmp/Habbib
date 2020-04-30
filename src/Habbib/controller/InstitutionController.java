@@ -3,10 +3,9 @@ package Habbib.controller;
 import Habbib.dao.InstitutionDAO;
 import Habbib.model.Address;
 import Habbib.model.Institution;
-import org.jetbrains.annotations.NotNull;
 
 public class InstitutionController {
-    public void Register(@NotNull Institution institution) throws Exception {
+    public void register(Institution institution) throws Exception {
 
         //TODO corrigir lógica de validação da instituição já cadastrada
         try (InstitutionDAO institutionDAO = new InstitutionDAO()) {
@@ -16,7 +15,7 @@ public class InstitutionController {
 
             if (institutionNome == null) {
                 if (institutionCnpj == null) {
-                    institutionDAO.insertInstitution(institution);
+                    institutionDAO.addInstitution(institution);
                 }
             } else {
                 if (institutionNome.getNome().equals(institution.getNome())) {
@@ -25,16 +24,16 @@ public class InstitutionController {
                     if (institutionCnpj.getCnpj().equals(institution.getCnpj())) {
                         throw new Exception("Instituição com o CNPJ" + institution.getCnpj() + " já cadastrada.");
                     } else {
-                        institutionDAO.insertInstitution(institution);
+                        institutionDAO.addInstitution(institution);
                     }
                 }
             }
         }
     }
 
-    public int addAddress(@NotNull Address address) throws Exception {
+    public int addAddress(Address address) throws Exception {
         try (InstitutionDAO institutionDAO = new InstitutionDAO()) {
-            address.setId(institutionDAO.insertAddress(address));
+            address.setId(institutionDAO.addAddress(address));
             return address.getId();
         }
     }

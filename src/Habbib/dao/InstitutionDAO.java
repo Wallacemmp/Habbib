@@ -3,7 +3,6 @@ package Habbib.dao;
 import Habbib.connection.BaseDAO;
 import Habbib.model.Address;
 import Habbib.model.Institution;
-import com.mysql.cj.x.protobuf.MysqlxPrepare;
 
 import java.sql.PreparedStatement;
 import java.sql.ResultSet;
@@ -13,23 +12,26 @@ import java.sql.Statement;
 public class InstitutionDAO extends BaseDAO {
 
 
-    public  InstitutionDAO ()
+    public InstitutionDAO ()
     {
         super();
     }
 
+    // Método para pegar instituções, pesquisando por nome e retornar a instituição encontrada.
     public Institution getInstitutionByName(String name) {
         PreparedStatement stmt;
         ResultSet rs;
         Institution institution = null;
         Address address;
 
+        // Utilizando JOIN na query para trazer o endereço ligado a instituição.
         try{
             String select = "SELECT * FROM Institution i JOIN Address a ON Name = ? AND Id_Address = a.Id";
             stmt = super.connection.prepareStatement(select);
             stmt.setString(1, name);
             rs = stmt.executeQuery();
 
+            // Caso encontre alguma instituição com o nome informado, os objetos institution e address são carregados com sua informações.
             if(rs.next()){
 
                 institution = new Institution();
@@ -65,7 +67,8 @@ public class InstitutionDAO extends BaseDAO {
 
         Institution institution = null;
         try {
-            stmt = super.connection.prepareStatement("SELECT * FROM Institution i JOIN Address e ON cnpj = ? AND e.Id = i.Id_Address");
+            String select = "SELECT * FROM Institution i JOIN Address a ON i.cnpj = ? AND i.Id_Address = a.Id";
+            stmt = super.connection.prepareStatement(select);
             stmt.setString(1, cnpj);
             rs = stmt.executeQuery();
 
@@ -96,7 +99,6 @@ public class InstitutionDAO extends BaseDAO {
         }
         return institution;
     }
-
     //TODO:Testar
     public void removeInstitutionByName(String name) {
         PreparedStatement stmt;
@@ -112,8 +114,7 @@ public class InstitutionDAO extends BaseDAO {
         }
     }
 
-    public int insertAddress(Address address)
-    {
+    public int addAddress(Address address) {
         PreparedStatement stmt;
         ResultSet rs;
         int key = 0;
@@ -148,7 +149,7 @@ public class InstitutionDAO extends BaseDAO {
         return key;
     }
 
-    public void insertInstitution(Institution institution) {
+    public void addInstitution(Institution institution) {
         PreparedStatement stmt;
         try {
 

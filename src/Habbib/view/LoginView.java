@@ -294,7 +294,7 @@ public class LoginView extends JFrame{
                         institution.setType((String) typeCB.getSelectedItem());
                         institution.setContactNumber((String) phoneInput.getText());
                         institution.setAddress(address);
-                        registerInstitution.Register(institution);
+                        registerInstitution.register(institution);
                         JOptionPane.showMessageDialog(null, "Cadastrado com sucesso!", "INFORMATION", JOptionPane.INFORMATION_MESSAGE);
                         registerContainer.setVisible(false);
                         setContentPane(initComponents());
