@@ -1,18 +1,13 @@
 package Habbib;
 
-
-import Habbib.controller.InstitutionController;
-import Habbib.view.Views;
+import Habbib.view.View;
 
 public class Main {
 
     public static void main(String[] args) {
-        InstitutionController newInstitution = new InstitutionController();
         try
         {
-            Views views = new Views();
-
-            views.showWindow();
+            View view = new View();
         }
         catch (Exception ex)
         {

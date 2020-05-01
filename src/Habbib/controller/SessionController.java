@@ -14,19 +14,11 @@ public class SessionController
             Institution institution = institutionDAO.getInstitutionByName(user);
 
             if(institution == null)
-            {
-
                 throw new Exception(" User not found! ");
-
-            }
             else if(institution.getPassword().equals(password))
-            {
                 return institution;
-            }
             else
-            {
                 throw new Exception("Password wrong !");
-            }
         }
         catch (Exception ex)
         {
