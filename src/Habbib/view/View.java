@@ -287,14 +287,11 @@ public class View extends BaseView{
         JPanel menuContainer = new JPanel();
         menuContainer.setLayout(null);
 
-
-
+        //Bem - Vindo
+        menuContainer.add(super.createHeaderLabel("Bem - vindo",178,10,251,32));
 
         //Fornecedor
-        JButton provider = new JButton("Fornecedor");
-        provider.setBounds(84,166,167,61);
-        provider.setFont(new Font("Segoe UI Historic", 0, 16));
-
+        JButton provider = super.createButton2("Fornecedor",84,166,167,61);
         provider.addActionListener(new ActionListener() {
             @Override
             public void actionPerformed(ActionEvent e) {
@@ -303,11 +300,8 @@ public class View extends BaseView{
             }
         });
 
-
         //Solicitante
-        JButton requester = new JButton("Solicitante");
-        requester.setBounds(351,166,167,61);
-        requester.setFont(new Font("Segoe UI Historic", 0, 16));
+        JButton requester = super.createButton2("Solicitante",351,166,167,61);
         requester.addActionListener(new ActionListener() {
             @Override
             public void actionPerformed(ActionEvent e) {
@@ -317,9 +311,7 @@ public class View extends BaseView{
         });
 
         //Cadastrar Leito
-        JButton registerBed = new JButton("Cadastrar Leito");
-        registerBed.setBounds(84,287,167,61);
-        registerBed.setFont(new Font("Segoe UI Historic", 0, 16));
+        JButton registerBed = super.createButton2("Cadastrar Leito",84,287,167,61);
         registerBed.addActionListener(new ActionListener() {
             @Override
             public void actionPerformed(ActionEvent e) {
@@ -329,9 +321,7 @@ public class View extends BaseView{
         });
 
         //Solicitar Leito
-        JButton requestBed = new JButton("Solicitar Leito");
-        requestBed.setBounds(351,287,167,61);
-        requestBed.setFont(new Font("Segoe UI Historic", 0, 16));
+        JButton requestBed = super.createButton2("Solicitar",351,287,167,61);
         requestBed.addActionListener(new ActionListener() {
             @Override
             public void actionPerformed(ActionEvent e) {
@@ -341,9 +331,7 @@ public class View extends BaseView{
         });
 
         //Sair
-        JButton exit = new JButton("Sair");
-        exit.setBounds(10, 427,78, 30 );
-        exit.setFont(new Font("Segoe UI Historic", 0, 16));
+        JButton exit = super.createButton("Sair",10,427,78,30);
         exit.addActionListener(new ActionListener() {
             @Override
             public void actionPerformed(ActionEvent e) {
@@ -358,7 +346,6 @@ public class View extends BaseView{
         });
 
         //Adicionando no container:
-        menuContainer.add(super.createHeaderLabel("Bem - vindo",178,10,251,32));
         menuContainer.add(provider);
         menuContainer.add(requester);
         menuContainer.add(registerBed);
@@ -371,35 +358,95 @@ public class View extends BaseView{
         return menuContainer;
     }
 
+    //Tela de Fornecedor
     private Container initProvider(Institution institution){
         JPanel providerContainer = new JPanel();
         providerContainer.setLayout(null);
 
-        JButton exit = new JButton("Sair");
-        exit.setBounds(10, 427,78, 30 );
-        exit.setFont(new Font("Segoe UI Historic", 0, 16));
+        //Tela de Fornecedor
+        providerContainer.add(super.createHeaderLabel("Tela de fornecedor", 178,10,251,32));
+
+        //Instituição
+        providerContainer.add(super.createInputLabel("Instituição:",10,52,70,30));
+
+        //Hospital1
+        //TODO: (Puxar a instituição que está logado conforme Habbib_Latest 5/23)
+
+        //Status
+        providerContainer.add(super.createInputLabelLeft("Status:",10,82,60,30));
+
+        //Pendente
+        JComboBox pending = super.createComboBox(new String[]{"Pendente","Recusado","Aprovado"},10,122,89,26);
+
+        //Hospital X
+        // TODO:(Realizar busca)
+        JTextField userInput = super.createTextField(109,122,393,30);
+
+        //Consultar
+        // TODO: (Realizar busca)
+        JButton consult = super.createButton("Consultar",512, 122, 78, 30);
+        consult.addActionListener(new ActionListener() {
+            @Override
+            public void actionPerformed(ActionEvent e) {
+
+                /*providerContainer.setVisible(false);
+                setContentPane(initMenu(institution));*/
+            }
+        });
+
+        //Sair
+        JButton exit = super.createButton("Sair",512, 427, 78, 30);
         exit.addActionListener(new ActionListener() {
             @Override
             public void actionPerformed(ActionEvent e) {
 
-                    providerContainer.setVisible(false);
-                    setContentPane(initMenu(institution));
+                providerContainer.setVisible(false);
+                setContentPane(initMenu(institution));
             }
         });
 
-        providerContainer.add(super.createHeaderLabel("Tela de fornecedor", 178,10,251,32));
+        //Dashboard - Fornecedor
+        providerContainer.add(pending);
+        providerContainer.add(userInput);
+        providerContainer.add(consult);
         providerContainer.add(exit);
 
         return providerContainer;
-    }
+    }//Final de Fornecedor
 
+
+    //Tela Solicitante:
     private Container initRequester(Institution institution){
         JPanel requesterContainer = new JPanel();
         requesterContainer.setLayout(null);
 
-        JButton exit = new JButton("Sair");
-        exit.setBounds(10, 427,78, 30 );
-        exit.setFont(new Font("Segoe UI Historic", 0, 16));
+        //Solicitante
+        requesterContainer.add(super.createHeaderLabel("Tela do solicitante", 178,10,251,32));
+
+        //Status
+        requesterContainer.add(super.createInputLabelLeft("Status:",10,82,60,30));
+
+        //Pendente
+        JComboBox pending = super.createComboBox(new String[]{"Todos","Recusado","Aprovado"},10,122,89,26);
+
+        //Hospital X
+        // TODO:(Realizar busca)
+        JTextField userInput = super.createTextField(109,122,393,30);
+
+        //Consultar
+        // TODO: (Realizar busca)
+        JButton consult = super.createButton("Consultar",512, 122, 78, 30);
+        consult.addActionListener(new ActionListener() {
+            @Override
+            public void actionPerformed(ActionEvent e) {
+
+                /*providerContainer.setVisible(false);
+                setContentPane(initMenu(institution));*/
+            }
+        });
+
+        //Sair
+        JButton exit = super.createButton("Sair",512, 427, 78, 30);
         exit.addActionListener(new ActionListener() {
             @Override
             public void actionPerformed(ActionEvent e) {
@@ -409,15 +456,23 @@ public class View extends BaseView{
             }
         });
 
-        requesterContainer.add(super.createHeaderLabel("Tela do solicitante", 178,10,251,32));
+        //Dashboard - Solicitante:
+        requesterContainer.add(userInput);
+        requesterContainer.add(pending);
+        requesterContainer.add(consult);
         requesterContainer.add(exit);
 
         return requesterContainer;
-    }
+    }//final de Solicitante
 
+
+    //Tela: Cadastrar Leito
     private Container initRegisterBed(Institution institution){
         JPanel registerBedContainer= new JPanel();
         registerBedContainer.setLayout(null);
+
+        registerBedContainer.add(super.createHeaderLabel("Tela do cadastrar leito", 150,10,300,32));
+
 
         JButton exit = new JButton("Sair");
         exit.setBounds(10, 427,78, 30 );
@@ -431,19 +486,57 @@ public class View extends BaseView{
             }
         });
 
-        registerBedContainer.add(super.createHeaderLabel("Tela do cadastrar leito", 150,10,300,32));
+
         registerBedContainer.add(exit);
 
         return registerBedContainer;
-    }
+    }//Final Cadastrar Leito
 
+    //Solicitar Leito
     private Container initRequestBed(Institution institution){
         JPanel requestBedContainer= new JPanel();
         requestBedContainer.setLayout(null);
 
-        JButton exit = new JButton("Sair");
-        exit.setBounds(10, 427,78, 30 );
-        exit.setFont(new Font("Segoe UI Historic", 0, 16));
+        //Solicitar Leito
+        requestBedContainer.add(super.createHeaderLabel("Solicitar leito", 160,10,251,32));
+
+        //Tipo:
+        requestBedContainer.add(super.createInputLabel("Tipo:",10,52,70,30));
+
+        //Bairro
+        requestBedContainer.add(super.createInputLabel("Bairro:",157,52,70,30));
+
+        //Leito
+        requestBedContainer.add(super.createInputLabel("Leito:",372,52,70,30));
+
+        //Privado
+        JComboBox status = super.createComboBox(new String[]{"Privado","Público"},10,92,89,26);
+
+        //Mooca
+        JComboBox neighborhood = super.createComboBox(new String[]{"Mooca","Tatuapé","..."},157,92,89,26);
+
+        //UTI
+        JComboBox type = super.createComboBox(new String[]{"UTI","Semi-intensivo","Baixa complexidade"},372,92,89,26);
+
+        //Consultar
+        // TODO: (Realizar busca)
+        JButton consult = super.createButton("Consultar",512, 92, 78, 30);
+        consult.addActionListener(new ActionListener() {
+            @Override
+            public void actionPerformed(ActionEvent e) {
+
+                /*providerContainer.setVisible(false);
+                setContentPane(initMenu(institution));*/
+            }
+        });
+
+        //Hospital X
+        //Hospital X
+        // TODO:(Realizar busca)
+        JTextField userInput = super.createTextField(10,139,580,30);
+
+
+        JButton exit = super.createButton("Sair",512, 427, 78, 30);
         exit.addActionListener(new ActionListener() {
             @Override
             public void actionPerformed(ActionEvent e) {
@@ -453,10 +546,14 @@ public class View extends BaseView{
             }
         });
 
-        requestBedContainer.add(super.createHeaderLabel("Tela de solicitar leito", 160,10,251,32));
+        requestBedContainer.add(status);
+        requestBedContainer.add(neighborhood);
+        requestBedContainer.add(type);
+        requestBedContainer.add(consult);
+        requestBedContainer.add(userInput);
         requestBedContainer.add(exit);
 
         return  requestBedContainer;
-    }
+    }//Final Solicitar leito
 
 }

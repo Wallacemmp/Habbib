@@ -12,6 +12,7 @@ public class BaseView extends JFrame {
     private Font inputLabelFont = new Font(font, 0, 14);
     private Font textLabelFont = new Font(font, 0, 12);
     private Font buttonFont = new Font(font, 0, 10);
+    private Font buttonFont2 = new Font(font, 0, 16);//Criado (Wesley)
 
     protected Container currentContainer;
 
@@ -56,6 +57,15 @@ public class BaseView extends JFrame {
         inputLabel.setFont(inputLabelFont);
         return inputLabel;
     }
+    //Label começando da Esquerda (Wesley)
+    public JLabel createInputLabelLeft(String title, int x, int y, int width, int height) {
+        JLabel inputLabel = new JLabel(title);
+        inputLabel.setBounds(x,y,width,height);
+        inputLabel.setHorizontalAlignment(SwingConstants.LEFT);
+        inputLabel.setVerticalAlignment(SwingConstants.CENTER);
+        inputLabel.setFont(inputLabelFont);
+        return inputLabel;
+    }
 
     public JTextField createTextField(int x, int y, int width, int height) {
         JTextField textField = new JTextField();
@@ -83,6 +93,15 @@ public class BaseView extends JFrame {
         button.setText(title);
         button.setBounds(x,y,width,height);
         button.setFont(buttonFont);
+        return button;
+    }
+
+    //Fonte do Button Alterada (Wesley):
+    public JButton createButton2(String title, int x, int y, int width, int height){
+        JButton button = new JButton();
+        button.setText(title);
+        button.setBounds(x,y,width,height);
+        button.setFont(buttonFont2);
         return button;
     }
 

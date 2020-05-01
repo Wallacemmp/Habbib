@@ -10,7 +10,7 @@ public class BaseDAO implements Closeable {
 
     private static final String URL = "jdbc:mysql://127.0.0.1:3306/db_Habbib?useUnicode=true&characterEncoding=UTF-8&serverTimezone=GMT&useSSL=false";
     private static final String USER = "root";
-    private static final String PASSWORD = "password";
+    private static final String PASSWORD = "123mudou";
 
     protected Connection connection;
 
