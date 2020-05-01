@@ -46,4 +46,5 @@ public class Requisition {
     public void setPatient(Patient patient) {
         this.patient = patient;
     }
+
 }

@@ -1,5 +1,7 @@
 package Habbib.model;
 
+import java.util.ArrayList;
+
 public class Institution {
     private int id;
     private String name;
@@ -8,7 +10,7 @@ public class Institution {
     private String type;
     private String contactNumber;
     private Address address;
-    private Requisition requisition;
+    private ArrayList<Requisition> requisitions;
 
     public int getId() {
         return id;
@@ -66,11 +68,11 @@ public class Institution {
         this.address = address;
     }
 
-    public Requisition getRequisition() {
-        return requisition;
+    public ArrayList<Requisition> getRequisitions() {
+        return requisitions;
     }
 
-    public void setRequisition(Requisition requisition) {
-        this.requisition = requisition;
+    public void setRequisitions(ArrayList<Requisition> requisitions) {
+        this.requisitions = requisitions;
     }
 }

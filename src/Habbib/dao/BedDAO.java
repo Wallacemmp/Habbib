@@ -17,7 +17,7 @@ public class BedDAO extends BaseDAO {
     {
         super();
     }
-    //TODO: (Finished) Testar
+    // Método que retorna um ArrayList com todos os leitos presentes em uma instituição.
     public ArrayList<Bed> getBedByInstitution(Institution institution) {
         PreparedStatement stmt;
         ResultSet rs;
@@ -25,15 +25,16 @@ public class BedDAO extends BaseDAO {
         Bed bed;
 
         try{
-            bed = new Bed();
-            beds = new ArrayList<Bed>();
+            beds = new ArrayList<>();
             String select = "SELECT * FROM Bed WHERE Id_Institution = ?";
             stmt = super.connection.prepareStatement(select);
             stmt.setInt(1,institution.getId());
             rs = stmt.executeQuery();
 
+            //Carrega objetos bed em seguida insere o OBJETO BED no ArrayList
             while(rs.next()){
 
+                bed = new Bed();
                 bed.setId(rs.getInt("Id"));
                 bed.setType(rs.getString("Type"));
                 bed.setStatus(rs.getString("Status"));
@@ -46,10 +47,10 @@ public class BedDAO extends BaseDAO {
         } catch (SQLException e){
             JOptionPane.showMessageDialog(null,"Erro ao buscar leitos.\n\n"+ e.getMessage(),"WARNING",JOptionPane.WARNING_MESSAGE);
         }
-
+        // retorno do ArrayList carregado.
         return beds;
     }
-    //TODO: (Finished) Testar
+    // Adiciona um novo leito por instituição, retornando o leito criado.
     public Bed addBed(String type, Institution institution) {
         PreparedStatement stmt;
         Bed bed = new Bed();
@@ -57,7 +58,7 @@ public class BedDAO extends BaseDAO {
         bed.setStatus("Disponível");
         bed.setInstitution(institution);
         ResultSet rs;
-
+        //Statement.RETURN_GENERATED_KEYS e getGeneratedKeys() são responsáveis por retornar a pk gerada para o registro.
         try{
             String insert = "INSERT INTO Bed VALUE (DEFAULT,?,DEFAULT,?)";
             stmt = super.connection.prepareStatement(insert, Statement.RETURN_GENERATED_KEYS);
@@ -66,15 +67,26 @@ public class BedDAO extends BaseDAO {
             stmt.executeUpdate();
             rs = stmt.getGeneratedKeys();
 
-            bed.setId(rs.getInt(1));
+            if(rs.next()){
+                bed.setId(rs.getInt(1));
+            }
 
         } catch (SQLException e){
             JOptionPane.showMessageDialog(null,"Erro ao adicionar leito.\n\n"+ e.getMessage(),"WARNING",JOptionPane.WARNING_MESSAGE);
         }
         return bed;
     }
-    //TODO: Criar método para excluir leito.
-    public void removeBed(String type) {
+    // Método para remover leito de uma instituição.
+    public void removeBed(Bed bed) {
+        PreparedStatement stmt;
 
+        try {
+            String delete = "DELETE FROM Bed WHERE Id = ?";
+            stmt = super.connection.prepareStatement(delete);
+            stmt.setInt(1,bed.getId());
+            stmt.executeUpdate();
+        } catch (SQLException e){
+            JOptionPane.showMessageDialog(null,"Erro ao excluir leito.\n\n"+ e.getMessage(),"WARNING",JOptionPane.WARNING_MESSAGE);
+        }
     }
 }

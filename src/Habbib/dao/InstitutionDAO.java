@@ -12,7 +12,6 @@ import java.sql.Statement;
 
 public class InstitutionDAO extends BaseDAO {
 
-
     public InstitutionDAO ()
     {
         super();
@@ -98,10 +97,10 @@ public class InstitutionDAO extends BaseDAO {
         }
         return institution;
     }
-    //TODO (Finished) Testar
+    // Método para remover instituição.
     public void removeInstitutionByName(String name) {
         PreparedStatement stmt;
-
+        // A query deleta tando a instituição quanto o endereço atrelado a ela.
         try{
             String delete = "DELETE a,i FROM Address a, Institution i WHERE i.Name = ? AND a.Id = i.Id_Address";
             stmt = super.connection.prepareStatement(delete);
@@ -118,7 +117,7 @@ public class InstitutionDAO extends BaseDAO {
         ResultSet rs;
         int key = 0;
 
-        // O Statement.RETURN_GENERATED_KEYS e .getGeneratedKeys() são responsavéis por retornar a pk criada para o registro
+        // O Statement.RETURN_GENERATED_KEYS e .getGeneratedKeys() são responsavéis por retornar a pk criada para o registro.
         try {
             String insert = "INSERT INTO Address VALUES (DEFAULT, ?, ?, ?, ?, ?, ?, ?)";
             stmt = super.connection.prepareStatement(insert, Statement.RETURN_GENERATED_KEYS);
@@ -132,7 +131,7 @@ public class InstitutionDAO extends BaseDAO {
             stmt.setString(7, address.getUf());
             stmt.executeUpdate();
             rs = stmt.getGeneratedKeys();
-
+            //  Insere a pk na variavél key.
             if (rs.next()) {
                 key = rs.getInt(1);
             }
@@ -141,12 +140,12 @@ public class InstitutionDAO extends BaseDAO {
         }
         return key;
     }
-    // Método responsavel por adicionar novas instituições.
+    // Método responsável por adicionar novas instituições.
     public void addInstitution(Institution institution) {
         PreparedStatement stmt;
         try {
-
-            String insert = "INSERT INTO Institution VALUES (DEFAULT, ?, ?, ?, ?, ?, ?,NULL)";
+            // O "NULL" no ultimo parâmetro da query é referente a requisição
+            String insert = "INSERT INTO Institution VALUES (DEFAULT, ?, ?, ?, ?, ?, ?)";
 
             stmt = super.connection.prepareStatement(insert);
 
