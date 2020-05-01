@@ -5,6 +5,7 @@ public class Requisition {
     private String status;
     private String description;
     private Bed bed;
+    private Patient patient;
 
     public int getId() {
         return id;
@@ -36,5 +37,13 @@ public class Requisition {
 
     public void setBed(Bed bed) {
         this.bed = bed;
+    }
+
+    public Patient getPatient() {
+        return patient;
+    }
+
+    public void setPatient(Patient patient) {
+        this.patient = patient;
     }
 }

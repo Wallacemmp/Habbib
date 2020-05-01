@@ -17,7 +17,7 @@ public class BedDAO extends BaseDAO {
     {
         super();
     }
-    //TODO:Testar
+    //TODO: (Finished) Testar
     public ArrayList<Bed> getBedByInstitution(Institution institution) {
         PreparedStatement stmt;
         ResultSet rs;
@@ -49,7 +49,7 @@ public class BedDAO extends BaseDAO {
 
         return beds;
     }
-    //TODO:Testar
+    //TODO: (Finished) Testar
     public Bed addBed(String type, Institution institution) {
         PreparedStatement stmt;
         Bed bed = new Bed();

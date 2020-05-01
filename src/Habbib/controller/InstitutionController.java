@@ -10,7 +10,7 @@ public class InstitutionController {
         //TODO corrigir lógica de validação da instituição já cadastrada
         try (InstitutionDAO institutionDAO = new InstitutionDAO()) {
 
-            Institution institutionNome = institutionDAO.getInstitutionByName(institution.getNome());
+            Institution institutionNome = institutionDAO.getInstitutionByName(institution.getName());
             Institution institutionCnpj = institutionDAO.getInstitutionByCNPJ(institution.getCnpj());
 
             if (institutionNome == null) {
@@ -18,8 +18,8 @@ public class InstitutionController {
                     institutionDAO.addInstitution(institution);
                 }
             } else {
-                if (institutionNome.getNome().equals(institution.getNome())) {
-                    throw new Exception("Instituição com o nome " + institution.getNome() + " já cadastrada.");
+                if (institutionNome.getName().equals(institution.getName())) {
+                    throw new Exception("Instituição com o nome " + institution.getName() + " já cadastrada.");
                 } else {
                     if (institutionCnpj.getCnpj().equals(institution.getCnpj())) {
                         throw new Exception("Instituição com o CNPJ" + institution.getCnpj() + " já cadastrada.");

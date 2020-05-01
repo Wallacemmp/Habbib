@@ -4,6 +4,7 @@ import Habbib.connection.BaseDAO;
 import Habbib.model.Address;
 import Habbib.model.Institution;
 
+import javax.swing.*;
 import java.sql.PreparedStatement;
 import java.sql.ResultSet;
 import java.sql.SQLException;
@@ -38,7 +39,7 @@ public class InstitutionDAO extends BaseDAO {
                 address = new Address();
 
                 institution.setId(rs.getInt("Id"));
-                institution.setNome(rs.getString("Name"));
+                institution.setName(rs.getString("Name"));
                 institution.setCnpj(rs.getString("CNPJ"));
                 institution.setPassword(rs.getString("Password"));
                 institution.setType(rs.getString("Type"));
@@ -55,7 +56,7 @@ public class InstitutionDAO extends BaseDAO {
 
             }
         } catch (SQLException e) {
-            throw new RuntimeException("Error connecting to database", e);
+            JOptionPane.showMessageDialog(null,"Erro ao pesquisar instituição por nome.\n\n"+ e.getMessage(),"WARNING",JOptionPane.WARNING_MESSAGE);
         }
 
         return institution;
@@ -78,7 +79,7 @@ public class InstitutionDAO extends BaseDAO {
                 Address address = new Address();
 
                 institution.setId(rs.getInt("Id"));
-                institution.setNome(rs.getString("Name"));
+                institution.setName(rs.getString("Name"));
                 institution.setCnpj(rs.getString("CNPJ"));
                 institution.setPassword(rs.getString("Password"));
                 institution.setType(rs.getString("Type"));
@@ -91,15 +92,13 @@ public class InstitutionDAO extends BaseDAO {
                 address.setNeighborhood(rs.getString("Neighborhood"));
                 address.setCity(rs.getString("City"));
                 address.setUf(rs.getString("UF"));
-
             }
-
-        } catch (SQLException sqlException) {
-            sqlException.printStackTrace();
+        } catch (SQLException e) {
+            JOptionPane.showMessageDialog(null,"Erro ao procurar leito por CNPJ.\n\n"+ e.getMessage(),"WARNING",JOptionPane.WARNING_MESSAGE);
         }
         return institution;
     }
-    //TODO testar
+    //TODO (Finished) Testar
     public void removeInstitutionByName(String name) {
         PreparedStatement stmt;
 
@@ -110,15 +109,16 @@ public class InstitutionDAO extends BaseDAO {
             stmt.executeUpdate();
 
         } catch (SQLException e) {
-            throw new RuntimeException("Error connecting to database", e);
+            JOptionPane.showMessageDialog(null,"Erro ao remover instituição.\n\n"+ e.getMessage(),"WARNING",JOptionPane.WARNING_MESSAGE);
         }
     }
-
+    // Método para adicionar um endereço que retorna a pk do registro criado.
     public int addAddressInstitution(Address address) {
         PreparedStatement stmt;
         ResultSet rs;
         int key = 0;
 
+        // O Statement.RETURN_GENERATED_KEYS e .getGeneratedKeys() são responsavéis por retornar a pk criada para o registro
         try {
             String insert = "INSERT INTO Address VALUES (DEFAULT, ?, ?, ?, ?, ?, ?, ?)";
             stmt = super.connection.prepareStatement(insert, Statement.RETURN_GENERATED_KEYS);
@@ -136,30 +136,30 @@ public class InstitutionDAO extends BaseDAO {
             if (rs.next()) {
                 key = rs.getInt(1);
             }
-        } catch(SQLException sqlException) {
-            sqlException.printStackTrace();
+        } catch(SQLException e) {
+            JOptionPane.showMessageDialog(null,"Erro ao adicionar endereço.\n\n"+ e.getMessage(),"WARNING",JOptionPane.WARNING_MESSAGE);
         }
-
         return key;
     }
-
+    // Método responsavel por adicionar novas instituições.
     public void addInstitution(Institution institution) {
         PreparedStatement stmt;
         try {
 
-            String insert = "INSERT INTO Institution VALUES (DEFAULT, ?, ?, ?, ?, ?, ?)";
+            String insert = "INSERT INTO Institution VALUES (DEFAULT, ?, ?, ?, ?, ?, ?,NULL)";
 
             stmt = super.connection.prepareStatement(insert);
 
-            stmt.setString(1, institution.getNome());
+            stmt.setString(1, institution.getName());
             stmt.setString(2, institution.getCnpj());
             stmt.setString(3, institution.getPassword());
             stmt.setString(4, institution.getType());
             stmt.setString(5, institution.getContactNumber());
             stmt.setInt(6, institution.getAddress().getId());
             stmt.executeUpdate();
+
         } catch (SQLException e) {
-            throw new RuntimeException("Error connecting to database", e);
+            JOptionPane.showMessageDialog(null,"Erro ao adicionar instituição.\n\n"+ e.getMessage(),"WARNING",JOptionPane.WARNING_MESSAGE);
         }
     }
 }

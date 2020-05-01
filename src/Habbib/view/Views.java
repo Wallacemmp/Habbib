@@ -293,7 +293,7 @@ public class Views extends JFrame{
 
                         //Adiciona as informações no objeto institution
                         institution.setCnpj(cpnjInput.getText());
-                        institution.setNome(nameInput.getText());
+                        institution.setName(nameInput.getText());
                         //TODO Fazer validação do password digitado
                         institution.setPassword(new String(passwordInput.getPassword()));
                         institution.setType((String) typeCB.getSelectedItem());

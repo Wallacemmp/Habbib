@@ -3,7 +3,6 @@ package Habbib.model;
 import java.util.Date;
 
 public class Patient {
-
     private int id;
     private String FirstName;
     private String LastName;
@@ -11,8 +10,6 @@ public class Patient {
     private Date dob;
     private String gender;
     private String cid;
-    private Institution institution;
-    private Requisition requisition;
 
     public int getId() {
         return id;
@@ -68,21 +65,5 @@ public class Patient {
 
     public void setCid(String cid) {
         this.cid = cid;
-    }
-
-    public Institution getInstitution() {
-        return institution;
-    }
-
-    public void setInstitution(Institution institution) {
-        this.institution = institution;
-    }
-
-    public Requisition getRequisition() {
-        return requisition;
-    }
-
-    public void setRequisition(Requisition requisition) {
-        this.requisition = requisition;
     }
 }
