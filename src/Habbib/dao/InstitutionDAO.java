@@ -60,7 +60,7 @@ public class InstitutionDAO extends BaseDAO {
 
         return institution;
     }
-
+    // Método para pegar instituções, pesquisando por CNPJ e retornar a instituição encontrada.
     public Institution getInstitutionByCNPJ(String cnpj) {
         PreparedStatement stmt;
         ResultSet rs;
@@ -99,7 +99,7 @@ public class InstitutionDAO extends BaseDAO {
         }
         return institution;
     }
-    //TODO:Testar
+    //TODO testar
     public void removeInstitutionByName(String name) {
         PreparedStatement stmt;
 
@@ -130,7 +130,6 @@ public class InstitutionDAO extends BaseDAO {
             stmt.setString(5, address.getNeighborhood());
             stmt.setString(6, address.getCity());
             stmt.setString(7, address.getUf());
-
             stmt.executeUpdate();
             rs = stmt.getGeneratedKeys();
 

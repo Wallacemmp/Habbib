@@ -17,20 +17,14 @@ public class PatientDAO extends BaseDAO {
         super();
     }
 
-    /*public ArrayList<Patient> getPatient(){
-        SessionController sessionController;
-        Institution institution;
+    public ArrayList<Patient> getPatientByInstitution(Institution institution){
         Patient patient;
-        ArrayList<Patient> patients = null;
-
+        ArrayList<Patient> patients;
         PreparedStatement stmt;
         ResultSet rs;
 
-
         try{
 
-            sessionController = new SessionController();
-            institution = sessionController.getLoggedInstitution();
             patient = new Patient();
             patients = new ArrayList<Patient>();
 
@@ -38,8 +32,6 @@ public class PatientDAO extends BaseDAO {
             stmt = super.connection.prepareStatement(select);
             stmt.setInt(1,institution.getId());
             rs = stmt.executeQuery();
-
-
 
             while (rs.next()){
                 patient.setId(rs.getInt("Id"));
@@ -58,5 +50,5 @@ public class PatientDAO extends BaseDAO {
         }
 
         return patients;
-    }*/
+    }
 }

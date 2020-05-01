@@ -1,12 +1,14 @@
 package Habbib.dao;
 
 import Habbib.connection.BaseDAO;
-import Habbib.controller.SessionController;
 import Habbib.model.Bed;
 import Habbib.model.Institution;
+
+import javax.swing.*;
 import java.sql.PreparedStatement;
 import java.sql.ResultSet;
 import java.sql.SQLException;
+import java.sql.Statement;
 import java.util.ArrayList;
 
 public class BedDAO extends BaseDAO {
@@ -16,21 +18,18 @@ public class BedDAO extends BaseDAO {
         super();
     }
     //TODO:Testar
-    public ArrayList<Bed> getBedByInstitution(String name) {
+    public ArrayList<Bed> getBedByInstitution(Institution institution) {
         PreparedStatement stmt;
         ResultSet rs;
-        InstitutionDAO institutionDAO;
-        ArrayList<Bed> beds;
+        ArrayList<Bed> beds = null;
         Bed bed;
 
         try{
-
-            institutionDAO = new InstitutionDAO();
             bed = new Bed();
             beds = new ArrayList<Bed>();
-            String select = "SELECT * FROM Bed WHERE Id_Institution = (SELECT Id FROM Institution WHERE Name = ?)";
+            String select = "SELECT * FROM Bed WHERE Id_Institution = ?";
             stmt = super.connection.prepareStatement(select);
-            stmt.setString(1,name);
+            stmt.setInt(1,institution.getId());
             rs = stmt.executeQuery();
 
             while(rs.next()){
@@ -38,56 +37,44 @@ public class BedDAO extends BaseDAO {
                 bed.setId(rs.getInt("Id"));
                 bed.setType(rs.getString("Type"));
                 bed.setStatus(rs.getString("Status"));
-                bed.setInstitution(institutionDAO.getInstitutionByName(name));
+                bed.setInstitution(institution);
 
                 beds.add(bed);
 
             }
 
         } catch (SQLException e){
-            throw new RuntimeException("Error connecting to database", e);
+            JOptionPane.showMessageDialog(null,"Erro ao buscar leitos.\n\n"+ e.getMessage(),"WARNING",JOptionPane.WARNING_MESSAGE);
         }
 
         return beds;
     }
     //TODO:Testar
-    /*public void addBedByType(String type) {
+    public Bed addBed(String type, Institution institution) {
         PreparedStatement stmt;
-        SessionController sessionController;
-        Institution institution;
+        Bed bed = new Bed();
+        bed.setType(type);
+        bed.setStatus("Disponível");
+        bed.setInstitution(institution);
+        ResultSet rs;
 
         try{
-
-            sessionController = new SessionController();
-            institution = sessionController.getLoggedInstitution();
             String insert = "INSERT INTO Bed VALUE (DEFAULT,?,DEFAULT,?)";
-            stmt = super.connection.prepareStatement(insert);
+            stmt = super.connection.prepareStatement(insert, Statement.RETURN_GENERATED_KEYS);
             stmt.setString(1,type);
             stmt.setInt(2,institution.getId());
-            stmt.execute();
+            stmt.executeUpdate();
+            rs = stmt.getGeneratedKeys();
+
+            bed.setId(rs.getInt(1));
 
         } catch (SQLException e){
-            throw new RuntimeException("Error connecting to database", e);
+            JOptionPane.showMessageDialog(null,"Erro ao adicionar leito.\n\n"+ e.getMessage(),"WARNING",JOptionPane.WARNING_MESSAGE);
         }
-    }*/
-    ///TODO: Criar uma query que delete um leito aleatório por tipo.
-    /*public void removeBed(String type) {
-        PreparedStatement stmt;
-        SessionController sessionController;
-        Institution institution;
+        return bed;
+    }
+    //TODO: Criar método para excluir leito.
+    public void removeBed(String type) {
 
-        try{
-            sessionController = new SessionController();
-            institution = sessionController.getLoggedInstitution();
-            String insert = "DELETE FROM Bed WHERE(SELECT Id FROM Bed WHERE Type = ? AND Id_Institution = ? LIMIT 1)";
-            stmt = super.connection.prepareStatement(insert);
-            stmt.setString(1,type);
-            stmt.setInt(2,institution.getId());
-            stmt.execute();
-
-        } catch (SQLException e){
-            throw new RuntimeException("Error connecting to database", e);
-        }
-    }*/
-
+    }
 }

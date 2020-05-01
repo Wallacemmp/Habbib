@@ -1,5 +1,6 @@
 package Habbib.connection;
 
+import javax.swing.*;
 import java.io.Closeable;
 import java.io.IOException;
 import java.sql.Connection;
@@ -19,7 +20,7 @@ public class BaseDAO implements Closeable {
         try {
             connection = DriverManager.getConnection(URL, USER, PASSWORD);
         } catch (SQLException e) {
-            throw new RuntimeException("Database connection failure", e);
+            JOptionPane.showMessageDialog(null,"Erro ao se conectar com o banco.\n\n"+ e.getMessage(),"WARNING",JOptionPane.WARNING_MESSAGE);
         }
     }
 
