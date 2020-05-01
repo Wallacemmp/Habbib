@@ -88,19 +88,9 @@
     <property name="Repository.Attach.Sources" value="false" />
     <property name="RunOnceActivity.ShowReadmeOnStart" value="true" />
     <property name="SHARE_PROJECT_CONFIGURATION_FILES" value="true" />
-    <property name="WebServerToolWindowFactoryState" value="false" />
-    <property name="aspect.path.notification.shown" value="true" />
-    <property name="node.js.detected.package.eslint" value="true" />
-    <property name="node.js.detected.package.tslint" value="true" />
-    <property name="node.js.path.for.package.eslint" value="project" />
-    <property name="node.js.path.for.package.tslint" value="project" />
-    <property name="node.js.selected.package.eslint" value="(autodetect)" />
-    <property name="node.js.selected.package.tslint" value="(autodetect)" />
-    <property name="nodejs_package_manager_path" value="npm" />
-    <property name="project.structure.last.edited" value="Libraries" />
+    <property name="project.structure.last.edited" value="SDKs" />
     <property name="project.structure.proportion" value="0.15" />
     <property name="project.structure.side.proportion" value="0.2" />
-    <property name="settings.editor.selected.configurable" value="project.propVCSSupport.Mappings" />
   </component>
   <component name="RecentsManager">
     <key name="CopyClassDialog.RECENTS_KEY">
@@ -244,12 +234,16 @@
       <screen x="1366" y="0" width="1366" height="768" />
     </state>
     <state x="614" y="114" key="CommitChangelistDialog2/0.0.1920.1040/1920.0.1600.860@0.0.1920.1040" timestamp="1586908863127" />
-    <state x="1658" y="0" key="CommitChangelistDialog2/1366.0.1366.768/0.0.1366.717@1366.0.1366.768" timestamp="1587531736603" />
     <state x="1640" y="86" width="1092" height="573" key="DiffContextDialog" timestamp="1587532231126">
       <screen x="1366" y="0" width="1366" height="768" />
     </state>
     <state x="1640" y="86" width="1092" height="573" key="DiffContextDialog/1366.0.1366.768/0.0.1366.717@1366.0.1366.768" timestamp="1587532231126" />
     <state x="540" y="212" key="FileChooserDialogImpl" timestamp="1587602079676">
+      <screen x="0" y="0" width="1920" height="1040" />
+    </state>
+    <state x="336" y="5" key="SettingsEditor/0.0.1920.1040/1920.0.1600.860@0.0.1920.1040" timestamp="1587162068997" />
+    <state x="2200" y="4" key="SettingsEditor/0.0.1920.1040/1920.0.1600.860@1920.0.1600.860" timestamp="1586999890502" />
+    <state x="616" y="240" key="run.anything.popup" timestamp="1586908933180">
       <screen x="0" y="0" width="1920" height="1040" />
     </state>
     <state x="540" y="212" key="FileChooserDialogImpl/0.0.1920.1040/1920.0.1600.860@0.0.1920.1040" timestamp="1587602079676" />
