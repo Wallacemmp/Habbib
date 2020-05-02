@@ -34,7 +34,7 @@ public class RequisitionDAO extends BaseDAO{
                     " FROM Requisition r" +
                     " JOIN Patient p ON r.Id_Patient = p.Id" +
                     " JOIN Bed b ON r.Id_Bed = b.Id" +
-                    " JOIN Institution i ON b.Id_Institution = i.Id AND i.Id = ?";
+                    " JOIN Institution i ON i.Id = ?";
             stmt = super.connection.prepareStatement(select);
             stmt.setInt(1,institution.getId());
             rs = stmt.executeQuery();
