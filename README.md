@@ -13,5 +13,12 @@ Some instructions
 
 ## Authors
 
+* **Alex Batista Farias** - (https://github.com/alexfarias53)
 * **Arthur M P Camargo** - (https://github.com/arthurmpc)
+* **Donald M Barbosa** - (https://github.com/DonaldBarbosa)
+* **Rafael Augusto Monteiro** - (https://github.com/rafaelbritez)
+* **Wallace M M Pontes** - (https://github.com/Wallacemmp)
+* **Wesley Felix da Mata** - (https://github.com/welix)
+
+* ****
 
