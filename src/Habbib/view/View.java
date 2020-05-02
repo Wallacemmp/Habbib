@@ -187,21 +187,21 @@ public class View extends BaseView{
                         InstitutionController registerInstitution = new InstitutionController();
 
                         //Adiciona as informações no objeto address
-                        address.setZipCode((String) zipCodeInput.getText());
-                        address.setAddress((String) addressInput.getText());
-                        address.setNumber(Integer.parseInt((String) numberInput.getText()));
-                        address.setComplement((String) complementInput.getText());
-                        address.setNeighborhood((String) neighborhoodInput.getText());
-                        address.setUf((String) UFCB.getSelectedItem());
-                        address.setCity((String) cityInput.getText());
+                        address.setZipCode(zipCodeInput.getText());
+                        address.setAddress(addressInput.getText());
+                        address.setNumber(Integer.parseInt(numberInput.getText()));
+                        address.setComplement(complementInput.getText());
+                        address.setNeighborhood(neighborhoodInput.getText());
+                        address.setUf(UFCB.getSelectedItem().toString());
+                        address.setCity(cityInput.getText());
                         address.setId(registerInstitution.addAddress(address));
 
                         //Adiciona as informações no objeto institution
-                        institution.setCnpj((String) cnpjInput.getText());
-                        institution.setNome((String) nameInput.getText());
-                        institution.setPassword((String) passwordInput.getText());
-                        institution.setType((String) typeCB.getSelectedItem());
-                        institution.setContactNumber((String) phoneInput.getText());
+                        institution.setCnpj(cnpjInput.getText());
+                        institution.setNome(nameInput.getText());
+                        institution.setPassword(passwordInput.getText());
+                        institution.setType(typeCB.getSelectedItem().toString());
+                        institution.setContactNumber(phoneInput.getText());
                         institution.setAddress(address);
                         registerInstitution.Register(institution);
                         JOptionPane.showMessageDialog(null, "Cadastrado com sucesso!", "INFORMATION", JOptionPane.INFORMATION_MESSAGE);
