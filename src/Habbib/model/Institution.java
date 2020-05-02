@@ -1,14 +1,12 @@
-package com.habbib.model;
-
-import com.habbib.enumerator.InstitutionType;
+package Habbib.model;
 
 public class Institution {
     private int id;
-    private int cnpj;
-    private String nome;
+    private String cnpj;
+    private String name;
     private String password;
-    private long contactNumber;
-    private InstitutionType type;
+    private String contactNumber;
+    private String type;
     private Address address;
 
     public int getId() {
@@ -19,20 +17,20 @@ public class Institution {
         this.id = id;
     }
 
-    public int getCnpj() {
+    public String getCnpj() {
         return cnpj;
     }
 
-    public void setCnpj(int cnpj) {
+    public void setCnpj(String cnpj) {
         this.cnpj = cnpj;
     }
 
     public String getNome() {
-        return nome;
+        return name;
     }
 
-    public void setNome(String nome) {
-        this.nome = nome;
+    public void setNome(String name) {
+        this.name = name;
     }
 
     public String getPassword() {
@@ -43,19 +41,19 @@ public class Institution {
         this.password = password;
     }
 
-    public long getContactNumber() {
+    public String getContactNumber() {
         return contactNumber;
     }
 
-    public void setContactNumber(long contactNumber) {
+    public void setContactNumber(String contactNumber) {
         this.contactNumber = contactNumber;
     }
 
-    public InstitutionType getType() {
+    public String getType() {
         return type;
     }
 
-    public void setType(InstitutionType type) {
+    public void setType(String type) {
         this.type = type;
     }
 
