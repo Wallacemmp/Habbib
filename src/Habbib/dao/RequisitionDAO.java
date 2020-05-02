@@ -53,7 +53,7 @@ public class RequisitionDAO extends BaseDAO{
         return requisitions;
     }
     //TODO verificar onde adicionar a instituição
-    public Requisition addRequisition(Requisition requisition, Institution institution) {
+    public Requisition addRequisition(Requisition requisition, Institution institution) throws Exception{
         PreparedStatement stmt;
         ResultSet rs;
 
@@ -74,7 +74,6 @@ public class RequisitionDAO extends BaseDAO{
                 requisition.setId(rs.getInt(1));
             }
 
-
         } catch (Exception e){
             System.out.println(e.getMessage());
             throw e;
@@ -83,7 +82,7 @@ public class RequisitionDAO extends BaseDAO{
         return requisition;
     }
 
-    public void updateRequisition(Requisition requisition)
+    public void updateRequisition(Requisition requisition) throws Exception
     {
         PreparedStatement stmt;
         ResultSet rs;
@@ -98,7 +97,8 @@ public class RequisitionDAO extends BaseDAO{
         }
         catch(Exception e)
         {
-            JOptionPane.showMessageDialog(null,"Erro ao atualizar a solicitação.\n\n"+ e.getMessage(),"WARNING",JOptionPane.WARNING_MESSAGE);
+            System.out.println(e.getMessage());
+            throw e;
         }
     }
 

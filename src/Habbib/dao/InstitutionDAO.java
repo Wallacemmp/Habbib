@@ -60,6 +60,7 @@ public class InstitutionDAO extends BaseDAO {
         return institution;
     }
     // Método para pegar instituções, pesquisando por CNPJ e retornar a instituição encontrada.
+    //TODO ajustar o método
     public Institution getInstitutionByCNPJ(String cnpj) throws Exception{
         PreparedStatement stmt;
         ResultSet rs;
@@ -114,10 +115,9 @@ public class InstitutionDAO extends BaseDAO {
         }
     }
     // Método para adicionar um endereço que retorna a pk do registro criado.
-    public int addAddressInstitution(Address address) throws Exception{
+    public Address addAddressInstitution(Address address) throws Exception{
         PreparedStatement stmt;
         ResultSet rs;
-        int key = 0;
 
         // O Statement.RETURN_GENERATED_KEYS e .getGeneratedKeys() são responsavéis por retornar a pk criada para o registro.
         try {
@@ -143,7 +143,6 @@ public class InstitutionDAO extends BaseDAO {
         }
         return address;
     }
-
     // Método responsável por adicionar novas instituições.
     public void addInstitution(Institution institution) throws Exception{
         PreparedStatement stmt;

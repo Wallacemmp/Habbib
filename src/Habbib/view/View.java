@@ -226,7 +226,7 @@ public class View extends BaseView{
                         address.setNeighborhood((String) neighborhoodInput.getText());
                         address.setUf((String) UFCB.getSelectedItem());
                         address.setCity((String) cityInput.getText());
-                        address.setId(registerInstitution.registerAddress(address));
+                        address.setId(registerInstitution.registerAddress(address).getId());
 
                         //Adiciona as informações no objeto institution
                         institution.setCnpj((String) cpnjInput.getText());
