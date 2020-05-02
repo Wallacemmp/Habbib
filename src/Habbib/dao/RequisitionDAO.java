@@ -6,10 +6,8 @@ import Habbib.model.Institution;
 import Habbib.model.Patient;
 import Habbib.model.Requisition;
 
-import javax.swing.*;
 import java.sql.PreparedStatement;
 import java.sql.ResultSet;
-import java.sql.SQLException;
 import java.sql.Statement;
 import java.util.ArrayList;
 
@@ -19,11 +17,11 @@ public class RequisitionDAO extends BaseDAO{
     {
         super();
     }
-
-    public ArrayList<Requisition> getRequisitionsByInstitution(Institution institution) {
+    //TODO (Finished) Testar
+    public ArrayList<Requisition> getRequisitionsByInstitution(Institution institution) throws Exception {
         PreparedStatement stmt;
         ResultSet rs;
-        ArrayList<Requisition> requisitions = null;
+        ArrayList<Requisition> requisitions;
         Requisition requisition;
 
         try{
@@ -43,19 +41,19 @@ public class RequisitionDAO extends BaseDAO{
 
                 requisitions.add(requisition);
 
-                //institution.setRequisitions(requisition);
             }
 
             institution.setRequisitions(requisitions);
 
-        } catch (SQLException e){
-            JOptionPane.showMessageDialog(null,"Erro ao buscar leitos.\n\n"+ e.getMessage(),"WARNING",JOptionPane.WARNING_MESSAGE);
+        } catch (Exception e){
+            System.out.println(e.getMessage());
+            throw e;
         }
         // retorno do ArrayList carregado.
         return requisitions;
     }
     //TODO (Finished) Testar
-    public Requisition addRequisition(Bed bed, Patient patient, Requisition requisition) {
+    public Requisition addRequisition(Bed bed, Patient patient, Requisition requisition) throws Exception{
         PreparedStatement stmt;
         ResultSet rs;
         requisition.setBed(bed);
@@ -72,8 +70,9 @@ public class RequisitionDAO extends BaseDAO{
 
             requisition.setId(rs.getInt(1));
 
-        } catch (SQLException e){
-            JOptionPane.showMessageDialog(null,"Erro ao criar solicitação.\n\n"+ e.getMessage(),"WARNING",JOptionPane.WARNING_MESSAGE);
+        } catch (Exception e){
+            System.out.println(e.getMessage());
+            throw e;
         }
 
         return requisition;

@@ -4,10 +4,9 @@ import Habbib.connection.BaseDAO;
 import Habbib.model.Bed;
 import Habbib.model.Institution;
 
-import javax.swing.*;
+
 import java.sql.PreparedStatement;
 import java.sql.ResultSet;
-import java.sql.SQLException;
 import java.sql.Statement;
 import java.util.ArrayList;
 
@@ -18,10 +17,10 @@ public class BedDAO extends BaseDAO {
         super();
     }
     // Método que retorna um ArrayList com todos os leitos presentes em uma instituição.
-    public ArrayList<Bed> getBedByInstitution(Institution institution) {
+    public ArrayList<Bed> getBedByInstitution(Institution institution) throws Exception{
         PreparedStatement stmt;
         ResultSet rs;
-        ArrayList<Bed> beds = null;
+        ArrayList<Bed> beds;
         Bed bed;
 
         try{
@@ -43,27 +42,24 @@ public class BedDAO extends BaseDAO {
                 beds.add(bed);
 
             }
-
-        } catch (SQLException e){
-            JOptionPane.showMessageDialog(null,"Erro ao buscar leitos.\n\n"+ e.getMessage(),"WARNING",JOptionPane.WARNING_MESSAGE);
+        } catch (Exception e){
+            System.out.println(e.getMessage());
+            throw e;
         }
         // retorno do ArrayList carregado.
         return beds;
     }
     // Adiciona um novo leito por instituição, retornando o leito criado.
-    public Bed addBed(String type, Institution institution) {
+    public Bed addBed(Bed bed) throws Exception {
         PreparedStatement stmt;
-        Bed bed = new Bed();
-        bed.setType(type);
-        bed.setStatus("Disponível");
-        bed.setInstitution(institution);
         ResultSet rs;
+
         //Statement.RETURN_GENERATED_KEYS e getGeneratedKeys() são responsáveis por retornar a pk gerada para o registro.
         try{
             String insert = "INSERT INTO Bed VALUE (DEFAULT,?,DEFAULT,?)";
             stmt = super.connection.prepareStatement(insert, Statement.RETURN_GENERATED_KEYS);
-            stmt.setString(1,type);
-            stmt.setInt(2,institution.getId());
+            stmt.setString(1,bed.getType());
+            stmt.setInt(2,bed.getInstitution().getId());
             stmt.executeUpdate();
             rs = stmt.getGeneratedKeys();
 
@@ -71,13 +67,14 @@ public class BedDAO extends BaseDAO {
                 bed.setId(rs.getInt(1));
             }
 
-        } catch (SQLException e){
-            JOptionPane.showMessageDialog(null,"Erro ao adicionar leito.\n\n"+ e.getMessage(),"WARNING",JOptionPane.WARNING_MESSAGE);
+        } catch (Exception e){
+            System.out.println(e.getMessage());
+            throw e;
         }
         return bed;
     }
     // Método para remover leito de uma instituição.
-    public void removeBed(Bed bed) {
+    public void removeBed(Bed bed) throws Exception{
         PreparedStatement stmt;
 
         try {
@@ -85,8 +82,8 @@ public class BedDAO extends BaseDAO {
             stmt = super.connection.prepareStatement(delete);
             stmt.setInt(1,bed.getId());
             stmt.executeUpdate();
-        } catch (SQLException e){
-            JOptionPane.showMessageDialog(null,"Erro ao excluir leito.\n\n"+ e.getMessage(),"WARNING",JOptionPane.WARNING_MESSAGE);
+        } catch (Exception e){
+            System.out.println(e.getMessage());
         }
     }
 }

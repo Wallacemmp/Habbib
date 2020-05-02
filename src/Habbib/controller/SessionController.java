@@ -18,8 +18,9 @@ public class SessionController {
             }else {
                 throw new Exception("Password wrong !");
             }
-        }catch (Exception ex){
-            throw ex;
+        } catch (Exception e){
+            System.out.println(e.getMessage());
+            throw e;
         }
     }
 }
