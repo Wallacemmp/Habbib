@@ -26,7 +26,8 @@ public class RequisitionDAO extends BaseDAO{
 
         try{
             requisitions = new ArrayList<>();
-            String select = "SELECT * FROM Requisition WHERE Id_Institution = ?";
+            //TODO fazer o join para retornar o paciente com a requisition
+            String select = "SELECT i.Name, p.FirstName, p.LastName, b.Type, r.Status FROM Requisition r JOIN Patient p JOIN Bed b JOIN Institution i ON i.Id = b.Id_Institution AND r.Id_Patient = p.Id AND r.Id_Institution = b.Id_Institution AND i.Id =  ?";
             stmt = super.connection.prepareStatement(select);
             stmt.setInt(1,institution.getId());
             rs = stmt.executeQuery();
@@ -38,6 +39,8 @@ public class RequisitionDAO extends BaseDAO{
                 requisition.setId(rs.getInt("Id"));
                 requisition.setStatus(rs.getString("Status"));
                 requisition.setDescription(rs.getString("Description"));
+
+                requisition.setPatient();
 
                 requisitions.add(requisition);
 
@@ -82,8 +85,7 @@ public class RequisitionDAO extends BaseDAO{
         return requisition;
     }
 
-    public void updateRequisition(Requisition requisition) throws Exception
-    {
+    public void updateRequisition(Requisition requisition) throws Exception {
         PreparedStatement stmt;
         ResultSet rs;
 
@@ -101,5 +103,4 @@ public class RequisitionDAO extends BaseDAO{
             throw e;
         }
     }
-
 }
