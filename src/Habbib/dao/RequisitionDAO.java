@@ -49,7 +49,7 @@ public class RequisitionDAO extends BaseDAO{
                 patient.setLastName(rs.getString("LastName"));
                 patient.setCpf(rs.getString("CPF"));
                 patient.setDob(rs.getDate("DOB"));
-                patient.setGender(rs.getString("DOB"));
+                patient.setGender(rs.getString("Gender"));
                 patient.setCid(rs.getString("CID"));
 
                 //TODO Montar objeto bed
