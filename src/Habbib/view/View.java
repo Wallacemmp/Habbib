@@ -113,9 +113,6 @@ public class View extends BaseView{
         JComboBox typeInput = super.createComboBox(new String[]{"Selecionar","Particular", "Privado"},490,100,100,20);
         JComboBox UFCB = super.createComboBox(new String[]{"Selecionar","SP","RJ"},322,220,86,22);
 
-
-
-
         register.addActionListener(new ActionListener() {
             @Override
             public void actionPerformed(ActionEvent e) {
@@ -143,7 +140,6 @@ public class View extends BaseView{
             }
         });
 
-
         registerContainer.add(nameInput);
         registerContainer.add(cnpjInput);
         registerContainer.add(typeInput);
@@ -159,8 +155,6 @@ public class View extends BaseView{
         registerContainer.add(cPasswordInput);
         registerContainer.add(backButton1);
         registerContainer.add(register);
-
-
 
         backButton1.addActionListener(new ActionListener() {
             @Override
@@ -223,7 +217,6 @@ public class View extends BaseView{
             }
         });
 
-
         registerContainer.add(super.createHeaderLabel("Cadastre sua instituição", 169,10, 251, 32));
 
         setVisible(true);
@@ -231,9 +224,6 @@ public class View extends BaseView{
 
 
     }
-     ////////////// codigo antigo ///////////////
-
-
 
     private Container initMenu(Institution institution){
         JPanel menuContainer = new JPanel();
@@ -298,7 +288,6 @@ public class View extends BaseView{
         menuContainer.add(exit);
 
         setVisible(true);
-
 
         return menuContainer;
     }
@@ -392,13 +381,9 @@ public class View extends BaseView{
         return requesterContainer;
     }
 
-
     private Container initRegisterBed(Institution institution){
         JPanel registerBedContainer= new JPanel();
         registerBedContainer.setLayout(null);
-
-        registerBedContainer.add(super.createHeaderLabel("Tela do cadastrar leito", 150,10,300,32));
-
 
         JButton exit = new JButton("Sair");
         exit.setBounds(10, 427,78, 30 );
@@ -413,30 +398,21 @@ public class View extends BaseView{
 
         });
 
-
-
-        //Alex
-
-
         registerBedContainer.add(super.createHeaderLabel("Tela do Cadastrar leito", 150,10,300,32));
         registerBedContainer.add(super.createInputLabel("Tipo:",10,60,100,20));
         registerBedContainer.add(super.createInputLabel("Quantidade:",30,100,100,20));
         registerBedContainer.add(super.createInputLabel("Descrião da solicitação",160,140,300,32));
-
 
         JComboBox typeInput = super.createComboBox(new String[]{"Selecionar","UTI", "Semi-intensivo","Baixa Complexidade"},245,60,120,20);
         JTextField amountInput = super.createTextField(245,100,25,22);
         JTextField boxtext = super.createTextField(40,180,520,220);
         JButton backButton2 = super.createButton("Voltar",90,427,78, 30 );
 
-
-
         registerBedContainer.add(typeInput);
         registerBedContainer.add(amountInput);
         registerBedContainer.add(boxtext);
         registerBedContainer.add(backButton2);
         registerBedContainer.add(exit);
-
 
         backButton2.addActionListener(new ActionListener() {
             @Override
@@ -450,8 +426,6 @@ public class View extends BaseView{
                 }
             }
         });
-
-
 
         exit.addActionListener(new ActionListener() {
             @Override
@@ -468,8 +442,6 @@ public class View extends BaseView{
         return registerBedContainer;
 
     }
-
-
 
     private Container initRequestBed(Institution institution){
         JPanel requestBedContainer= new JPanel();
@@ -524,5 +496,4 @@ public class View extends BaseView{
 
         return  requestBedContainer;
     }
-
 }
