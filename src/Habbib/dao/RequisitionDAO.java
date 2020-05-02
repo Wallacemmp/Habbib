@@ -30,11 +30,11 @@ public class RequisitionDAO extends BaseDAO{
         try{
             requisitions = new ArrayList<>();
             //TODO fazer o join para retornar o paciente com a requisition
-            String select = "SELECT p.*, r.*, i.name AS Nome_Fornecedor, b.*" +
-                    "FROM Requisition r" +
-                    "JOIN Patient p ON r.Id_Patient = p.Id" +
-                    "JOIN Bed b ON r.Id_Bed = b.Id" +
-                    "JOIN Institution i ON b.Id_Institution = ?";
+            String select = "SELECT DISTINCT p.*, r.*, i.name AS Nome_Fornecedor, b.*" +
+                    " FROM Requisition r" +
+                    " JOIN Patient p ON r.Id_Patient = p.Id" +
+                    " JOIN Bed b ON r.Id_Bed = b.Id" +
+                    " JOIN Institution i ON b.Id_Institution = i.Id AND i.Id = ?";
             stmt = super.connection.prepareStatement(select);
             stmt.setInt(1,institution.getId());
             rs = stmt.executeQuery();
