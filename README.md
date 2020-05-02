@@ -1,6 +1,6 @@
 [![Build Status](https://travis-ci.org/HabbibCorona/Habbib.svg?branch=master)](https://travis-ci.org/HabbibCorona/Habbib)
 [![Java 2.2](https://img.shields.io/badge/Java-13.0.2-blue)](https://www.oracle.com/java/technologies/javase-jdk13-downloads.html)
-[![MySql 8.0.19](https://img.shields.io/badge/MySql-8.0.19-blue)](https://www.mysql.com/downloads/)
+[![MySql 8.0.17](https://img.shields.io/badge/MySql-8.0.17-blue)](https://www.mysql.com/downloads/)
 
 # Habbib
 
