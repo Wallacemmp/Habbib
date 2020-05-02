@@ -1,6 +1,5 @@
 package Habbib.connection;
 
-import javax.swing.*;
 import java.io.Closeable;
 import java.io.IOException;
 import java.sql.Connection;
