@@ -78,117 +78,91 @@ public class View extends BaseView{
         JPanel registerContainer = new JPanel();
         registerContainer.setLayout(null);
 
+        registerContainer.add(super.createHeaderLabel("Cadastro de usuário", 230,20,200,40));
+        registerContainer.add(super.createInputLabel("Nome:",10,59,40,20));
+        registerContainer.add(super.createInputLabel("CNPJ:",10,99,40,20));
+        registerContainer.add(super.createInputLabel("Tipo:",408,99,60,20));
+        registerContainer.add(super.createInputLabel("Endereco:",10,139,59,20));
+        registerContainer.add(super.createInputLabel("CEP:",10,179,27,20));
+        registerContainer.add(super.createInputLabel("Bairro:",212,179,39,20));
+        registerContainer.add(super.createInputLabel("Número:",415,139,59,20));
+        registerContainer.add(super.createInputLabel("Compl:",393,179,100,20));
+        registerContainer.add(super.createInputLabel("Cidade:",10,219,45,20));
+        registerContainer.add(super.createInputLabel("UF:",300,219,20,20));
+        registerContainer.add(super.createInputLabel("Telefone:",415,219,59,20));
+        registerContainer.add(super.createInputLabel("Senha:",10,259,40,20));
+        registerContainer.add(super.createInputLabel("Confirmar senha:",276,259,104,20));
+        registerContainer.add(super.createInputLabel("Voltar",86,428,109,311));
+        registerContainer.add(super.createInputLabel("Confirmar",106,428,109,311));
+
+        // chama a caixa de mensagem
+        JTextField nameInput = super.createTextField(79,60,512,22);
+        JTextField cnpjInput = super.createTextField(79,100,330,22);
+        //JTextField typeInput = super.createTextField(490,100,100,20);
+        JTextField addressInput = super.createTextField(79,139,330,22);
+        JTextField zipCodeInput = super.createTextField(80,180,130,22);
+        JTextField neighborhoodInput = super.createTextField(254,180,155,22);
+        JTextField numberInput = super.createTextField(489,139,101,22);
+        JTextField complementInput = super.createTextField(489,180,101,22);
+        JTextField cityInput = super.createTextField(79,220,220,22);
+        JTextField phoneInput = super.createTextField(489,220,101,22);
+        JTextField passwordInput = super.createTextField(78,260,192,22);
+        JTextField cPasswordInput = super.createTextField(390,260,200,22);
+        JButton backButton1 = super.createButton("Voltar",82,428,109,22);
+        JButton register = super.createButton("Confirmar",200,428,109,22);
+        JComboBox typeInput = super.createComboBox(new String[]{"Selecionar","Particular", "Privado"},490,100,100,20);
+        JComboBox UFCB = super.createComboBox(new String[]{"Selecionar","SP","RJ"},322,220,86,22);
 
 
-        JLabel nameLabel = new JLabel("Nome:");
-        nameLabel.setBounds(10,59,40,20);
-        nameLabel.setHorizontalAlignment(SwingConstants.CENTER);
-        nameLabel.setVerticalAlignment(SwingConstants.CENTER);
-        nameLabel.setFont(new Font("Segoe UI Historic", 0, 14));
-        JTextField  nameInput = new JTextField();
-        nameInput.setBounds(79,60,512,22);
-
-        JLabel cnpjLabel = new JLabel("CNPJ:");
-        cnpjLabel.setBounds(10,99,40,20);
-        cnpjLabel.setHorizontalAlignment(SwingConstants.CENTER);
-        cnpjLabel.setVerticalAlignment(SwingConstants.CENTER);
-        cnpjLabel.setFont(new Font("Segoe UI Historic", 0, 14));
-        JTextField  cpnjInput = new JTextField();
-        cpnjInput.setBounds(79,100,330,22);
-
-        JLabel typeLabel = new JLabel("Tipo:");
-        typeLabel.setBounds(408,99,40,20);
-        typeLabel.setHorizontalAlignment(SwingConstants.CENTER);
-        typeLabel.setVerticalAlignment(SwingConstants.CENTER);
-        typeLabel.setFont(new Font("Segoe UI Historic", 0, 14));
 
 
-        JLabel addressLabel = new JLabel("Endereço:");
-        addressLabel.setBounds(10,139,59,20);
-        addressLabel.setHorizontalAlignment(SwingConstants.CENTER);
-        addressLabel.setVerticalAlignment(SwingConstants.CENTER);
-        addressLabel.setFont(new Font("Segoe UI Historic", 0, 14));
-        JTextField  addressInput = new JTextField();
-        addressInput.setBounds(79,139,330,22);
+        register.addActionListener(new ActionListener() {
+            @Override
+            public void actionPerformed(ActionEvent e) {
 
-        JLabel zipCodeLabel = new JLabel("CEP:");
-        zipCodeLabel.setBounds(10,179,27,20);
-        zipCodeLabel.setHorizontalAlignment(SwingConstants.CENTER);
-        zipCodeLabel.setVerticalAlignment(SwingConstants.CENTER);
-        zipCodeLabel.setFont(new Font("Segoe UI Historic", 0, 14));
-        JTextField  zipCodeInput = new JTextField();
-        zipCodeInput.setBounds(79,180,114,22);
+                int result = JOptionPane.showConfirmDialog(null,
+                        "Deseja realmente cadastrar?",null, JOptionPane.YES_NO_OPTION);
+                if(result == JOptionPane.YES_OPTION) {
+                    registerContainer.setVisible(false);
+                    setContentPane(loginContainer());
+                }
+            }
+        });
 
-        JLabel neighborhoodLabel = new JLabel("Bairro:");
-        neighborhoodLabel.setBounds(195,179,39,20);
-        neighborhoodLabel.setHorizontalAlignment(SwingConstants.CENTER);
-        neighborhoodLabel.setVerticalAlignment(SwingConstants.CENTER);
-        neighborhoodLabel.setFont(new Font("Segoe UI Historic", 0, 14));
-        JTextField  neighborhoodInput = new JTextField();
-        neighborhoodInput.setBounds(236,180,174,22);
 
-        JLabel numberLabel = new JLabel("Número:");
-        numberLabel.setBounds(426,139,53,20);
-        numberLabel.setHorizontalAlignment(SwingConstants.CENTER);
-        numberLabel.setVerticalAlignment(SwingConstants.CENTER);
-        numberLabel.setFont(new Font("Segoe UI Historic", 0, 14));
-        JTextField  numberInput = new JTextField();
-        numberInput.setBounds(489,139,101,22);
+        backButton1.addActionListener(new ActionListener() {
+            @Override
+            public void actionPerformed(ActionEvent e) {
 
-        JLabel complementLabel = new JLabel("Compl:");
-        complementLabel.setBounds(404,179,90,20);
-        complementLabel.setHorizontalAlignment(SwingConstants.CENTER);
-        complementLabel.setVerticalAlignment(SwingConstants.CENTER);
-        complementLabel.setFont(new Font("Segoe UI Historic", 0, 14));
-        JTextField  complementInput = new JTextField();
-        complementInput.setBounds(489,180,101,22);
+                int result = JOptionPane.showConfirmDialog(null,
+                        "Deseja realmente voltar?",null, JOptionPane.YES_NO_OPTION);
+                if(result == JOptionPane.YES_OPTION) {
+                    registerContainer.setVisible(false);
+                    setContentPane(loginContainer());
+                }
+            }
+        });
 
-        JLabel cityLabel = new JLabel("Cidade:");
-        cityLabel.setBounds(10,219,45,20);
-        cityLabel.setHorizontalAlignment(SwingConstants.CENTER);
-        cityLabel.setVerticalAlignment(SwingConstants.CENTER);
-        cityLabel.setFont(new Font("Segoe UI Historic", 0, 14));
-        JTextField  cityInput = new JTextField();
-        cityInput.setBounds(79,220,220,22);
 
-        JLabel UFLabel = new JLabel("UF:");
-        UFLabel.setBounds(305,219,20,20);
-        UFLabel.setHorizontalAlignment(SwingConstants.CENTER);
-        UFLabel.setVerticalAlignment(SwingConstants.CENTER);
-        UFLabel.setFont(new Font("Segoe UI Historic", 0, 14));
-        JComboBox UFCB= new JComboBox();
-        //TODO não permitiri selecionar a opção "Selecionar" no combobox UF
-        UFCB.setModel(new DefaultComboBoxModel<>(new String[] { "Selecionar","SP", "RJ"}));
-        UFCB.setBounds(335,220,75,22);
+        registerContainer.add(nameInput);
+        registerContainer.add(cnpjInput);
+        registerContainer.add(typeInput);
+        registerContainer.add(addressInput);
+        registerContainer.add(zipCodeInput);
+        registerContainer.add(neighborhoodInput);
+        registerContainer.add(numberInput);
+        registerContainer.add(complementInput);
+        registerContainer.add(cityInput);
+        registerContainer.add(UFCB);
+        registerContainer.add(phoneInput);
+        registerContainer.add(passwordInput);
+        registerContainer.add(cPasswordInput);
+        registerContainer.add(backButton1);
+        registerContainer.add(register);
 
-        JLabel phoneLabel = new JLabel("Telefone:");
-        phoneLabel.setBounds(426,219,54,20);
-        phoneLabel.setHorizontalAlignment(SwingConstants.CENTER);
-        phoneLabel.setVerticalAlignment(SwingConstants.CENTER);
-        phoneLabel.setFont(new Font("Segoe UI Historic", 0, 14));
-        JTextField  phoneInput = new JTextField();
-        phoneInput.setBounds(489,220,101,22);
 
-        JLabel passwordLabel = new JLabel("Senha:");
-        passwordLabel.setBounds(12,259,40,20);
-        passwordLabel.setHorizontalAlignment(SwingConstants.CENTER);
-        passwordLabel.setVerticalAlignment(SwingConstants.CENTER);
-        passwordLabel.setFont(new Font("Segoe UI Historic", 0, 14));
-        JPasswordField  passwordInput = new JPasswordField();
-        passwordInput.setBounds(78,260,192,22);
 
-        JLabel cPasswordLabel = new JLabel("Confirmar senha:");
-        cPasswordLabel.setBounds(276,259,104,20);
-        cPasswordLabel.setHorizontalAlignment(SwingConstants.CENTER);
-        cPasswordLabel.setVerticalAlignment(SwingConstants.CENTER);
-        cPasswordLabel.setFont(new Font("Segoe UI Historic", 0, 14));
-        JPasswordField  cPasswordInput = new JPasswordField();
-        cPasswordInput.setBounds(390,260,200,22);
-
-        JButton backButton = new JButton("Voltar");
-        backButton.setBounds(188,428,109,31);
-        backButton.setFont(new Font("Segoe UI Historic", 0, 16));
-        backButton.addActionListener(new ActionListener() {
+        backButton1.addActionListener(new ActionListener() {
             @Override
             public void actionPerformed(ActionEvent e) {
                 registerContainer.setVisible(false);
@@ -229,7 +203,7 @@ public class View extends BaseView{
                         address.setId(registerInstitution.addAddress(address));
 
                         //Adiciona as informações no objeto institution
-                        institution.setCnpj((String) cpnjInput.getText());
+                        institution.setCnpj((String) cnpjInput.getText());
                         institution.setNome((String) nameInput.getText());
                         institution.setPassword((String) passwordInput.getText());
                         institution.setType((String) typeCB.getSelectedItem());
@@ -249,39 +223,17 @@ public class View extends BaseView{
             }
         });
 
+
         registerContainer.add(super.createHeaderLabel("Cadastre sua instituição", 169,10, 251, 32));
-        registerContainer.add(nameLabel);
-        registerContainer.add(nameInput );
-        registerContainer.add(cnpjLabel);
-        registerContainer.add(cpnjInput);
-        registerContainer.add(typeLabel);
-        registerContainer.add(typeCB);
-        registerContainer.add(addressLabel);
-        registerContainer.add(addressInput);
-        registerContainer.add(zipCodeLabel);
-        registerContainer.add(zipCodeInput);
-        registerContainer.add(neighborhoodLabel);
-        registerContainer.add(neighborhoodInput);
-        registerContainer.add(numberLabel);
-        registerContainer.add(numberInput);
-        registerContainer.add(complementLabel);
-        registerContainer.add(complementInput);
-        registerContainer.add(cityLabel);
-        registerContainer.add(cityInput);
-        registerContainer.add(UFLabel);
-        registerContainer.add(UFCB);
-        registerContainer.add(phoneLabel);
-        registerContainer.add(phoneInput);
-        registerContainer.add(passwordLabel);
-        registerContainer.add(passwordInput);
-        registerContainer.add(cPasswordLabel );
-        registerContainer.add(cPasswordInput);
-        registerContainer.add(backButton);
-        registerContainer.add(registerButton);
 
         setVisible(true);
         return registerContainer;
+
+
     }
+     ////////////// codigo antigo ///////////////
+
+
 
     private Container initMenu(Institution institution){
         JPanel menuContainer = new JPanel();
@@ -458,17 +410,72 @@ public class View extends BaseView{
                 registerBedContainer.setVisible(false);
                 setContentPane(initMenu(institution));
             }
+
         });
 
 
+
+        //Alex
+
+
+        registerBedContainer.add(super.createHeaderLabel("Tela do Cadastrar leito", 150,10,300,32));
+        registerBedContainer.add(super.createInputLabel("Tipo:",10,60,100,20));
+        registerBedContainer.add(super.createInputLabel("Quantidade:",30,100,100,20));
+        registerBedContainer.add(super.createInputLabel("Descrião da solicitação",160,140,300,32));
+
+
+        JComboBox typeInput = super.createComboBox(new String[]{"Selecionar","UTI", "Semi-intensivo","Baixa Complexidade"},245,60,120,20);
+        JTextField amountInput = super.createTextField(245,100,25,22);
+        JTextField boxtext = super.createTextField(40,180,520,220);
+        JButton backButton2 = super.createButton("Voltar",90,427,78, 30 );
+
+
+
+        registerBedContainer.add(typeInput);
+        registerBedContainer.add(amountInput);
+        registerBedContainer.add(boxtext);
+        registerBedContainer.add(backButton2);
         registerBedContainer.add(exit);
 
+
+        backButton2.addActionListener(new ActionListener() {
+            @Override
+            public void actionPerformed(ActionEvent e) {
+
+                int result = JOptionPane.showConfirmDialog(null,
+                        "Deseja realmente voltar?",null, JOptionPane.YES_NO_OPTION);
+                if(result == JOptionPane.YES_OPTION) {
+                    registerBedContainer.setVisible(false);
+                    setContentPane(loginContainer());
+                }
+            }
+        });
+
+
+
+        exit.addActionListener(new ActionListener() {
+            @Override
+            public void actionPerformed(ActionEvent e) {
+
+                int result = JOptionPane.showConfirmDialog(null,
+                        "Deseja realmente sair?",null, JOptionPane.YES_NO_OPTION);
+                if(result == JOptionPane.YES_OPTION) {
+                    registerBedContainer.setVisible(false);
+                    setContentPane(loginContainer());
+                }
+            }
+        });
         return registerBedContainer;
+
     }
+
+
 
     private Container initRequestBed(Institution institution){
         JPanel requestBedContainer= new JPanel();
         requestBedContainer.setLayout(null);
+
+        requestBedContainer.add(super.createInputLabel("Tipo:",10,59,40,20));
 
         requestBedContainer.add(super.createHeaderLabel("Solicitar leito", 160,10,251,32));
 
