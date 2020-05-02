@@ -4,10 +4,8 @@ import Habbib.connection.BaseDAO;
 import Habbib.model.Address;
 import Habbib.model.Institution;
 
-import javax.swing.*;
 import java.sql.PreparedStatement;
 import java.sql.ResultSet;
-import java.sql.SQLException;
 import java.sql.Statement;
 
 public class InstitutionDAO extends BaseDAO {
@@ -18,7 +16,7 @@ public class InstitutionDAO extends BaseDAO {
     }
 
     // Método para pegar instituções, pesquisando por nome e retornar a instituição encontrada.
-    public Institution getInstitutionByName(String name) {
+    public Institution getInstitutionByName(String name) throws Exception{
         PreparedStatement stmt;
         ResultSet rs;
         Institution institution = null;
@@ -43,7 +41,7 @@ public class InstitutionDAO extends BaseDAO {
                 institution.setPassword(rs.getString("Password"));
                 institution.setType(rs.getString("Type"));
                 institution.setContactNumber(rs.getString("ContactNumber"));
-                address.setId(rs.getInt("Id" ));
+                address.setId(rs.getInt("Id"));
                 address.setZipCode(rs.getString("ZipCode"));
                 address.setAddress(rs.getString("Address"));
                 address.setNumber(rs.getInt("AddressNumber"));
@@ -54,14 +52,15 @@ public class InstitutionDAO extends BaseDAO {
                 institution.setAddress(address);
 
             }
-        } catch (SQLException e) {
-            JOptionPane.showMessageDialog(null,"Erro ao pesquisar instituição por nome.\n\n"+ e.getMessage(),"WARNING",JOptionPane.WARNING_MESSAGE);
+        } catch (Exception e){
+            System.out.println(e.getMessage());
+            throw e;
         }
 
         return institution;
     }
     // Método para pegar instituções, pesquisando por CNPJ e retornar a instituição encontrada.
-    public Institution getInstitutionByCNPJ(String cnpj) {
+    public Institution getInstitutionByCNPJ(String cnpj) throws Exception{
         PreparedStatement stmt;
         ResultSet rs;
         Institution institution = null;
@@ -91,14 +90,16 @@ public class InstitutionDAO extends BaseDAO {
                 address.setNeighborhood(rs.getString("Neighborhood"));
                 address.setCity(rs.getString("City"));
                 address.setUf(rs.getString("UF"));
+                institution.setAddress(address);
             }
-        } catch (SQLException e) {
-            JOptionPane.showMessageDialog(null,"Erro ao procurar leito por CNPJ.\n\n"+ e.getMessage(),"WARNING",JOptionPane.WARNING_MESSAGE);
+        } catch (Exception e){
+            System.out.println(e.getMessage());
+            throw e;
         }
         return institution;
     }
     // Método para remover instituição.
-    public void removeInstitutionByName(String name) {
+    public void removeInstitutionByName(String name) throws Exception{
         PreparedStatement stmt;
         // A query deleta tando a instituição quanto o endereço atrelado a ela.
         try{
@@ -107,14 +108,16 @@ public class InstitutionDAO extends BaseDAO {
             stmt.setString(1, name);
             stmt.executeUpdate();
 
-        } catch (SQLException e) {
-            JOptionPane.showMessageDialog(null,"Erro ao remover instituição.\n\n"+ e.getMessage(),"WARNING",JOptionPane.WARNING_MESSAGE);
+        } catch (Exception e){
+            System.out.println(e.getMessage());
+            throw e;
         }
     }
     // Método para adicionar um endereço que retorna a pk do registro criado.
-    public Address addAddressInstitution(Address address) {
+    public int addAddressInstitution(Address address) throws Exception{
         PreparedStatement stmt;
         ResultSet rs;
+        int key = 0;
 
         // O Statement.RETURN_GENERATED_KEYS e .getGeneratedKeys() são responsavéis por retornar a pk criada para o registro.
         try {
@@ -134,18 +137,19 @@ public class InstitutionDAO extends BaseDAO {
             if (rs.next()) {
                 address.setId(rs.getInt(1));
             }
-        } catch(SQLException e) {
-            JOptionPane.showMessageDialog(null,"Erro ao adicionar endereço.\n\n"+ e.getMessage(),"WARNING",JOptionPane.WARNING_MESSAGE);
+        } catch (Exception e){
+            System.out.println(e.getMessage());
+            throw e;
         }
         return address;
     }
 
     // Método responsável por adicionar novas instituições.
-    public void addInstitution(Institution institution) {
+    public void addInstitution(Institution institution) throws Exception{
         PreparedStatement stmt;
         try {
-            // O "NULL" no ultimo parâmetro da query é referente a requisição
-            String insert = "INSERT INTO Institution VALUES (DEFAULT, ?, ?, ?, ?, ?, ?)";
+
+            String insert = "INSERT INTO Institution VALUE (DEFAULT, ?, ?, ?, ?, ?, ?)";
 
             stmt = super.connection.prepareStatement(insert);
 
@@ -157,8 +161,9 @@ public class InstitutionDAO extends BaseDAO {
             stmt.setInt(6, institution.getAddress().getId());
             stmt.executeUpdate();
 
-        } catch (SQLException e) {
-            JOptionPane.showMessageDialog(null,"Erro ao adicionar instituição.\n\n"+ e.getMessage(),"WARNING",JOptionPane.WARNING_MESSAGE);
+        } catch (Exception e){
+            System.out.println(e.getMessage());
+            throw e;
         }
     }
 }
