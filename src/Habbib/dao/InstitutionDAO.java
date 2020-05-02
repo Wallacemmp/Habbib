@@ -112,10 +112,9 @@ public class InstitutionDAO extends BaseDAO {
         }
     }
     // Método para adicionar um endereço que retorna a pk do registro criado.
-    public int addAddressInstitution(Address address) {
+    public Address addAddressInstitution(Address address) {
         PreparedStatement stmt;
         ResultSet rs;
-        int key = 0;
 
         // O Statement.RETURN_GENERATED_KEYS e .getGeneratedKeys() são responsavéis por retornar a pk criada para o registro.
         try {
@@ -133,13 +132,14 @@ public class InstitutionDAO extends BaseDAO {
             rs = stmt.getGeneratedKeys();
             //  Insere a pk na variavél key.
             if (rs.next()) {
-                key = rs.getInt(1);
+                address.setId(rs.getInt(1));
             }
         } catch(SQLException e) {
             JOptionPane.showMessageDialog(null,"Erro ao adicionar endereço.\n\n"+ e.getMessage(),"WARNING",JOptionPane.WARNING_MESSAGE);
         }
-        return key;
+        return address;
     }
+
     // Método responsável por adicionar novas instituições.
     public void addInstitution(Institution institution) {
         PreparedStatement stmt;

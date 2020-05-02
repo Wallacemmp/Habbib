@@ -31,10 +31,9 @@ public class InstitutionController {
         }
     }
 
-    public int registerAddress(Address address) throws Exception {
+    public Address registerAddress(Address address) throws Exception {
         try (InstitutionDAO institutionDAO = new InstitutionDAO()) {
-            address.setId(institutionDAO.addAddressInstitution(address));
-            return address.getId();
+            return institutionDAO.addAddressInstitution(address);
         }
     }
 }

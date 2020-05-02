@@ -51,19 +51,16 @@ public class BedDAO extends BaseDAO {
         return beds;
     }
     // Adiciona um novo leito por instituição, retornando o leito criado.
-    public Bed addBed(String type, Institution institution) {
+    public Bed addBed(Bed bed) {
         PreparedStatement stmt;
-        Bed bed = new Bed();
-        bed.setType(type);
-        bed.setStatus("Disponível");
-        bed.setInstitution(institution);
+
         ResultSet rs;
         //Statement.RETURN_GENERATED_KEYS e getGeneratedKeys() são responsáveis por retornar a pk gerada para o registro.
         try{
             String insert = "INSERT INTO Bed VALUE (DEFAULT,?,DEFAULT,?)";
             stmt = super.connection.prepareStatement(insert, Statement.RETURN_GENERATED_KEYS);
-            stmt.setString(1,type);
-            stmt.setInt(2,institution.getId());
+            stmt.setString(1, bed.getType());
+            stmt.setInt(2, bed.getInstitution().getId());
             stmt.executeUpdate();
             rs = stmt.getGeneratedKeys();
 

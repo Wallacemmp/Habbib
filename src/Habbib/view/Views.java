@@ -2,6 +2,7 @@ package Habbib.view;
 
 import Habbib.controller.InstitutionController;
 import Habbib.controller.SessionController;
+import Habbib.dao.InstitutionDAO;
 import Habbib.model.Address;
 import Habbib.model.Institution;
 
@@ -289,7 +290,7 @@ public class Views extends JFrame{
                         address.setNeighborhood(neighborhoodInput.getText());
                         address.setUf((String) UFCB.getSelectedItem());
                         address.setCity(cityInput.getText());
-                        address.setId(institutionController.registerAddress(address));
+                        institutionController.registerAddress(address);
 
                         //Adiciona as informações no objeto institution
                         institution.setCnpj(cpnjInput.getText());

@@ -54,29 +54,53 @@ public class RequisitionDAO extends BaseDAO{
         // retorno do ArrayList carregado.
         return requisitions;
     }
-    //TODO (Finished) Testar
-    public Requisition addRequisition(Bed bed, Patient patient, Requisition requisition) {
+    //TODO verificar onde adicionar a instituição
+    public Requisition addRequisition(Requisition requisition, Institution institution) {
         PreparedStatement stmt;
         ResultSet rs;
-        requisition.setBed(bed);
-        requisition.setPatient(patient);
 
         try {
-            String insert = "INSERT INTO Requisition VALUE (DEFAULT,?,?,?,?)";
+            String insert = "INSERT INTO Requisition VALUE (DEFAULT,DEFAULT,?,?,?,?)";
             stmt = super.connection.prepareStatement(insert, Statement.RETURN_GENERATED_KEYS);
-            stmt.setString(1,requisition.getStatus());
-            stmt.setString(2,requisition.getDescription());
-            stmt.setInt(3,bed.getId());
-            stmt.setInt(4,patient.getId());
+
+            stmt.setString(1, requisition.getDescription());
+            stmt.setInt(2,requisition.getBed().getId());
+            stmt.setInt(3,requisition.getPatient().getId());
+            //Instituição que faz a solicitação
+            stmt.setInt(4, institution.getId());
+            stmt.executeUpdate();
             rs = stmt.getGeneratedKeys();
 
-            requisition.setId(rs.getInt(1));
+            if(rs.next())
+            {
+                requisition.setId(rs.getInt(1));
+            }
+
 
         } catch (SQLException e){
             JOptionPane.showMessageDialog(null,"Erro ao criar solicitação.\n\n"+ e.getMessage(),"WARNING",JOptionPane.WARNING_MESSAGE);
         }
 
         return requisition;
+    }
+
+    public void updateRequisition(Requisition requisition)
+    {
+        PreparedStatement stmt;
+        ResultSet rs;
+
+        try
+        {
+            String update = "UPDATE Requisition SET Status = ? WHERE Id = ?";
+            stmt = super.connection.prepareStatement(update);
+            stmt.setString(1, requisition.getStatus());
+            stmt.setInt(2, requisition.getId());
+            stmt.executeUpdate();
+        }
+        catch(Exception e)
+        {
+            JOptionPane.showMessageDialog(null,"Erro ao atualizar a solicitação.\n\n"+ e.getMessage(),"WARNING",JOptionPane.WARNING_MESSAGE);
+        }
     }
 
 }
