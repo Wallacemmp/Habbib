@@ -23,10 +23,18 @@ public class RequisitionDAO extends BaseDAO{
         ResultSet rs;
         ArrayList<Requisition> requisitions;
         Requisition requisition;
+        Patient patient;
+        Bed bed;
+        Institution bedOwner;
 
         try{
             requisitions = new ArrayList<>();
-            String select = "SELECT * FROM Requisition WHERE Id_Institution = ?";
+            //TODO fazer o join para retornar o paciente com a requisition
+            String select = "SELECT DISTINCT p.*, r.*, i.name AS Nome_Fornecedor, b.*" +
+                    " FROM Requisition r" +
+                    " JOIN Patient p ON r.Id_Patient = p.Id" +
+                    " JOIN Bed b ON r.Id_Bed = b.Id" +
+                    " JOIN Institution i ON i.Id = ?";
             stmt = super.connection.prepareStatement(select);
             stmt.setInt(1,institution.getId());
             rs = stmt.executeQuery();
@@ -34,13 +42,38 @@ public class RequisitionDAO extends BaseDAO{
             //Carrega os objetos requisition em seguida insere o OBJETO REQUISITION no ArrayList
             while(rs.next()){
 
+                //TODO Montar objeto paciente
+                patient = new Patient();
+                patient.setId(rs.getInt("p.Id"));
+                patient.setFirstName(rs.getString("FirstName"));
+                patient.setLastName(rs.getString("LastName"));
+                patient.setCpf(rs.getString("CPF"));
+                patient.setDob(rs.getDate("DOB"));
+                patient.setGender(rs.getString("Gender"));
+                patient.setCid(rs.getString("CID"));
+
+                //TODO Montar objeto bed
+                bed = new Bed();
+                bedOwner = new Institution();
+                bed.setId(rs.getInt("b.Id"));
+                bed.setType(rs.getString("Type"));
+                bed.setStatus(rs.getString("b.Status"));
+                bedOwner.setName(rs.getString("Nome_Fornecedor"));
+                bedOwner.setId(rs.getInt("b.Id_Institution"));
+                bed.setInstitution(bedOwner);
+                bed.setInstitution(institution);
+
+                //TODO Montar o objeto Requisition
                 requisition = new Requisition();
-                requisition.setId(rs.getInt("Id"));
-                requisition.setStatus(rs.getString("Status"));
+                requisition.setId(rs.getInt("r.Id"));
+                requisition.setStatus(rs.getString("r.Status"));
                 requisition.setDescription(rs.getString("Description"));
 
+                //Insere paciente, leito e a institução solicitante
+                requisition.setPatient(patient);
+                requisition.setBed(bed);
+                requisition.setInstitution(institution);
                 requisitions.add(requisition);
-
             }
 
             institution.setRequisitions(requisitions);
@@ -82,8 +115,7 @@ public class RequisitionDAO extends BaseDAO{
         return requisition;
     }
 
-    public void updateRequisition(Requisition requisition) throws Exception
-    {
+    public void updateRequisition(Requisition requisition) throws Exception {
         PreparedStatement stmt;
         ResultSet rs;
 
@@ -101,5 +133,4 @@ public class RequisitionDAO extends BaseDAO{
             throw e;
         }
     }
-
 }

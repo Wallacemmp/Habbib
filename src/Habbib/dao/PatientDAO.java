@@ -10,14 +10,13 @@ import java.sql.ResultSet;
 import java.sql.Statement;
 
 public class PatientDAO extends BaseDAO {
-    //TODO Fazer o CRUD
+
     public PatientDAO()
     {
         super();
     }
-
-    public void addPatient(Patient patient)
-    {
+    //TODO arrumar o DOB
+    public void addPatient(Patient patient) throws Exception {
         PreparedStatement stmt;
         ResultSet rs;
         try
@@ -38,12 +37,13 @@ public class PatientDAO extends BaseDAO {
             {
                 patient.setId(rs.getInt(1));
             }
-
         }
         catch (Exception e)
         {
-            JOptionPane.showMessageDialog(null,"Erro ao adicionar paciente.\n\n"+ e.getMessage(),"WARNING",JOptionPane.WARNING_MESSAGE);
+            System.out.println(e.getMessage());
+            throw e;
         }
     }
+
 
 }
