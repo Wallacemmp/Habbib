@@ -98,7 +98,6 @@ public class View extends BaseView{
         // chama a caixa de mensagem
         JTextField nameInput = super.createTextField(79,60,512,22);
         JTextField cnpjInput = super.createTextField(79,100,330,22);
-        //JTextField typeInput = super.createTextField(490,100,100,20);
         JTextField addressInput = super.createTextField(79,139,330,22);
         JTextField zipCodeInput = super.createTextField(80,180,130,22);
         JTextField neighborhoodInput = super.createTextField(254,180,155,22);
@@ -110,7 +109,7 @@ public class View extends BaseView{
         JTextField cPasswordInput = super.createTextField(390,260,200,22);
         JButton backButton1 = super.createButton("Voltar",82,428,109,22);
         JButton register = super.createButton("Confirmar",200,428,109,22);
-        JComboBox typeInput = super.createComboBox(new String[]{"Selecionar","Particular", "Privado"},490,100,100,20);
+        JComboBox typeInput = super.createComboBox(new String[]{"Selecionar","Particular","Privado"},490,100,100,20);
         JComboBox UFCB = super.createComboBox(new String[]{"Selecionar","SP","RJ"},322,220,86,22);
 
 
@@ -195,21 +194,21 @@ public class View extends BaseView{
                         //Adiciona as informações no objeto address
                         address.setZipCode((String) zipCodeInput.getText());
                         address.setAddress((String) addressInput.getText());
-                        address.setNumber(Integer.parseInt((String) numberInput.getText()));
+                        address.setNumber(Integer.parseInt(numberInput.getText()));
                         address.setComplement((String) complementInput.getText());
                         address.setNeighborhood((String) neighborhoodInput.getText());
                         address.setUf((String) UFCB.getSelectedItem());
                         address.setCity((String) cityInput.getText());
-                        address.setId(registerInstitution.addAddress(address));
+                        address.setId(registerInstitution.registerAddress(address).getId());
 
                         //Adiciona as informações no objeto institution
                         institution.setCnpj((String) cnpjInput.getText());
-                        institution.setNome((String) nameInput.getText());
+                        institution.setName((String) nameInput.getText());
                         institution.setPassword((String) passwordInput.getText());
                         institution.setType((String) typeCB.getSelectedItem());
                         institution.setContactNumber((String) phoneInput.getText());
                         institution.setAddress(address);
-                        registerInstitution.Register(institution);
+                        registerInstitution.registerInstitution(institution);
                         JOptionPane.showMessageDialog(null, "Cadastrado com sucesso!", "INFORMATION", JOptionPane.INFORMATION_MESSAGE);
                         registerContainer.setVisible(false);
                         setContentPane(loginContainer());
