@@ -17,7 +17,7 @@ public class RequisitionDAO extends BaseDAO{
     {
         super();
     }
-    //TODO (Finished) Testar
+
     public ArrayList<Requisition> getRequisitionsByInstitution(Institution institution) throws Exception {
         PreparedStatement stmt;
         ResultSet rs;
@@ -39,10 +39,8 @@ public class RequisitionDAO extends BaseDAO{
             stmt.setInt(1,institution.getId());
             rs = stmt.executeQuery();
 
-            //Carrega os objetos requisition em seguida insere o OBJETO REQUISITION no ArrayList
             while(rs.next()){
 
-                //TODO Montar objeto paciente
                 patient = new Patient();
                 patient.setId(rs.getInt("p.Id"));
                 patient.setFirstName(rs.getString("FirstName"));
@@ -52,7 +50,6 @@ public class RequisitionDAO extends BaseDAO{
                 patient.setGender(rs.getString("Gender"));
                 patient.setCid(rs.getString("CID"));
 
-                //TODO Montar objeto bed
                 bed = new Bed();
                 bedOwner = new Institution();
                 bed.setId(rs.getInt("b.Id"));
@@ -63,13 +60,11 @@ public class RequisitionDAO extends BaseDAO{
                 bed.setInstitution(bedOwner);
                 bed.setInstitution(institution);
 
-                //TODO Montar o objeto Requisition
                 requisition = new Requisition();
                 requisition.setId(rs.getInt("r.Id"));
                 requisition.setStatus(rs.getString("r.Status"));
                 requisition.setDescription(rs.getString("Description"));
 
-                //Insere paciente, leito e a institução solicitante
                 requisition.setPatient(patient);
                 requisition.setBed(bed);
                 requisition.setInstitution(institution);
@@ -85,7 +80,7 @@ public class RequisitionDAO extends BaseDAO{
         // retorno do ArrayList carregado.
         return requisitions;
     }
-    //TODO verificar onde adicionar a instituição
+
     public Requisition addRequisition(Requisition requisition, Institution institution) throws Exception{
         PreparedStatement stmt;
         ResultSet rs;
@@ -98,7 +93,7 @@ public class RequisitionDAO extends BaseDAO{
             stmt.setInt(2,requisition.getBed().getId());
             stmt.setInt(3,requisition.getPatient().getId());
             //Instituição que faz a solicitação
-            stmt.setInt(4, institution.getId());
+            stmt.setInt(4, requisition.getInstitution().getId());
             stmt.executeUpdate();
             rs = stmt.getGeneratedKeys();
 

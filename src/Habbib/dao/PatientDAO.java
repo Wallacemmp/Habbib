@@ -27,7 +27,7 @@ public class PatientDAO extends BaseDAO {
             stmt.setString(1, patient.getFirstName());
             stmt.setString(2, patient.getLastName());
             stmt.setString(3, patient.getCpf());
-            stmt.setDate(4, new java.sql.Date(patient.getDob().getDate()));
+            stmt.setDate(4, patient.getDob());
             stmt.setString(5, patient.getGender());
             stmt.setString(6, patient.getCid());
             stmt.executeUpdate();
