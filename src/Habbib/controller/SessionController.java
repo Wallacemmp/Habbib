@@ -3,26 +3,24 @@ package Habbib.controller;
 import Habbib.dao.InstitutionDAO;
 import Habbib.model.Institution;
 
-public class SessionController
-{
+public class SessionController {
 
-    public Institution login(String user, String password) throws Exception
-    {
+    public Institution login(String user, String password) throws Exception{
 
-        try(InstitutionDAO institutionDAO = new InstitutionDAO())
-        {
-            Institution institution = institutionDAO.getInstitutionByName(user);
+        try(InstitutionDAO institutionDAO = new InstitutionDAO()) {
 
-            if(institution == null)
+            Institution loggedInstitution = institutionDAO.getInstitutionByName(user);
+
+            if(loggedInstitution == null) {
                 throw new Exception(" User not found! ");
-            else if(institution.getPassword().equals(password))
-                return institution;
-            else
+            } else if(loggedInstitution.getPassword().equals(password)){
+                return loggedInstitution;
+            }else {
                 throw new Exception("Password wrong !");
-        }
-        catch (Exception ex)
-        {
-            throw ex;
+            }
+        } catch (Exception e){
+            System.out.println(e.getMessage());
+            throw e;
         }
     }
 }

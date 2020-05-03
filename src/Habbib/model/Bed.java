@@ -3,6 +3,7 @@ package Habbib.model;
 public class Bed {
     private int id;
     private String type;
+    private String status;
     private Institution institution;
 
     public int getId() {
@@ -19,6 +20,14 @@ public class Bed {
 
     public void setType(String type) {
         this.type = type;
+    }
+
+    public String getStatus() {
+        return status;
+    }
+
+    public void setStatus(String status) {
+        this.status = status;
     }
 
     public Institution getInstitution() {
