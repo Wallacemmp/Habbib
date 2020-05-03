@@ -1,6 +1,6 @@
 package Habbib.model;
 
-import java.util.Date;
+import java.sql.Date;
 
 public class Patient {
     private int id;

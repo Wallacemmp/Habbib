@@ -93,7 +93,7 @@ public class RequisitionDAO extends BaseDAO{
             stmt.setInt(2,requisition.getBed().getId());
             stmt.setInt(3,requisition.getPatient().getId());
             //Instituição que faz a solicitação
-            stmt.setInt(4, institution.getId());
+            stmt.setInt(4, requisition.getInstitution().getId());
             stmt.executeUpdate();
             rs = stmt.getGeneratedKeys();
 
