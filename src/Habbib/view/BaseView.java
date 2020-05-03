@@ -109,5 +109,4 @@ public class BaseView extends JFrame {
         comboBox.setBounds(x,y,width,height);
         return comboBox;
     }
-
 }

@@ -1,18 +1,15 @@
 package Habbib.model;
 
-import java.util.Date;
+import java.sql.Date;
 
 public class Patient {
-
     private int id;
-    private String name;
-    private String surName;
-    private int cpf;
-    private Date DOB;
-    private int gender;
-    private String CID;
-    private Institution institution;
-    private Requisition requisition;
+    private String FirstName;
+    private String LastName;
+    private String cpf;
+    private Date dob;
+    private String gender;
+    private String cid;
 
     public int getId() {
         return id;
@@ -22,67 +19,51 @@ public class Patient {
         this.id = id;
     }
 
-    public String getName() {
-        return name;
+    public String getFirstName() {
+        return FirstName;
     }
 
-    public void setName(String name) {
-        this.name = name;
+    public void setFirstName(String firstName) {
+        FirstName = firstName;
     }
 
-    public String getSurName() {
-        return surName;
+    public String getLastName() {
+        return LastName;
     }
 
-    public void setSurName(String surName) {
-        this.surName = surName;
+    public void setLastName(String lastName) {
+        LastName = lastName;
     }
 
-    public int getCpf() {
+    public String getCpf() {
         return cpf;
     }
 
-    public void setCpf(int cpf) {
+    public void setCpf(String cpf) {
         this.cpf = cpf;
     }
 
-    public Date getDOB() {
-        return DOB;
+    public Date getDob() {
+        return dob;
     }
 
-    public void setDOB(Date DOB) {
-        this.DOB = DOB;
+    public void setDob(Date dob) {
+        this.dob = dob;
     }
 
-    public int getGender() {
+    public String getGender() {
         return gender;
     }
 
-    public void setGender(int gender) {
+    public void setGender(String gender) {
         this.gender = gender;
     }
 
-    public String getCID() {
-        return CID;
+    public String getCid() {
+        return cid;
     }
 
-    public void setCID(String CID) {
-        this.CID = CID;
-    }
-
-    public Institution getInstitution() {
-        return institution;
-    }
-
-    public void setInstitution(Institution institution) {
-        this.institution = institution;
-    }
-
-    public Requisition getRequisition() {
-        return requisition;
-    }
-
-    public void setRequisition(Requisition requisition) {
-        this.requisition = requisition;
+    public void setCid(String cid) {
+        this.cid = cid;
     }
 }

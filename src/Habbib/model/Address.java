@@ -4,7 +4,7 @@ public class Address {
     private int id;
     private String zipCode;
     private String address;
-    private int number;
+    private int addressNumber;
     private String complement;
     private String neighborhood;
     private String city;
@@ -35,11 +35,11 @@ public class Address {
     }
 
     public int getNumber() {
-        return number;
+        return addressNumber;
     }
 
     public void setNumber(int number) {
-        this.number = number;
+        this.addressNumber = number;
     }
 
     public String getComplement() {

@@ -1,13 +1,16 @@
 package Habbib.model;
 
+import java.util.ArrayList;
+
 public class Institution {
     private int id;
-    private String cnpj;
     private String name;
+    private String cnpj;
     private String password;
-    private String contactNumber;
     private String type;
+    private String contactNumber;
     private Address address;
+    private ArrayList<Requisition> requisitions;
 
     public int getId() {
         return id;
@@ -15,6 +18,14 @@ public class Institution {
 
     public void setId(int id) {
         this.id = id;
+    }
+
+    public String getName() {
+        return name;
+    }
+
+    public void setName(String name) {
+        this.name = name;
     }
 
     public String getCnpj() {
@@ -25,28 +36,12 @@ public class Institution {
         this.cnpj = cnpj;
     }
 
-    public String getNome() {
-        return name;
-    }
-
-    public void setNome(String name) {
-        this.name = name;
-    }
-
     public String getPassword() {
         return password;
     }
 
     public void setPassword(String password) {
         this.password = password;
-    }
-
-    public String getContactNumber() {
-        return contactNumber;
-    }
-
-    public void setContactNumber(String contactNumber) {
-        this.contactNumber = contactNumber;
     }
 
     public String getType() {
@@ -57,11 +52,27 @@ public class Institution {
         this.type = type;
     }
 
+    public String getContactNumber() {
+        return contactNumber;
+    }
+
+    public void setContactNumber(String contactNumber) {
+        this.contactNumber = contactNumber;
+    }
+
     public Address getAddress() {
         return address;
     }
 
     public void setAddress(Address address) {
         this.address = address;
+    }
+
+    public ArrayList<Requisition> getRequisitions() {
+        return requisitions;
+    }
+
+    public void setRequisitions(ArrayList<Requisition> requisitions) {
+        this.requisitions = requisitions;
     }
 }
