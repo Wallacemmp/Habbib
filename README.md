@@ -11,6 +11,10 @@ Here instituions can talk between youselfs and provid some hospital bed to anoth
 
 Some instructions
 
+## Database Diagram
+
+![Diagram](https://user-images.githubusercontent.com/41999569/80926140-a35cb380-8d6b-11ea-9ab1-471afabf3e01.jpg)
+
 ## Habbib project pull request process
 
 * **master:** production
@@ -28,4 +32,3 @@ Some instructions
 * **Wesley Felix da Mata** - (https://github.com/welix)
 
 * ****
-
