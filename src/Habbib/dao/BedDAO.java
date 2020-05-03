@@ -139,4 +139,21 @@ public class BedDAO extends BaseDAO {
             throw e;
         }
     }
+
+    public void updateBedStatus(Bed bed) throws Exception {
+
+        PreparedStatement stmt;
+
+        try {
+            String updateBed = "UPDATE Bed SET Status = ? WHERE Id = ?";
+            stmt = super.connection.prepareStatement(updateBed);
+            stmt.setString(1, bed.getStatus());
+            stmt.setInt(2, bed.getId());
+        }
+        catch (Exception e)
+        {
+            System.out.println(e.getMessage());
+            throw e;
+        }
+    }
 }
