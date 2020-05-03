@@ -16,7 +16,7 @@ Some instructions
 * **master:** production
 * **features/*:** created from develop branch
 * **hotfix/*:** created from master branch for emergency corrections
-* **staging:** branch for changes that must be tested before pushed to master
+* **develop:** branch for changes that must be tested before pushed to master
 
 ## Authors
 
