@@ -112,7 +112,6 @@ public class RequisitionDAO extends BaseDAO{
 
     public void updateRequisition(Requisition requisition) throws Exception {
         PreparedStatement stmt;
-        ResultSet rs;
 
         try
         {
