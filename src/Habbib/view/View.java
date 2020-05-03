@@ -194,16 +194,16 @@ public class View extends BaseView{
                         address.setNeighborhood(neighborhoodInput.getText());
                         address.setUf(UFCB.getSelectedItem().toString());
                         address.setCity(cityInput.getText());
-                        address.setId(registerInstitution.addAddress(address));
+                        address.setId(registerInstitution.registerAddress(address).getId());
 
                         //Adiciona as informações no objeto institution
                         institution.setCnpj(cnpjInput.getText());
-                        institution.setNome(nameInput.getText());
+                        institution.setName(nameInput.getText());
                         institution.setPassword(passwordInput.getText());
                         institution.setType(typeCB.getSelectedItem().toString());
                         institution.setContactNumber(phoneInput.getText());
                         institution.setAddress(address);
-                        registerInstitution.Register(institution);
+                        registerInstitution.registerInstitution(institution);
                         JOptionPane.showMessageDialog(null, "Cadastrado com sucesso!", "INFORMATION", JOptionPane.INFORMATION_MESSAGE);
                         registerContainer.setVisible(false);
                         setContentPane(loginContainer());
