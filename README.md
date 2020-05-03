@@ -11,6 +11,13 @@ Here instituions can talk between youselfs and provid some hospital bed to anoth
 
 Some instructions
 
+## Habbib project pull request process
+
+* **master:** production
+* **features/*:** created from develop branch
+* **hotfix/*:** created from master branch for emergency corrections
+* **staging:** branch for changes that must be tested before pushed to master
+
 ## Authors
 
 * **Alex Batista Farias** - (https://github.com/alexfarias53)
