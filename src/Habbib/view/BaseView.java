@@ -7,19 +7,19 @@ public class BaseView extends JFrame {
 
     private String font = "Segoe UI Historic";
 
-    private Font titleFont = new Font(font, 0, 16);
-    private Font headerFont = new Font(font, 0, 20);
-    private Font inputLabelFont = new Font(font, 0, 14);
-    private Font textLabelFont = new Font(font, 0, 12);
-    private Font buttonFont = new Font(font, 0, 10);
-    private Font buttonFontBig = new Font(font, 0, 16);
+    private Font titleFont = new Font(font, Font.PLAIN, 16);
+    private Font headerFont = new Font(font, Font.PLAIN, 20);
+    private Font inputLabelFont = new Font(font, Font.PLAIN, 14);
+    private Font textLabelFont = new Font(font, Font.PLAIN, 12);
+    private Font buttonFont = new Font(font, Font.PLAIN, 10);
+    private Font buttonFontBig = new Font(font, Font.PLAIN, 16);
 
     protected Container currentContainer;
 
     public BaseView(String title) {
         super(title);
     }
-
+    
     public void showWindow(Container contentPane, int width, int height){
         super.setSize(width,height);
         super.setResizable(false);
@@ -50,14 +50,6 @@ public class BaseView extends JFrame {
     }
 
     public JLabel createInputLabel(String title, int x, int y, int width, int height) {
-        JLabel inputLabel = new JLabel(title);
-        inputLabel.setBounds(x,y,width,height);
-        inputLabel.setHorizontalAlignment(SwingConstants.CENTER);
-        inputLabel.setVerticalAlignment(SwingConstants.CENTER);
-        inputLabel.setFont(inputLabelFont);
-        return inputLabel;
-    }
-    public JLabel createInputLabelLeft(String title, int x, int y, int width, int height) {
         JLabel inputLabel = new JLabel(title);
         inputLabel.setBounds(x,y,width,height);
         inputLabel.setHorizontalAlignment(SwingConstants.LEFT);
@@ -95,7 +87,7 @@ public class BaseView extends JFrame {
         return button;
     }
 
-    public JButton createButtonAnotherSource(String title, int x, int y, int width, int height){
+    public JButton createDashboardButton(String title, int x, int y, int width, int height){
         JButton button = new JButton();
         button.setText(title);
         button.setBounds(x,y,width,height);

@@ -10,16 +10,17 @@ public class InstitutionController {
 
         try (InstitutionDAO institutionDAO = new InstitutionDAO()) {
 
-            Institution institutionNome = institutionDAO.getInstitutionByName(institution.getName());
+            Institution institutionName = institutionDAO.getInstitutionByName(institution.getName());
             Institution institutionCnpj = institutionDAO.getInstitutionByCNPJ(institution.getCnpj());
 
-            if (institutionNome.getName().equals(institution.getName())) {
-              throw new Exception("Instituição com o nome " + institution.getName() + " já cadastrada.");
-            } else if (institutionCnpj.getCnpj().equals(institution.getCnpj())) {
-              throw new Exception("Instituição com o CNPJ" + institution.getCnpj() + " já cadastrada.");
+            if(institutionName == null && institutionCnpj == null) {
+                institutionDAO.addInstitution(institution);
+            } else if(institutionName != null){
+                throw new Exception("Instituição com o nome " + institutionName.getName() + "já cadastrado");
             } else {
-              institutionDAO.addInstitution(institution);
+                throw new Exception("Instituição com o CNPJ " + institutionCnpj.getCnpj() + "já cadastrado");
             }
+
         } catch (Exception e){
             System.out.println(e.getMessage());
             throw e;
