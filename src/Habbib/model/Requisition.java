@@ -6,15 +6,6 @@ public class Requisition {
     private String description;
     private Bed bed;
     private Patient patient;
-    private int idInstitution;
-
-    public int getIdInstitution() {
-        return idInstitution;
-    }
-
-    public void setIdInstitution(int idInstitution) {
-        this.idInstitution = idInstitution;
-    }
 
     public int getId() {
         return id;

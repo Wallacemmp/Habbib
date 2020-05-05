@@ -11,7 +11,7 @@ import java.sql.Statement;
 
 public class InstitutionDAO extends BaseDAO {
 
-    public InstitutionDAO ()
+    public InstitutionDAO () throws Exception
     {
         super();
     }

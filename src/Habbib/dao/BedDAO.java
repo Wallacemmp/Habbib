@@ -12,7 +12,8 @@ import java.util.ArrayList;
 
 public class BedDAO extends BaseDAO {
 
-    public BedDAO() {
+    public BedDAO() throws Exception
+    {
         super();
     }
     // Método que retorna um ArrayList com todos os leitos presentes em uma instituição.

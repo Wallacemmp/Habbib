@@ -6,17 +6,16 @@ import java.util.ArrayList;
 
 public class RequisitionController {
 
-    public Requisition createRequisition(Requisition requisition) throws Exception {
+    public void createRequisition(Requisition requisition, Institution institution) throws Exception {
 
         try(RequisitionDAO requisitionDAO = new RequisitionDAO())
         {
-            requisitionDAO.addRequisition(requisition);
+            requisitionDAO.addRequisition(requisition, institution);
 
         }catch (Exception e){
-            System.out.println(e);
+            System.out.println(e.getMessage());
             throw e;
         }
-        return requisition;
     }
 
     public Requisition updateRequisitionStatus(Requisition requisition) throws Exception{
@@ -26,7 +25,7 @@ public class RequisitionController {
             requisitionDAO.updateRequisition(requisition);
 
         }catch (Exception e){
-            System.out.println(e);
+            System.out.println(e.getMessage());
             throw e;
         }
         return requisition;
@@ -34,18 +33,14 @@ public class RequisitionController {
 
     public ArrayList<Requisition> listRequisitions(Institution institution) throws Exception{
 
-        ArrayList<Requisition> content;
-
         try(RequisitionDAO requisitionDAO = new RequisitionDAO()){
 
-            content = requisitionDAO.getRequisitionsByInstitution(institution);
+            return requisitionDAO.getRequisitionsByInstitution(institution);
         }
         catch (Exception e){
-            System.out.println(e);
+            System.out.println(e.getMessage());
             throw e;
         }
-
-        return content;
     }
 
 }
