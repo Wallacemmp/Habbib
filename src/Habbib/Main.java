@@ -7,7 +7,7 @@ public class Main {
     public static void main(String[] args) {
         try
         {
-            View view = new View();
+            View view = new View()
         }
         catch (Exception ex)
         {
