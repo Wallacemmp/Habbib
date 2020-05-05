@@ -38,4 +38,28 @@ public class InstitutionController {
         }
     }
 
+    public Institution searchInstitutionByName(String name) throws Exception {
+
+        try(InstitutionDAO institutionDAO = new InstitutionDAO())
+        {
+            return institutionDAO.getInstitutionByName(name);
+        }
+        catch (Exception e){
+            System.out.println(e.getMessage());
+            throw e;
+        }
+    }
+
+    public Institution searchInstitutionById(int Id) throws Exception {
+
+        try(InstitutionDAO institutionDAO = new InstitutionDAO())
+        {
+            return institutionDAO.getInstitutionById(Id);
+        }
+        catch (Exception e){
+            System.out.println(e.getMessage());
+            throw e;
+        }
+    }
+
 }
