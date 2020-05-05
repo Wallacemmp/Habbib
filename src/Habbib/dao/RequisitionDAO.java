@@ -32,9 +32,9 @@ public class RequisitionDAO extends BaseDAO{
             //TODO fazer o join para retornar o paciente com a requisition
             String select = "SELECT DISTINCT p.*, r.*, i.name AS Nome_Fornecedor, b.*" +
                     " FROM Requisition r" +
+                    " JOIN Institution i ON i.Id = ?" +
                     " JOIN Patient p ON r.Id_Patient = p.Id" +
-                    " JOIN Bed b ON r.Id_Bed = b.Id" +
-                    " JOIN Institution i ON i.Id = ?";
+                    " JOIN Bed b ON r.Id_Bed = b.Id";
             stmt = super.connection.prepareStatement(select);
             stmt.setInt(1,institution.getId());
             rs = stmt.executeQuery();
@@ -58,16 +58,14 @@ public class RequisitionDAO extends BaseDAO{
                 bedOwner.setName(rs.getString("Nome_Fornecedor"));
                 bedOwner.setId(rs.getInt("b.Id_Institution"));
                 bed.setInstitution(bedOwner);
-                bed.setInstitution(institution);
 
                 requisition = new Requisition();
                 requisition.setId(rs.getInt("r.Id"));
                 requisition.setStatus(rs.getString("r.Status"));
                 requisition.setDescription(rs.getString("Description"));
-
+                requisition.setIdInstitution(rs.getInt("Id_Institution"));
                 requisition.setPatient(patient);
                 requisition.setBed(bed);
-                requisition.setInstitution(institution);
                 requisitions.add(requisition);
             }
 
@@ -81,7 +79,7 @@ public class RequisitionDAO extends BaseDAO{
         return requisitions;
     }
 
-    public Requisition addRequisition(Requisition requisition, Institution institution) throws Exception{
+    public Requisition addRequisition(Requisition requisition) throws Exception{
         PreparedStatement stmt;
         ResultSet rs;
 
@@ -93,7 +91,7 @@ public class RequisitionDAO extends BaseDAO{
             stmt.setInt(2,requisition.getBed().getId());
             stmt.setInt(3,requisition.getPatient().getId());
             //Instituição que faz a solicitação
-            stmt.setInt(4, requisition.getInstitution().getId());
+            stmt.setInt(4, requisition.getIdInstitution());
             stmt.executeUpdate();
             rs = stmt.getGeneratedKeys();
 

@@ -6,17 +6,11 @@ import java.util.ArrayList;
 
 public class RequisitionController {
 
-    public Requisition createRequisition(Patient patient, Bed bed, Institution requester, String description) throws Exception {
+    public Requisition createRequisition(Requisition requisition) throws Exception {
 
-        Requisition requisition = new Requisition();
         try(RequisitionDAO requisitionDAO = new RequisitionDAO())
         {
-            requisition.setPatient(patient);
-            requisition.setBed(bed);
-            requisition.setInstitution(requester);
-            requisition.setDescription(description);
-
-            requisitionDAO.addRequisition(requisition, requester);
+            requisitionDAO.addRequisition(requisition);
 
         }catch (Exception e){
             System.out.println(e);
