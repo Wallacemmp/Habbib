@@ -279,7 +279,7 @@ public class View extends BaseView{
             }
         });
 
-        JButton exit = super.createButton("Sair",10,427,78,30);
+        JButton exit = super.createButton("Sair",512,427,78,30);
         exit.addActionListener(new ActionListener() {
             @Override
             public void actionPerformed(ActionEvent e) {
@@ -309,14 +309,14 @@ public class View extends BaseView{
         JPanel providerContainer = new JPanel();
         providerContainer.setLayout(null);
 
-        providerContainer.add(super.createHeaderLabel("Tela de fornecedor", 178,10,251,32));
+        providerContainer.add(super.createHeaderLabel("Fornecedor", 178,10,251,32));
         providerContainer.add(super.createInputLabel("Instituição:",13,52,70,30));
         providerContainer.add(super.createInputLabel(institution.getName(),83,52,70,30));
         providerContainer.add(super.createInputLabel("Status:",13,82,60,30));
         JComboBox statusCB = super.createComboBox(new String[]{"Selecionar","Em análise","Recusado","Aprovado"},10,110,110,30);
         JTextField searchInput = super.createTextField(120,110,393,30);
         JButton searchButton = super.createButton("Consultar",512, 108, 80, 32);
-        JButton backButton = super.createButton("Voltar",512, 427, 78, 30);
+        JButton backButton = super.createButton("Cancelar",512, 427, 78, 30);
 
         searchButton.addActionListener(new ActionListener() {
             @Override
@@ -346,11 +346,12 @@ public class View extends BaseView{
         JPanel requesterContainer = new JPanel();
         requesterContainer.setLayout(null);
 
+        requesterContainer.add(super.createHeaderLabel("Solicitante", 178,10,251,32));
         requesterContainer.add(super.createInputLabel("Status:",13,82,60,30));
         JComboBox statusCB = super.createComboBox(new String[]{"Selecionar","Em análise","Recusado","Aprovado"},10,110,110,30);
         JTextField searchInput = super.createTextField(120,110,393,30);
         JButton searchButton = super.createButton("Consultar",512, 108, 80, 32);
-        JButton backButton = super.createButton("Voltar",512, 427, 78, 30);
+        JButton backButton = super.createButton("Cancelar",512, 427, 78, 30);
 
         searchButton.addActionListener(new ActionListener() {
             @Override
@@ -370,6 +371,7 @@ public class View extends BaseView{
 
         requesterContainer.add(statusCB);
         requesterContainer.add(searchInput);
+        requesterContainer.add(searchButton);
         requesterContainer.add(backButton);
 
         return requesterContainer;
@@ -437,15 +439,15 @@ public class View extends BaseView{
 
         requestBedContainer.add(super.createInputLabel("Tipo:",10,37,70,30));
 
-        requestBedContainer.add(super.createInputLabel("Bairro:",157,37,70,30));
+        requestBedContainer.add(super.createInputLabel("UF:",157,37,70,30));
 
         requestBedContainer.add(super.createInputLabel("Leito:",372,37,70,30));
 
         JComboBox status = super.createComboBox(new String[]{"Privado","Público"},10,62,89,26);
 
-        JComboBox neighborhood = super.createComboBox(new String[]{"Mooca","Tatuapé","..."},157,62,89,26);
+        JComboBox neighborhood = super.createComboBox(new String[]{"Selecionar","AC","AL","AP","AM","BA","CE","DF","ES","GO","MA","MT","MS","MG","PA","PB","PR","PE","PI","RJ","RN","RS","RO","RR","SC","SP","SE","TO"},157,62,86,22);
 
-        JComboBox type = super.createComboBox(new String[]{"UTI","Semi-intensivo","Baixa complexidade"},372,62,89,26);
+        JComboBox type = super.createComboBox(new String[]{"UTI","Semi-intensivo","Baixa complexidade"},372,62,98,26);
 
 
         DefaultTableModel model = new DefaultTableModel(){
@@ -457,7 +459,7 @@ public class View extends BaseView{
         BedController bc = new BedController();
         model.addColumn("Instituição");
         model.addColumn("Tipo");
-        model.addColumn("Bairro");
+        model.addColumn("UF");
         model.addColumn("Leito");
         model.addColumn("QTD");
         model.addColumn("Telefone");
@@ -466,8 +468,8 @@ public class View extends BaseView{
         requestBedTable.getColumnModel().getColumn(0).setPreferredWidth(150);
         requestBedTable.getColumnModel().getColumn(1).setPreferredWidth(50);
         requestBedTable.getColumnModel().getColumn(2).setPreferredWidth(100);
-        requestBedTable.getColumnModel().getColumn(3).setPreferredWidth(75);
-        requestBedTable.getColumnModel().getColumn(4).setPreferredWidth(50);
+        requestBedTable.getColumnModel().getColumn(3).setPreferredWidth(95);
+        requestBedTable.getColumnModel().getColumn(4).setPreferredWidth(30);
         requestBedTable.getColumnModel().getColumn(5).setPreferredWidth(100);
 
 
@@ -507,14 +509,14 @@ public class View extends BaseView{
 
 
         JScrollPane scroll = new JScrollPane(requestBedTable);
-        scroll.setBounds(25,110,550,300);
+        scroll.setBounds(10,110,580,300);
 
 
 
 
 
 
-        JButton consult = super.createButton("Consultar",512, 62, 78, 30);
+        JButton consult = super.createButton("Consultar",512, 62, 78, 26);
         consult.addActionListener(new ActionListener() {
             @Override
             public void actionPerformed(ActionEvent e) {
@@ -527,7 +529,7 @@ public class View extends BaseView{
 
 
 
-        JButton exit = super.createButton("Sair",512, 427, 78, 30);
+        JButton exit = super.createButton("Cancelar",512, 427, 78, 30);
         exit.addActionListener(new ActionListener() {
             @Override
             public void actionPerformed(ActionEvent e) {
@@ -545,6 +547,7 @@ public class View extends BaseView{
 
         return  requestBedContainer;
     }
+
     private Container initRequestBed(Institution institution, String name){
 
         JPanel requestContainer = new JPanel();

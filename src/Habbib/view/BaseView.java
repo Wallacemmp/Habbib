@@ -15,6 +15,7 @@ public class BaseView extends JFrame {
     private Font textLabelFontBold = new Font(font, Font.BOLD, 12);
     private Font buttonFont = new Font(font, Font.PLAIN, 10);
     private Font buttonFontBig = new Font(font, Font.PLAIN, 16);
+    private Font textTable = new Font(font, Font.PLAIN,11);
 
     protected Container currentContainer;
 
@@ -105,7 +106,7 @@ public class BaseView extends JFrame {
     }
     public JTable createTable(DefaultTableModel model){
         JTable table = new JTable(model);
-
+        table.setFont(textTable);
 
 
         return  table;
