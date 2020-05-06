@@ -20,7 +20,7 @@
 *.rar
 
 #idea folder
-.idea/*
+.idea/*.xml
 .idea/
 /.idea/
 
