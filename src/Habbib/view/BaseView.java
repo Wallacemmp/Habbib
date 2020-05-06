@@ -1,6 +1,7 @@
 package Habbib.view;
 
 import javax.swing.*;
+import javax.swing.table.DefaultTableModel;
 import java.awt.*;
 
 public class BaseView extends JFrame {
@@ -100,5 +101,12 @@ public class BaseView extends JFrame {
         comboBox.setModel(new DefaultComboBoxModel<>(options));
         comboBox.setBounds(x,y,width,height);
         return comboBox;
+    }
+    public JTable createTable(DefaultTableModel model){
+        JTable table = new JTable(model);
+
+
+
+        return  table;
     }
 }

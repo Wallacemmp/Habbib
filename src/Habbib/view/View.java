@@ -8,9 +8,13 @@ import Habbib.model.Bed;
 import Habbib.model.Institution;
 
 import javax.swing.*;
+import javax.swing.event.ListSelectionEvent;
+import javax.swing.event.ListSelectionListener;
+import javax.swing.table.DefaultTableModel;
 import java.awt.*;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
+import java.awt.event.MouseEvent;
 
 public class View extends BaseView{
 
@@ -386,24 +390,76 @@ public class View extends BaseView{
         JPanel requestBedContainer= new JPanel();
         requestBedContainer.setLayout(null);
 
-        requestBedContainer.add(super.createInputLabel("Tipo:",10,59,40,20));
+
 
         requestBedContainer.add(super.createHeaderLabel("Solicitar leito", 160,10,251,32));
 
-        requestBedContainer.add(super.createInputLabel("Tipo:",10,52,70,30));
+        requestBedContainer.add(super.createInputLabel("Tipo:",10,37,70,30));
 
-        requestBedContainer.add(super.createInputLabel("Bairro:",157,52,70,30));
+        requestBedContainer.add(super.createInputLabel("Bairro:",157,37,70,30));
 
-        requestBedContainer.add(super.createInputLabel("Leito:",372,52,70,30));
+        requestBedContainer.add(super.createInputLabel("Leito:",372,37,70,30));
 
-        JComboBox status = super.createComboBox(new String[]{"Privado","Público"},10,92,89,26);
+        JComboBox status = super.createComboBox(new String[]{"Privado","Público"},10,62,89,26);
 
-        JComboBox neighborhood = super.createComboBox(new String[]{"Mooca","Tatuapé","..."},157,92,89,26);
+        JComboBox neighborhood = super.createComboBox(new String[]{"Mooca","Tatuapé","..."},157,62,89,26);
 
-        JComboBox type = super.createComboBox(new String[]{"UTI","Semi-intensivo","Baixa complexidade"},372,92,89,26);
+        JComboBox type = super.createComboBox(new String[]{"UTI","Semi-intensivo","Baixa complexidade"},372,62,89,26);
 
-        // TODO: (Realizar busca)
-        JButton consult = super.createButton("Consultar",512, 92, 78, 30);
+
+        DefaultTableModel model = new DefaultTableModel(){
+            @Override
+            public boolean isCellEditable(final int row, final int column) {
+                return false;
+            }
+        };
+        BedController bc = new BedController();
+        model.addColumn("Instituição");
+        model.addColumn("Tipo");
+        model.addColumn("Bairro");
+        model.addColumn("Leito");
+        model.addColumn("QTD");
+        model.addColumn("Telefone");
+        JTable requestBedTable = super.createTable(model);
+        requestBedTable.getColumnModel().getColumn(0).setPreferredWidth(150);
+        requestBedTable.getColumnModel().getColumn(1).setPreferredWidth(50);
+        requestBedTable.getColumnModel().getColumn(2).setPreferredWidth(100);
+        requestBedTable.getColumnModel().getColumn(3).setPreferredWidth(75);
+        requestBedTable.getColumnModel().getColumn(4).setPreferredWidth(50);
+        requestBedTable.getColumnModel().getColumn(5).setPreferredWidth(100);
+
+        requestBedTable.getSelectionModel().addListSelectionListener(new ListSelectionListener(){
+            public void valueChanged(ListSelectionEvent event) {
+                System.out.println(requestBedTable.getValueAt(requestBedTable.getSelectedRow(), 0).toString());
+
+            }
+        });
+
+
+        try {
+            for(Bed beds : bc.searchAvailableBeds()){
+
+                model.addRow(new Object[]{ beds.getInstitution().getName(),beds.getInstitution().getType(),beds.getInstitution().getAddress().getNeighborhood(),beds.getType(),5,beds.getInstitution().getContactNumber()});
+
+
+
+
+            }
+        } catch (Exception e) {
+            e.printStackTrace();
+        }
+
+
+
+        JScrollPane scroll = new JScrollPane(requestBedTable);
+        scroll.setBounds(25,110,550,300);
+
+
+
+
+
+
+        JButton consult = super.createButton("Consultar",512, 62, 78, 30);
         consult.addActionListener(new ActionListener() {
             @Override
             public void actionPerformed(ActionEvent e) {
@@ -413,8 +469,8 @@ public class View extends BaseView{
             }
         });
 
-        // TODO:(Realizar busca)
-        JTextField userInput = super.createTextField(10,139,580,30);
+
+
 
         JButton exit = super.createButton("Sair",512, 427, 78, 30);
         exit.addActionListener(new ActionListener() {
@@ -430,8 +486,9 @@ public class View extends BaseView{
         requestBedContainer.add(neighborhood);
         requestBedContainer.add(type);
         requestBedContainer.add(consult);
-        requestBedContainer.add(userInput);
+
         requestBedContainer.add(exit);
+        requestBedContainer.add(scroll);
 
         return  requestBedContainer;
     }
