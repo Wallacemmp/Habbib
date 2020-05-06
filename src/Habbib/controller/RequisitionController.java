@@ -7,27 +7,19 @@ import java.util.ArrayList;
 
 public class RequisitionController {
 
-    public Requisition createRequisition(Patient patient, Bed bed, Institution requester, String description) throws Exception {
+    public Requisition createRequisition(Requisition requisition, Institution institution) throws Exception {
 
-        Requisition requisition = new Requisition();
-        try(RequisitionDAO requisitionDAO = new RequisitionDAO())
-        {
-            requisition.setPatient(patient);
-            requisition.setBed(bed);
-            requisition.setInstitution(requester);
-            requisition.setDescription(description);
+        try (RequisitionDAO requisitionDAO = new RequisitionDAO()) {
+            return requisitionDAO.addRequisition(requisition, institution);
 
-            requisitionDAO.addRequisition(requisition, requester);
-
-        }catch (Exception e){
-            System.out.println(e);
+        } catch (Exception e) {
+            System.out.println(e.getMessage());
             throw e;
         }
-        return requisition;
     }
 
     public Requisition updateRequisitionStatus(Requisition requisition) throws Exception{
-        //TODO implementar a atualização do leito
+
         BedDAO bedDAO = new BedDAO();
         Bed bed = new Bed();
 
@@ -43,7 +35,7 @@ public class RequisitionController {
             }
 
         }catch (Exception e){
-            System.out.println(e);
+            System.out.println(e.getMessage());
             throw e;
         }
         return requisition;
@@ -51,18 +43,14 @@ public class RequisitionController {
 
     public ArrayList<Requisition> listRequisitions(Institution institution) throws Exception{
 
-        ArrayList<Requisition> content;
-
         try(RequisitionDAO requisitionDAO = new RequisitionDAO()){
 
-            content = requisitionDAO.getRequisitionsByInstitution(institution);
+            return requisitionDAO.getRequisitionsByInstitution(institution);
         }
         catch (Exception e){
-            System.out.println(e);
+            System.out.println(e.getMessage());
             throw e;
         }
-
-        return content;
     }
 
 }

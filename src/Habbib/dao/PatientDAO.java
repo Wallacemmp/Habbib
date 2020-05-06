@@ -11,7 +11,7 @@ import java.sql.Statement;
 
 public class PatientDAO extends BaseDAO {
 
-    public PatientDAO()
+    public PatientDAO() throws Exception
     {
         super();
     }
