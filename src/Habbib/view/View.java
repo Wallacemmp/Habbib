@@ -12,9 +12,7 @@ import javax.swing.event.ListSelectionEvent;
 import javax.swing.event.ListSelectionListener;
 import javax.swing.table.DefaultTableModel;
 import java.awt.*;
-import java.awt.event.ActionEvent;
-import java.awt.event.ActionListener;
-import java.awt.event.MouseEvent;
+import java.awt.event.*;
 
 public class View extends BaseView{
 
@@ -223,13 +221,53 @@ public class View extends BaseView{
         registerBed.addActionListener(new ActionListener() {
             @Override
             public void actionPerformed(ActionEvent e) {
+                menuContainer.setVisible(false);
                 JFrame frameRegisterBed = new JFrame();
-                frameRegisterBed.setSize(500,300);
+                frameRegisterBed.setSize(500,200);
                 frameRegisterBed.setResizable(false);
                 frameRegisterBed.setLocationRelativeTo(null);
                 frameRegisterBed.setContentPane(registerBedContainer(institution));
                 frameRegisterBed.setVisible(true);
+                frameRegisterBed.setDefaultCloseOperation(JFrame.DISPOSE_ON_CLOSE);
+                frameRegisterBed.addWindowListener(new WindowListener() {
+                    @Override
+                    public void windowOpened(WindowEvent e) {
+
+                    }
+
+                    @Override
+                    public void windowClosing(WindowEvent e) {
+
+                    }
+
+                    @Override
+                    public void windowClosed(WindowEvent e) {
+                        menuContainer.setVisible(true);
+                    }
+
+                    @Override
+                    public void windowIconified(WindowEvent e) {
+
+                    }
+
+                    @Override
+                    public void windowDeiconified(WindowEvent e) {
+
+                    }
+
+                    @Override
+                    public void windowActivated(WindowEvent e) {
+
+                    }
+
+                    @Override
+                    public void windowDeactivated(WindowEvent e) {
+
+                    }
+                });
+
             }
+
         });
 
         JButton requestBed = super.createDashboardButton("Solicitar Leito",351,287,167,61);
@@ -423,6 +461,7 @@ public class View extends BaseView{
         model.addColumn("Leito");
         model.addColumn("QTD");
         model.addColumn("Telefone");
+
         JTable requestBedTable = super.createTable(model);
         requestBedTable.getColumnModel().getColumn(0).setPreferredWidth(150);
         requestBedTable.getColumnModel().getColumn(1).setPreferredWidth(50);
@@ -431,9 +470,22 @@ public class View extends BaseView{
         requestBedTable.getColumnModel().getColumn(4).setPreferredWidth(50);
         requestBedTable.getColumnModel().getColumn(5).setPreferredWidth(100);
 
-        requestBedTable.getSelectionModel().addListSelectionListener(new ListSelectionListener(){
-            public void valueChanged(ListSelectionEvent event) {
-                System.out.println(requestBedTable.getValueAt(requestBedTable.getSelectedRow(), 0).toString());
+
+        requestBedTable.addMouseListener(new MouseAdapter() {
+            @Override
+            public void mousePressed(MouseEvent e) {
+                JTable table =(JTable) e.getSource();
+                Point point = e.getPoint();
+                int row = table.rowAtPoint(point);
+                if (e.getClickCount() == 2 && table.getSelectedRow() != -1) {
+
+                    requestBedContainer.setVisible(false);
+
+                    String name = requestBedTable.getValueAt(requestBedTable.getSelectedRow(), 0).toString();
+                    setContentPane(initRequestBed(institution, name));
+
+
+                }
 
             }
         });
@@ -484,15 +536,78 @@ public class View extends BaseView{
                 setContentPane(menuContainer(institution));
             }
         });
-
         requestBedContainer.add(status);
         requestBedContainer.add(neighborhood);
         requestBedContainer.add(type);
         requestBedContainer.add(consult);
-
         requestBedContainer.add(exit);
         requestBedContainer.add(scroll);
 
         return  requestBedContainer;
+    }
+    private Container initRequestBed(Institution institution, String name){
+
+        JPanel requestContainer = new JPanel();
+        requestContainer.setLayout(null);
+        requestContainer.add(super.createHeaderLabel("Solicitação", 251,10,103,27));
+        requestContainer.add(super.createTitleLabel("Instituição solicitante:", 10 ,57, 155,28 ));
+        requestContainer.add(super.createTextLabelLeft(name, 10 ,80,250,32 ));
+        requestContainer.add(super.createTextLabelLeftBold("Privado", 260 ,80,52,25));
+        requestContainer.add(super.createTextLabel("Tel.: (11)95941-0789",458 ,80,117,20 ));
+        requestContainer.add(super.createTextLabelLeft("R.:Alvares Roberto Domingues da silva, 974 B.:Guilhermina Esperança Esperança",10 ,110,440,20 ));
+        requestContainer.add(super.createTextLabelLeft("Ferraz de Vasconcelos,SP",458 ,110,150,20 ));
+
+
+        requestContainer.add(super.createTitleLabel("Paciente:", 10 ,135, 80,28 ));
+        requestContainer.add(super.createTextLabelLeft("Leito solicitado:",10 ,162,85,20 ));
+        requestContainer.add(super.createTextLabelLeftBold("Semi-Internsivo",95,162,200,20 ));
+
+        requestContainer.add(super.createTextLabelLeft("Nome:",10,192,40,20 ));
+        JTextField firstNameInput = createTextField(55,192,224,20);
+        requestContainer.add(firstNameInput);
+
+        requestContainer.add(super.createTextLabelLeft("Sobrenome:",283,192,64,20 ));
+        JTextField lastNameInput = super.createTextField(368,192,224,20);
+        requestContainer.add(lastNameInput);
+
+        requestContainer.add(super.createTextLabelLeft("CPF:",10,217,40,20 ));
+        JTextField cpfInput = super.createTextField(55,217,224,20);
+        requestContainer.add(cpfInput);
+        requestContainer.add(super.createTextLabelLeft("Data de Nasc.:",283,217,75,20 ));
+        JTextField dob = super.createTextField(368,217,75,20);
+        requestContainer.add(dob);
+        requestContainer.add(super.createTextLabelLeft("Sexo:",447,217,41,20 ));
+        JComboBox generCB = super.createComboBox(new String[]{"Selecionar","Masculino","Feminino"},488,217,104,20);
+        requestContainer.add(generCB);
+
+        requestContainer.add(super.createTextLabelLeft("CID:",10,242,40,20 ));
+        JTextField cidInput = super.createTextField(55,242,224,20);
+        requestContainer.add(cidInput);
+
+        requestContainer.add(super.createTitleLabel("Obs.:", 10 ,267, 50,28 ));
+        JTextArea obsText = super.createJTextArea(10,295,490,150);
+        JScrollPane scroll = new JScrollPane(obsText);
+        scroll.setBounds(10,295,580,140);
+        scroll.setVerticalScrollBarPolicy(ScrollPaneConstants.VERTICAL_SCROLLBAR_ALWAYS);
+        requestContainer.add(scroll);
+
+        JButton comeBack = super.createButton("Voltar",333,444,78, 30 );
+         comeBack.addActionListener(new ActionListener() {
+             @Override
+             public void actionPerformed(ActionEvent e) {
+                 requestContainer.setVisible(false);
+                 setContentPane(requestBedContainer(institution));
+             }
+         });
+        requestContainer.add(comeBack);
+
+        JButton refuse = super.createButton("Cancelar",421,444,78, 30 );
+        requestContainer.add(refuse);
+
+        JButton approved = super.createButton("Solicitar",509,444,78, 30 );
+        requestContainer.add(approved);
+
+
+        return  requestContainer;
     }
 }

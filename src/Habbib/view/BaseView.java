@@ -12,6 +12,7 @@ public class BaseView extends JFrame {
     private Font headerFont = new Font(font, Font.PLAIN, 20);
     private Font inputLabelFont = new Font(font, Font.PLAIN, 14);
     private Font textLabelFont = new Font(font, Font.PLAIN, 12);
+    private Font textLabelFontBold = new Font(font, Font.BOLD, 12);
     private Font buttonFont = new Font(font, Font.PLAIN, 10);
     private Font buttonFontBig = new Font(font, Font.PLAIN, 16);
 
@@ -108,5 +109,33 @@ public class BaseView extends JFrame {
 
 
         return  table;
+    }
+
+    protected JLabel createTextLabelLeft(String name, int x, int y, int width, int height) {
+        JLabel textLabel = new JLabel(name);
+        textLabel.setFont(textLabelFont);
+        textLabel.setHorizontalAlignment(SwingConstants.LEFT);
+        textLabel.setVerticalAlignment(SwingConstants.CENTER);
+        textLabel.setBounds(x,y,width,height);
+        return textLabel;
+
+    }
+
+    protected JLabel createTextLabelLeftBold(String name, int x, int y, int width, int height) {
+        JLabel textLabel = new JLabel(name);
+        textLabel.setFont(textLabelFontBold);
+        textLabel.setHorizontalAlignment(SwingConstants.LEFT);
+        textLabel.setVerticalAlignment(SwingConstants.CENTER);
+        textLabel.setBounds(x,y,width,height);
+        return textLabel;
+    }
+
+    protected JTextArea createJTextArea(int x, int y, int width, int height) {
+        JTextArea  t = new JTextArea();
+        t.setFont(textLabelFont);
+        t.setBounds(x,y,width,height);
+
+        return t;
+
     }
 }
