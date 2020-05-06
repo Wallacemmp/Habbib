@@ -76,7 +76,7 @@ public class RequisitionDAO extends BaseDAO{
         return requisitions;
     }
 
-    public void addRequisition(Requisition requisition, Institution institution) throws Exception{
+    public Requisition addRequisition(Requisition requisition, Institution institution) throws Exception {
         PreparedStatement stmt;
         ResultSet rs;
 
@@ -85,14 +85,13 @@ public class RequisitionDAO extends BaseDAO{
             stmt = super.connection.prepareStatement(insert, Statement.RETURN_GENERATED_KEYS);
 
             stmt.setString(1, requisition.getDescription());
-            stmt.setInt(2,requisition.getBed().getId());
-            stmt.setInt(3,requisition.getPatient().getId());
+            stmt.setInt(2, requisition.getBed().getId());
+            stmt.setInt(3, requisition.getPatient().getId());
             stmt.setInt(4, institution.getId());
             stmt.execute();
             rs = stmt.getGeneratedKeys();
 
-            if(rs.next())
-            {
+            if (rs.next()) {
                 requisition.setId(rs.getInt(1));
             }
 
@@ -100,6 +99,7 @@ public class RequisitionDAO extends BaseDAO{
             System.out.println(e.getMessage());
             throw e;
         }
+        return requisition;
     }
     public void updateRequisition(Requisition requisition) throws Exception {
         PreparedStatement stmt;

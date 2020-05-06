@@ -7,20 +7,19 @@ import java.util.ArrayList;
 
 public class RequisitionController {
 
-    public void createRequisition(Requisition requisition, Institution institution) throws Exception {
+    public Requisition createRequisition(Requisition requisition, Institution institution) throws Exception {
 
-        try(RequisitionDAO requisitionDAO = new RequisitionDAO())
-        {
-            requisitionDAO.addRequisition(requisition, institution);
+        try (RequisitionDAO requisitionDAO = new RequisitionDAO()) {
+            return requisitionDAO.addRequisition(requisition, institution);
 
-        }catch (Exception e){
+        } catch (Exception e) {
             System.out.println(e.getMessage());
             throw e;
         }
     }
 
     public Requisition updateRequisitionStatus(Requisition requisition) throws Exception{
-        //TODO implementar a atualização do leito
+
         BedDAO bedDAO = new BedDAO();
         Bed bed = new Bed();
 
