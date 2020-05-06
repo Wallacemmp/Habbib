@@ -223,8 +223,12 @@ public class View extends BaseView{
         registerBed.addActionListener(new ActionListener() {
             @Override
             public void actionPerformed(ActionEvent e) {
-                menuContainer.setVisible(false);
-                setContentPane(registerBedContainer(institution));
+                JFrame frameRegisterBed = new JFrame();
+                frameRegisterBed.setSize(500,300);
+                frameRegisterBed.setResizable(false);
+                frameRegisterBed.setLocationRelativeTo(null);
+                frameRegisterBed.setContentPane(registerBedContainer(institution));
+                frameRegisterBed.setVisible(true);
             }
         });
 
@@ -334,7 +338,6 @@ public class View extends BaseView{
     }
 
     private Container registerBedContainer(Institution institution){
-
         JPanel registerBedContainer = new JPanel();
         registerBedContainer.setLayout(null);
 
