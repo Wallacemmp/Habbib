@@ -3,6 +3,7 @@ package Habbib.view;
 import Habbib.controller.BedController;
 import Habbib.controller.InstitutionController;
 import Habbib.controller.SessionController;
+import Habbib.dao.InstitutionDAO;
 import Habbib.model.Address;
 import Habbib.model.Bed;
 import Habbib.model.Institution;
@@ -376,6 +377,7 @@ public class View extends BaseView{
 
         return requesterContainer;
     }
+
     private Container registerBedContainer(Institution institution){
         JPanel registerBedContainer = new JPanel();
         registerBedContainer.setLayout(null);
@@ -428,7 +430,6 @@ public class View extends BaseView{
         return registerBedContainer;
     }
 
-
     private Container requestBedContainer(Institution institution){
         JPanel requestBedContainer= new JPanel();
         requestBedContainer.setLayout(null);
@@ -477,14 +478,28 @@ public class View extends BaseView{
             @Override
             public void mousePressed(MouseEvent e) {
                 JTable table =(JTable) e.getSource();
-                Point point = e.getPoint();
-                int row = table.rowAtPoint(point);
                 if (e.getClickCount() == 2 && table.getSelectedRow() != -1) {
 
                     requestBedContainer.setVisible(false);
 
                     String name = requestBedTable.getValueAt(requestBedTable.getSelectedRow(), 0).toString();
-                    setContentPane(initRequestBed(institution, name));
+                    String type = requestBedTable.getValueAt(requestBedTable.getSelectedRow(), 1).toString();
+                    String uf =  requestBedTable.getValueAt(requestBedTable.getSelectedRow(), 2).toString();
+                    String bed = requestBedTable.getValueAt(requestBedTable.getSelectedRow(), 3).toString();
+                    String phone = requestBedTable.getValueAt(requestBedTable.getSelectedRow(), 5).toString();
+
+                    InstitutionDAO  ad = new InstitutionDAO();
+                    try {
+                        Institution inst = ad.getInstitutionByName(name);
+                        String address = inst.getAddress().getAddress();
+                        String city  =  inst.getAddress().getCity();
+                        String numberAddress = Integer.toString(inst.getAddress().getNumber());
+                        setContentPane(initRequestBed(institution, name,type, uf, bed, phone, address, numberAddress , city));
+                    } catch (Exception exception) {
+                        exception.printStackTrace();
+                    }
+
+
 
 
                 }
@@ -548,22 +563,22 @@ public class View extends BaseView{
         return  requestBedContainer;
     }
 
-    private Container initRequestBed(Institution institution, String name){
+    private Container initRequestBed(Institution institution, String name, String type, String uf,String bed, String phone, String address,String numberAddress ,String city){
 
         JPanel requestContainer = new JPanel();
         requestContainer.setLayout(null);
         requestContainer.add(super.createHeaderLabel("Solicitação", 251,10,103,27));
         requestContainer.add(super.createTitleLabel("Instituição solicitante:", 10 ,57, 155,28 ));
         requestContainer.add(super.createTextLabelLeft(name, 10 ,80,250,32 ));
-        requestContainer.add(super.createTextLabelLeftBold("Privado", 260 ,80,52,25));
-        requestContainer.add(super.createTextLabel("Tel.: (11)95941-0789",458 ,80,117,20 ));
-        requestContainer.add(super.createTextLabelLeft("R.:Alvares Roberto Domingues da silva, 974 B.:Guilhermina Esperança Esperança",10 ,110,440,20 ));
-        requestContainer.add(super.createTextLabelLeft("Ferraz de Vasconcelos,SP",458 ,110,150,20 ));
+        requestContainer.add(super.createTextLabelLeftBold(type, 260 ,80,52,25));
+        requestContainer.add(super.createTextLabelLeft("Tel.:"+ phone ,458 ,80,117,20 ));
+        requestContainer.add(super.createTextLabelLeft("R.:"+address+","+numberAddress,10 ,110,440,20 ));
+        requestContainer.add(super.createTextLabelLeft(city+","+uf,458 ,110,150,20 ));
 
 
         requestContainer.add(super.createTitleLabel("Paciente:", 10 ,135, 80,28 ));
         requestContainer.add(super.createTextLabelLeft("Leito solicitado:",10 ,162,85,20 ));
-        requestContainer.add(super.createTextLabelLeftBold("Semi-Internsivo",95,162,200,20 ));
+        requestContainer.add(super.createTextLabelLeftBold(bed,95,162,200,20 ));
 
         requestContainer.add(super.createTextLabelLeft("Nome:",10,192,40,20 ));
         JTextField firstNameInput = createTextField(55,192,224,20);
