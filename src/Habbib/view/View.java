@@ -376,18 +376,17 @@ public class View extends BaseView{
 
         return requesterContainer;
     }
-
     private Container registerBedContainer(Institution institution){
         JPanel registerBedContainer = new JPanel();
         registerBedContainer.setLayout(null);
 
-        registerBedContainer.add(super.createHeaderLabel("Tela do Cadastrar leito", 150,10,300,32));
+        registerBedContainer.add(super.createHeaderLabel("Cadastrar leito", 80,10,300,32));
         registerBedContainer.add(super.createInputLabel("Tipo:",10,60,100,20));
         registerBedContainer.add(super.createInputLabel("Quantidade:",10,100,100,20));
-        JComboBox typeInput = super.createComboBox(new String[]{"Selecionar","UTI", "Semi-intensivo","Baixa Complexidade"},245,60,120,20);
-        JTextField amountInput = super.createTextField(245,100,25,22);
-        JButton registerButton = super.createButton("Cadastrar",90,427,78, 30 );
-        JButton backButton = super.createButton("Voltar",10, 427, 78, 30);
+        JComboBox typeInput = super.createComboBox(new String[]{"Selecionar","UTI", "Semi-intensivo","Baixa Complexidade"},170,60,120,20);
+        JTextField amountInput = super.createTextField(170,100,25,22);
+        JButton registerButton = super.createButton("Cadastrar",400,120,78, 30 );
+        JButton backButton = super.createButton("Voltar",315,120 , 78, 30);
 
         registerButton.addActionListener(new ActionListener() {
             @Override
@@ -428,6 +427,7 @@ public class View extends BaseView{
 
         return registerBedContainer;
     }
+
 
     private Container requestBedContainer(Institution institution){
         JPanel requestBedContainer= new JPanel();
