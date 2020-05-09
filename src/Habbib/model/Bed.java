@@ -4,7 +4,14 @@ public class Bed {
     private int id;
     private String type;
     private String status;
-    private Institution institution;
+
+    public Bed() {
+    }
+
+    public Bed(String type, String status) {
+        this.type = type;
+        this.status = status;
+    }
 
     public int getId() {
         return id;
@@ -28,13 +35,5 @@ public class Bed {
 
     public void setStatus(String status) {
         this.status = status;
-    }
-
-    public Institution getInstitution() {
-        return institution;
-    }
-
-    public void setInstitution(Institution institution) {
-        this.institution = institution;
     }
 }

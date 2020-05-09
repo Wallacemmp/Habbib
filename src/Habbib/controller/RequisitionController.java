@@ -45,7 +45,7 @@ public class RequisitionController {
 
         try(RequisitionDAO requisitionDAO = new RequisitionDAO()){
 
-            return requisitionDAO.getRequisitionsByInstitution(institution);
+            return requisitionDAO.getInstitutionRequisitions(institution);
         }
         catch (Exception e){
             System.out.println(e.getMessage());

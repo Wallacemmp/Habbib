@@ -11,6 +11,7 @@ public class Institution {
     private String contactNumber;
     private Address address;
     private ArrayList<Requisition> requisitions;
+    private ArrayList<Bed> beds;
 
     public int getId() {
         return id;
@@ -74,5 +75,13 @@ public class Institution {
 
     public void setRequisitions(ArrayList<Requisition> requisitions) {
         this.requisitions = requisitions;
+    }
+
+    public ArrayList<Bed> getBeds() {
+        return beds;
+    }
+
+    public void setBeds(ArrayList<Bed> beds) {
+        this.beds = beds;
     }
 }

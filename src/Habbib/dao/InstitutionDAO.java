@@ -16,21 +16,18 @@ public class InstitutionDAO extends BaseDAO {
         super();
     }
 
-    // Método para pegar instituções, pesquisando por nome e retornar a instituição encontrada.
     public Institution getInstitutionByName(String name) throws Exception{
         PreparedStatement stmt;
         ResultSet rs;
         Institution institution = null;
         Address address;
 
-        // Utilizando JOIN na query para trazer o endereço ligado a instituição.
         try{
             String select = "SELECT * FROM Institution i JOIN Address a ON i.Name = ? AND Id_Address = a.Id";
             stmt = super.connection.prepareStatement(select);
             stmt.setString(1,name);
             rs = stmt.executeQuery();
 
-            // Caso encontre alguma instituição com o nome informado, os objetos institution e address são carregados com sua informações.
             if(rs.next()){
 
                 institution = new Institution();
@@ -60,7 +57,7 @@ public class InstitutionDAO extends BaseDAO {
 
         return institution;
     }
-    // Método para pegar instituções, pesquisando por CNPJ e retornar a instituição encontrada.
+
     //TODO ajustar o método
     public Institution getInstitutionByCNPJ(String cnpj) throws Exception{
         PreparedStatement stmt;
@@ -71,7 +68,6 @@ public class InstitutionDAO extends BaseDAO {
             stmt = super.connection.prepareStatement(select);
             stmt.setString(1, cnpj);
             rs = stmt.executeQuery();
-
 
             if (rs.next()) {
 

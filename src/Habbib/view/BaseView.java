@@ -1,6 +1,7 @@
 package Habbib.view;
 
 import javax.swing.*;
+import javax.swing.table.DefaultTableModel;
 import java.awt.*;
 
 public class BaseView extends JFrame {
@@ -11,15 +12,17 @@ public class BaseView extends JFrame {
     private Font headerFont = new Font(font, Font.PLAIN, 20);
     private Font inputLabelFont = new Font(font, Font.PLAIN, 14);
     private Font textLabelFont = new Font(font, Font.PLAIN, 12);
+    private Font textLabelFontBold = new Font(font, Font.BOLD, 12);
     private Font buttonFont = new Font(font, Font.PLAIN, 10);
     private Font buttonFontBig = new Font(font, Font.PLAIN, 16);
+    private Font textTable = new Font(font, Font.PLAIN,11);
 
     protected Container currentContainer;
 
     public BaseView(String title) {
         super(title);
     }
-    
+
     public void showWindow(Container contentPane, int width, int height){
         super.setSize(width,height);
         super.setResizable(false);
@@ -101,4 +104,41 @@ public class BaseView extends JFrame {
         comboBox.setBounds(x,y,width,height);
         return comboBox;
     }
+    public JTable createTable(DefaultTableModel model){
+        JTable table = new JTable(model);
+        table.setFont(textTable);
+
+
+        return  table;
+    }
+
+    protected JLabel createTextLabelLeft(String name, int x, int y, int width, int height) {
+        JLabel textLabel = new JLabel(name);
+        textLabel.setFont(textLabelFont);
+        textLabel.setHorizontalAlignment(SwingConstants.LEFT);
+        textLabel.setVerticalAlignment(SwingConstants.CENTER);
+        textLabel.setBounds(x,y,width,height);
+        return textLabel;
+
+    }
+
+    protected JLabel createTextLabelLeftBold(String name, int x, int y, int width, int height) {
+        JLabel textLabel = new JLabel(name);
+        textLabel.setFont(textLabelFontBold);
+        textLabel.setHorizontalAlignment(SwingConstants.LEFT);
+        textLabel.setVerticalAlignment(SwingConstants.CENTER);
+        textLabel.setBounds(x,y,width,height);
+        return textLabel;
+    }
+
+    protected JTextArea createJTextArea(int x, int y, int width, int height) {
+        JTextArea  t = new JTextArea();
+        t.setFont(textLabelFont);
+        t.setBounds(x,y,width,height);
+
+        return t;
+
+    }
+
+
 }

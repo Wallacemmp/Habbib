@@ -6,6 +6,7 @@ public class Requisition {
     private String description;
     private Bed bed;
     private Patient patient;
+    private Institution destinationInsitution;
 
     public int getId() {
         return id;
@@ -47,4 +48,11 @@ public class Requisition {
         this.patient = patient;
     }
 
+    public Institution getDestinationInsitution() {
+        return destinationInsitution;
+    }
+
+    public void setDestinationInsitution(Institution destinationInsitution) {
+        this.destinationInsitution = destinationInsitution;
+    }
 }
