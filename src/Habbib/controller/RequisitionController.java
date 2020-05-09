@@ -54,4 +54,14 @@ public class RequisitionController {
         return content;
     }
 
+    public Object[][] rows (ArrayList<Requisition> institutionsRequisitions){
+
+        Object[][] rows = new Object[institutionsRequisitions.size()][3];
+
+        for(int i=0; i < institutionsRequisitions.size(); i++){
+            rows[i] = new Object[]{institutionsRequisitions.get(i).getBed().getInstitution().getName(), institutionsRequisitions.get(i).getPatient().getFirstName() + " " + institutionsRequisitions.get(i).getPatient().getLastName(), institutionsRequisitions.get(i).getBed().getType(), institutionsRequisitions.get(i).getStatus()};
+        }
+        return rows;
+    }
+
 }
