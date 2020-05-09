@@ -6,12 +6,11 @@ import Habbib.model.Institution;
 
 import java.sql.PreparedStatement;
 import java.sql.ResultSet;
-import java.sql.SQLException;
 import java.sql.Statement;
 
 public class InstitutionDAO extends BaseDAO {
 
-    public InstitutionDAO () throws Exception
+    public InstitutionDAO ()
     {
         super();
     }
@@ -65,16 +64,17 @@ public class InstitutionDAO extends BaseDAO {
     public Institution getInstitutionByCNPJ(String cnpj) throws Exception{
         PreparedStatement stmt;
         ResultSet rs;
-        Institution institution = new Institution();
+        Institution institution = null;
+
         try {
             String select = "SELECT * FROM Institution i JOIN Address a ON i.cnpj = ? AND i.Id_Address = a.Id";
             stmt = super.connection.prepareStatement(select);
             stmt.setString(1, cnpj);
             rs = stmt.executeQuery();
 
-
             if (rs.next()) {
 
+                institution = new Institution();
                 Address address = new Address();
 
                 institution.setId(rs.getInt("Id"));
@@ -164,47 +164,5 @@ public class InstitutionDAO extends BaseDAO {
             System.out.println(e.getMessage());
             throw e;
         }
-    }
-    //Método para buscar instituição por Id
-    public Institution getInstitutionById(int Id) throws Exception{
-
-        PreparedStatement stmt;
-        ResultSet rs;
-        Institution institution = new Institution();
-        Address address = new Address();
-
-        try {
-
-            String select = "SELECT * FROM Institution i JOIN Address a ON i.Id_Address = a.Id AND i.Id = ?";
-
-            stmt = super.connection.prepareStatement(select);
-
-            stmt.setInt(1, Id);
-            rs = stmt.executeQuery();
-
-            if(rs.next()){
-
-                institution.setId(rs.getInt("Id"));
-                institution.setName(rs.getString("Name"));
-                institution.setCnpj(rs.getString("CNPJ"));
-                institution.setPassword(rs.getString("Password"));
-                institution.setType(rs.getString("Type"));
-                institution.setContactNumber(rs.getString("ContactNumber"));
-                address.setId(rs.getInt("Id_Address"));
-                address.setZipCode(rs.getString("ZipCode"));
-                address.setAddress(rs.getString("Address"));
-                address.setNumber(rs.getInt("AddressNumber"));
-                address.setComplement(rs.getString("Complement"));
-                address.setNeighborhood(rs.getString("Neighborhood"));
-                address.setCity(rs.getString("City"));
-                address.setUf(rs.getString("UF"));
-                institution.setAddress(address);
-            }
-
-        } catch (Exception e) {
-            System.out.println(e);
-            throw e;
-        }
-        return institution;
     }
 }

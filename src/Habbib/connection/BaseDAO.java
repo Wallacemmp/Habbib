@@ -14,12 +14,11 @@ public class BaseDAO implements Closeable {
 
     protected Connection connection;
 
-    public BaseDAO() throws Exception{
+    public BaseDAO() {
         try {
             connection = DriverManager.getConnection(URL, USER, PASSWORD);
         } catch (SQLException e) {
             System.out.println(e.getMessage());
-            throw e;
         }
     }
 

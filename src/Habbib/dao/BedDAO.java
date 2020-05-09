@@ -12,8 +12,7 @@ import java.util.ArrayList;
 
 public class BedDAO extends BaseDAO {
 
-    public BedDAO() throws Exception
-    {
+    public BedDAO() {
         super();
     }
     // Método que retorna um ArrayList com todos os leitos presentes em uma instituição.
@@ -25,7 +24,7 @@ public class BedDAO extends BaseDAO {
 
         try{
             beds = new ArrayList<>();
-            String select = "SELECT * FROM Bed WHERE Id_Institution = ?";
+            String select = "SELECT b.*,i.* FROM Bed b JOIN Institution i ON b.Id_Institution = i.Id JOIN Patient p";
             stmt = super.connection.prepareStatement(select);
             stmt.setInt(1,institution.getId());
             rs = stmt.executeQuery();
@@ -62,7 +61,7 @@ public class BedDAO extends BaseDAO {
         try{
 
             beds = new ArrayList<>();
-            String select = "SELECT b.*,i.* FROM Bed b JOIN Institution i ON b.Id_Institution = i.Id";
+            String select = "SELECT b.*,i.*,a.* FROM Bed b JOIN Institution i ON b.Id_Institution = i.Id JOIN Address a ON a.Id = b.Id_Institution";
             stmt = super.connection.prepareStatement(select);
             rs = stmt.executeQuery();
 
@@ -81,7 +80,7 @@ public class BedDAO extends BaseDAO {
                 institution.setPassword(rs.getString("Password"));
                 institution.setType(rs.getString("i.Type"));
                 institution.setContactNumber(rs.getString("ContactNumber"));
-                address.setId(rs.getInt("a.Id"));
+                address.setId(rs.getInt("Id"));
                 address.setZipCode(rs.getString("ZipCode"));
                 address.setAddress(rs.getString("Address"));
                 address.setNumber(rs.getInt("AddressNumber"));
@@ -136,23 +135,6 @@ public class BedDAO extends BaseDAO {
             stmt.setInt(1,bed.getId());
             stmt.executeUpdate();
         } catch (Exception e){
-            System.out.println(e.getMessage());
-            throw e;
-        }
-    }
-
-    public void updateBedStatus(Bed bed) throws Exception {
-
-        PreparedStatement stmt;
-
-        try {
-            String updateBed = "UPDATE Bed SET Status = ? WHERE Id = ?";
-            stmt = super.connection.prepareStatement(updateBed);
-            stmt.setString(1, bed.getStatus());
-            stmt.setInt(2, bed.getId());
-        }
-        catch (Exception e)
-        {
             System.out.println(e.getMessage());
             throw e;
         }
