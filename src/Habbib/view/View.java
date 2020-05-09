@@ -11,8 +11,12 @@ import Habbib.model.Institution;
 
 import javax.swing.*;
 import javax.swing.table.DefaultTableModel;
+import javax.swing.table.TableModel;
+import javax.swing.table.TableRowSorter;
 import java.awt.*;
 import java.awt.event.*;
+import java.util.Objects;
+import java.util.regex.PatternSyntaxException;
 
 public class View extends BaseView{
     JFrame frameRegisterBed;
@@ -316,28 +320,73 @@ public class View extends BaseView{
         JTextField searchInput = super.createTextField(120,110,393,30);
         JButton searchButton = super.createButton("Consultar",512, 108, 80, 32);
 
-        DefaultTableModel model = new DefaultTableModel(){
-            @Override
-            public boolean isCellEditable(final int row, final int column) {
-                return false;
-            }
-        };
-        RequisitionController rc = new RequisitionController();
-        model.addColumn("Instituição");
-        model.addColumn("Paciente");
-        model.addColumn("Leito");
-        model.addColumn("Status");
+        Object rows[][] = {
+                {"NotreDame Intermédica Itaquera", "Roberto Augusto Alvares Cabral", "Baixa-Complexidade","Aprovado"},
+                {"NotreDame Intermédica Itaquera", "Roberto Augusto Alvares Cabral", "Baixa-Complexidade","Aprovado"},
+                {"NotreDame Intermédica Itaquera", "Roberto Augusto Alvares Cabral", "Baixa-Complexidade","Aprovado"},
+                {"NotreDame Intermédica Itaquera", "Roberto Augusto Alvares Cabral", "Baixa-Complexidade","Aprovado"},
+                {"NotreDame Intermédica Itaquera", "Roberto Augusto Alvares Cabral", "Baixa-Complexidade","Em análise"},
+                {"NotreDame Intermédica Itaquera", "Roberto Augusto Alvares Cabral", "Baixa-Complexidade","Em análise"},
+                {"NotreDame Intermédica Itaquera", "Roberto Augusto Alvares Cabral", "Baixa-Complexidade","Em análise"},
+                {"NotreDame Intermédica Itaquera", "Roberto Augusto Alvares Cabral", "Baixa-Complexidade","Recusado"},
+                {"Rafal Augusto", "Roberto Augusto Alvares Cabral", "Baixa-Complexidade","Recusado"}
 
+        };
+
+
+        Object columns[] = {"Instituição", "Paciente", "Leito","Status"};
+        TableModel model =
+                new DefaultTableModel(rows,columns) {
+                    public Class getColumnClass(int column) {
+                        Class returnValue;
+                        if ((column >= 0) && (column < getColumnCount())) {
+                            returnValue = getValueAt(0, column).getClass();
+                        } else {
+                            returnValue = Object.class;
+                        }
+                        return returnValue;
+                    }
+                };
+        JTable table = new JTable(model);
+        final TableRowSorter<TableModel> sorter =
+                new TableRowSorter<TableModel>(model);
+        table.setRowSorter(sorter);
+        JScrollPane pane = new JScrollPane(table);
+        pane.setBounds(10,140,580,270);
+
+        searchButton.addActionListener(new ActionListener() {
+            public void actionPerformed(ActionEvent e) {
+                String text = searchInput.getText();
+                String cbText = statusCB.getSelectedItem().toString();
+                if (text.length() == 0 && cbText.equals("Selecionar")){
+                    sorter.setRowFilter(null);
+                } else if(text.length() != 0){
+                    try {
+                        sorter.setRowFilter(
+                                RowFilter.regexFilter(text));
+                    } catch (PatternSyntaxException pse) {
+                        System.err.println("Erro");
+                    }
+
+                }else{
+                    try {
+                        sorter.setRowFilter(
+                                RowFilter.regexFilter(cbText));
+                    } catch (PatternSyntaxException pse) {
+                        System.err.println("Erro");
+                    }
+                }
+
+            }
+        });
+
+/*
         JTable providerTable = super.createTable(model);
         providerTable.getColumnModel().getColumn(0).setPreferredWidth(180);
         providerTable.getColumnModel().getColumn(1).setPreferredWidth(200);
         providerTable.getColumnModel().getColumn(2).setPreferredWidth(125);
         providerTable.getColumnModel().getColumn(3).setPreferredWidth(75);
-        for(int i = 0; i <10 ; i++ ){
-            model.addRow(new Object[]{"NotreDame Intermédica Itaquera", "Roberto Augusto Alvares Cabral", "Baixa-Complexidade","Aprovado"});
-            model.addRow(new Object[]{"NotreDame Intermédica Itaquera", "Roberto Augusto Alvares Cabral", "Baixa-Complexidade","Em análise"});
-            model.addRow(new Object[]{"NotreDame Intermédica Itaquera", "Roberto Augusto Alvares Cabral", "Baixa-Complexidade","Recusado"});
-        }
+
         providerTable.addMouseListener(new MouseAdapter() {
             @Override
             public void mousePressed(MouseEvent e) {
@@ -350,7 +399,7 @@ public class View extends BaseView{
                     String status = providerTable.getValueAt(providerTable.getSelectedRow(), 3).toString();
 
                     setContentPane(providerStatusContainer(institution,institutionName,patientName,bed,status));
-/*
+
                     try {
                         InstitutionDAO  ad = new InstitutionDAO();
                         Institution inst = ad.getInstitutionByName(name);
@@ -362,14 +411,14 @@ public class View extends BaseView{
                         exception.printStackTrace();
                     }
 
-*/
+
 
                 }
 
             }
         });
 
-/*
+
         try {
             for(Bed beds : rc.searchAvailableBeds()){
 
@@ -384,22 +433,16 @@ public class View extends BaseView{
         }
 
 
-*/
+
         JScrollPane scroll = new JScrollPane(providerTable);
         scroll.setBounds(10,150,580,272);
 
 
-
+*/
 
 
         JButton backButton = super.createButton("Cancelar",510, 427, 80, 30);
 
-        searchButton.addActionListener(new ActionListener() {
-            @Override
-            public void actionPerformed(ActionEvent e) {
-                //TODO Criar JTable para exibir os resultados
-            }
-        });
 
         backButton.addActionListener(new ActionListener() {
             @Override
@@ -413,7 +456,7 @@ public class View extends BaseView{
         providerContainer.add(searchInput);
         providerContainer.add(searchButton);
         providerContainer.add(backButton);
-        providerContainer.add(scroll);
+        providerContainer.add(pane);
 
         return providerContainer;
     }
