@@ -321,15 +321,15 @@ public class View extends BaseView{
         JButton searchButton = super.createButton("Consultar",512, 108, 80, 32);
 
         Object rows[][] = {
+                {"CotreDame Intermédica Itaquera", "Roberto Augusto Alvares Cabral", "Baixa-Complexidade","Aprovado"},
+                {"AotreDame Intermédica Itaquera", "Roberto Augusto Alvares Cabral", "Baixa-Complexidade","Aprovado"},
                 {"NotreDame Intermédica Itaquera", "Roberto Augusto Alvares Cabral", "Baixa-Complexidade","Aprovado"},
-                {"NotreDame Intermédica Itaquera", "Roberto Augusto Alvares Cabral", "Baixa-Complexidade","Aprovado"},
-                {"NotreDame Intermédica Itaquera", "Roberto Augusto Alvares Cabral", "Baixa-Complexidade","Aprovado"},
-                {"NotreDame Intermédica Itaquera", "Roberto Augusto Alvares Cabral", "Baixa-Complexidade","Aprovado"},
-                {"NotreDame Intermédica Itaquera", "Roberto Augusto Alvares Cabral", "Baixa-Complexidade","Em análise"},
-                {"NotreDame Intermédica Itaquera", "Roberto Augusto Alvares Cabral", "Baixa-Complexidade","Em análise"},
+                {"FotreDame Intermédica Itaquera", "Roberto Augusto Alvares Cabral", "UTI","Aprovado"},
+                {"LotreDame Intermédica Itaquera", "Roberto Augusto Alvares Cabral", "Baixa-Complexidade","Em análise"},
+                {"BotreDame Intermédica Itaquera", "Roberto Augusto Alvares Cabral", "UTI","Em análise"},
                 {"NotreDame Intermédica Itaquera", "Roberto Augusto Alvares Cabral", "Baixa-Complexidade","Em análise"},
                 {"NotreDame Intermédica Itaquera", "Roberto Augusto Alvares Cabral", "Baixa-Complexidade","Recusado"},
-                {"Rafal Augusto", "Roberto Augusto Alvares Cabral", "Baixa-Complexidade","Recusado"}
+                {"Rafa", "Roberto Augusto Alvares Cabral", "Baixa-Complexidade","Recusado"}
 
         };
 
@@ -346,8 +346,29 @@ public class View extends BaseView{
                         }
                         return returnValue;
                     }
+
+                    @Override
+                    public boolean isCellEditable(final int row,final int column) {
+                        return false;
+                    }
                 };
         JTable table = new JTable(model);
+        table.addMouseListener(new MouseAdapter() {
+            @Override
+            public void mousePressed(MouseEvent e) {
+                JTable table =(JTable) e.getSource();
+                if (e.getClickCount() == 2 && table.getSelectedRow() != -1) {
+                    providerContainer.setVisible(false);
+                    String institutionName = table.getValueAt(table.getSelectedRow(), 0).toString();
+                    String patientName = table.getValueAt(table.getSelectedRow(), 1).toString();
+                    String bed =  table.getValueAt(table.getSelectedRow(), 2).toString();
+                    String status = table.getValueAt(table.getSelectedRow(), 3).toString();
+                    setContentPane(providerStatusContainer(institution,institutionName,patientName,bed,status));
+
+                }
+
+            }
+        });
         final TableRowSorter<TableModel> sorter =
                 new TableRowSorter<TableModel>(model);
         table.setRowSorter(sorter);
@@ -358,23 +379,23 @@ public class View extends BaseView{
             public void actionPerformed(ActionEvent e) {
                 String text = searchInput.getText();
                 String cbText = statusCB.getSelectedItem().toString();
-                if (text.length() == 0 && cbText.equals("Selecionar")){
-                    sorter.setRowFilter(null);
-                } else if(text.length() != 0){
-                    try {
-                        sorter.setRowFilter(
-                                RowFilter.regexFilter(text));
-                    } catch (PatternSyntaxException pse) {
-                        System.err.println("Erro");
-                    }
 
-                }else{
-                    try {
-                        sorter.setRowFilter(
-                                RowFilter.regexFilter(cbText));
-                    } catch (PatternSyntaxException pse) {
-                        System.err.println("Erro");
+                try {
+                    if (text.length() == 0 && cbText.equals("Selecionar")) {
+                        sorter.setRowFilter(null);
+                    } else if (text.length() != 0 && cbText.equals("Selecionar")) {
+                                    sorter.setRowFilter(RowFilter.regexFilter(text));
+
+                    } else if (text.length() != 0 && !(cbText.equals("Selecionar"))) {
+                            sorter.setRowFilter(RowFilter.regexFilter(text));
+                            sorter.setRowFilter(RowFilter.regexFilter(cbText));
+
+                    } else {
+                            sorter.setRowFilter(RowFilter.regexFilter(cbText));
+
                     }
+                }catch (PatternSyntaxException pse) {
+                    System.err.println("Erro");
                 }
 
             }
