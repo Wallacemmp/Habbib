@@ -12,75 +12,71 @@ import java.util.ArrayList;
 
 public class BedDAO extends BaseDAO {
 
-    public BedDAO() {
+    public BedDAO() throws Exception
+    {
         super();
     }
-    // Método que retorna um ArrayList com todos os leitos presentes em uma instituição.
+
     public ArrayList<Bed> getBedByInstitution(Institution institution) throws Exception{
         PreparedStatement stmt;
         ResultSet rs;
-        ArrayList<Bed> beds;
+        ArrayList<Bed> beds = new ArrayList<>();
         Bed bed;
 
         try{
-            beds = new ArrayList<>();
-            String select = "SELECT b.*,i.* FROM Bed b JOIN Institution i ON b.Id_Institution = i.Id JOIN Patient p";
+
+            String select = "SELECT * FROM Bed WHERE Id_Institution = ?";
             stmt = super.connection.prepareStatement(select);
             stmt.setInt(1,institution.getId());
             rs = stmt.executeQuery();
 
-            //Carrega objetos bed em seguida insere o OBJETO BED no ArrayList
             while(rs.next()){
 
                 bed = new Bed();
                 bed.setId(rs.getInt("Id"));
                 bed.setType(rs.getString("Type"));
                 bed.setStatus(rs.getString("Status"));
-                bed.setInstitution(institution);
 
                 beds.add(bed);
-
             }
         } catch (Exception e){
             System.out.println(e.getMessage());
             throw e;
         }
-        // retorno do ArrayList carregado.
         return beds;
     }
 
-    public ArrayList<Bed> getAvailableBeds() throws Exception{
+    public ArrayList<Institution> getAvailableBedsFromInsitutions() throws Exception{
 
         PreparedStatement stmt;
         ResultSet rs;
-        ArrayList<Bed> beds;
-        Bed bed;
-        Institution institution;
-        Address address;
+        ArrayList<Institution> institutionList = new ArrayList<>();
 
         try{
-
-            beds = new ArrayList<>();
-            String select = "SELECT b.*,i.*,a.* FROM Bed b JOIN Institution i ON b.Id_Institution = i.Id JOIN Address a ON a.Id = b.Id_Institution";
+            String select = "SELECT i., a.,\n" +
+                    "       (SELECT count(bed.Id) FROM Bed bed WHERE bed.Id_Institution = i.Id and bed.Status = 'Disponivel' and bed.Type = 'UTI') as UTICount,\n" +
+                    "       (SELECT count(bed.Id) FROM Bed bed WHERE bed.Id_Institution = i.Id and bed.Status = 'Disponivel' and bed.Type = 'Semi-intensivo') as SemiIntensiveCount,\n" +
+                    "       (SELECT count(bed.Id) FROM Bed bed WHERE bed.Id_Institution = i.Id and bed.Status = 'Disponivel' and bed.Type = 'Baixa complexidade') as LowComplexityCount\n" +
+                    "FROM Institution i\n" +
+                    "join Bed b on i.Id = b.Id_Institution\n" +
+                    "join Address a on i.Id_Address = a.Id\n" +
+                    "where b.Status = 'Disponivel'\n" +
+                    "GROUP BY i.Id";
             stmt = super.connection.prepareStatement(select);
             rs = stmt.executeQuery();
 
-            //Carrega objetos bed em seguida insere o OBJETO BED no ArrayList
-            while(rs.next()){
+            while(rs.next()) {
+                Institution institution = new Institution();
 
-                bed = new Bed();
-                institution = new Institution();
-                address = new Address();
-                bed.setId(rs.getInt("b.Id"));
-                bed.setType(rs.getString("b.Type"));
-                bed.setStatus(rs.getString("Status"));
                 institution.setId(rs.getInt("i.Id"));
                 institution.setName(rs.getString("Name"));
                 institution.setCnpj(rs.getString("CNPJ"));
                 institution.setPassword(rs.getString("Password"));
-                institution.setType(rs.getString("i.Type"));
+                institution.setType(rs.getString("Type"));
                 institution.setContactNumber(rs.getString("ContactNumber"));
-                address.setId(rs.getInt("Id"));
+
+                Address address = new Address();
+                address.setId(rs.getInt("a.Id"));
                 address.setZipCode(rs.getString("ZipCode"));
                 address.setAddress(rs.getString("Address"));
                 address.setNumber(rs.getInt("AddressNumber"));
@@ -88,30 +84,43 @@ public class BedDAO extends BaseDAO {
                 address.setNeighborhood(rs.getString("Neighborhood"));
                 address.setCity(rs.getString("City"));
                 address.setUf(rs.getString("UF"));
+
                 institution.setAddress(address);
-                bed.setInstitution(institution);
 
-                beds.add(bed);
+                ArrayList<Bed> beds = new ArrayList<>();
 
+                if(rs.getInt("UTICount") > 0)
+                    for (int i = 0; i < rs.getInt("UTICount"); i++)
+                        beds.add(new Bed("UTI", "Disponivel"));
+
+                if(rs.getInt("SemiIntensiveCount") > 0)
+                    for (int i = 0; i < rs.getInt("SemiIntensiveCount"); i++)
+                        beds.add(new Bed("Semi-intensivo", "Disponivel"));
+
+                if(rs.getInt("LowComplexityCount") > 0)
+                    for (int i = 0; i < rs.getInt("LowComplexityCount"); i++)
+                        beds.add(new Bed("Baixa complexidade", "Disponivel"));
+
+                institution.setBeds(beds);
+                institutionList.add(institution);
             }
         } catch (Exception e){
             System.out.println(e.getMessage());
             throw e;
         }
-        // retorno do ArrayList carregado.
-        return beds;
+
+        return institutionList;
     }
-    // Adiciona um novo leito por instituição, retornando o leito criado.
-    public Bed addBed(Bed bed) throws Exception {
+
+    public Bed addBed(Bed bed, Institution institution) throws Exception {
         PreparedStatement stmt;
         ResultSet rs;
 
-        //Statement.RETURN_GENERATED_KEYS e getGeneratedKeys() são responsáveis por retornar a pk gerada para o registro.
         try {
             String insert = "INSERT INTO Bed VALUE (DEFAULT,?,DEFAULT,?)";
             stmt = super.connection.prepareStatement(insert, Statement.RETURN_GENERATED_KEYS);
             stmt.setString(1, bed.getType());
-            stmt.setInt(2, bed.getInstitution().getId());
+            stmt.setInt(2, institution.getId());
             stmt.executeUpdate();
             rs = stmt.getGeneratedKeys();
 
@@ -125,7 +134,7 @@ public class BedDAO extends BaseDAO {
         }
         return bed;
     }
-    // Método para remover leito de uma instituição.
+
     public void removeBed(Bed bed) throws Exception {
         PreparedStatement stmt;
 
@@ -135,6 +144,23 @@ public class BedDAO extends BaseDAO {
             stmt.setInt(1,bed.getId());
             stmt.executeUpdate();
         } catch (Exception e){
+            System.out.println(e.getMessage());
+            throw e;
+        }
+    }
+
+    public void updateBedStatus(Bed bed) throws Exception {
+
+        PreparedStatement stmt;
+
+        try {
+            String updateBed = "UPDATE Bed SET Status = ? WHERE Id = ?";
+            stmt = super.connection.prepareStatement(updateBed);
+            stmt.setString(1, bed.getStatus());
+            stmt.setInt(2, bed.getId());
+        }
+        catch (Exception e)
+        {
             System.out.println(e.getMessage());
             throw e;
         }

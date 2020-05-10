@@ -2,17 +2,18 @@ package Habbib.controller;
 
 import Habbib.dao.BedDAO;
 import Habbib.model.Bed;
+import Habbib.model.Institution;
 
 import java.util.ArrayList;
 
 public class BedController {
 
-    public void registerBeds(Bed bed, int count) throws Exception{
+    public void registerBeds(Bed bed, int count, Institution institution) throws Exception{
 
         try(BedDAO bedDAO = new BedDAO()) {
 
             for(int i = 0; i < count; i++){
-                bedDAO.addBed(bed);
+                bedDAO.addBed(bed, institution);
             }
 
         } catch (Exception e){
@@ -21,18 +22,18 @@ public class BedController {
         }
     }
 
-    public ArrayList<Bed> searchAvailableBeds() throws Exception{
+    public ArrayList<Institution> searchInsitutionswithAvailableBeds() throws Exception{
 
-        ArrayList<Bed> beds;
+        ArrayList<Institution> institution;
 
         try(BedDAO bedDAO = new BedDAO()){
 
-            beds = bedDAO.getAvailableBeds();
+            institution = bedDAO.getAvailableBedsFromInsitutions();
 
         } catch (Exception e){
             System.out.println(e.getMessage());
             throw e;
         }
-        return beds;
+        return institution;
     }
 }

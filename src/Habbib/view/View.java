@@ -17,6 +17,8 @@ import javax.swing.table.TableRowSorter;
 import java.awt.*;
 import java.awt.event.*;
 import java.util.ArrayList;
+import java.util.List;
+import java.util.Objects;
 import java.util.regex.PatternSyntaxException;
 
 public class View extends BaseView{
@@ -317,6 +319,7 @@ public class View extends BaseView{
         providerContainer.add(super.createInputLabel("Instituição:",13,52,70,30));
         providerContainer.add(super.createInputLabel(institution.getName(),83,52,70,30));
         providerContainer.add(super.createInputLabel("Status:",13,82,60,30));
+
         JComboBox statusCB = super.createComboBox(new String[]{"Todos","Em análise","Recusado","Aprovado"},10,110,110,30);
         JTextField searchInput = super.createTextField(120,110,393,30);
         JButton searchButton = super.createButton("Consultar",512, 108, 80, 32);
@@ -325,12 +328,25 @@ public class View extends BaseView{
 
             RequisitionController requisitionController = new RequisitionController();
 
-            Object[][] rows = new Object[requisitionController.listRequisitions(institution).size()][3];
+            ArrayList<Institution> institutionList = requisitionController.getRequestingInstitutions(institution);
 
-            ArrayList<Requisition> requisitions = requisitionController.listRequisitions(institution);
+            int rowsCount = 0;
 
-            for(int i=0; i < requisitionController.listRequisitions(institution).size(); i++) {
-                rows[i] = new Object[]{requisitions.get(i).getBed().getInstitution().getName(), requisitions.get(i).getPatient().getFirstName() + " " + requisitions.get(i).getPatient().getLastName(), requisitions.get(i).getBed().getType(), requisitions.get(i).getStatus()};
+            for(Institution insitutions : institutionList)
+                rowsCount += insitutions.getRequisitions().size();
+
+            Object[][] rows = new Object[rowsCount][3];
+
+            int currentRow = 0;
+
+            for (int i=0; i < institutionList.size(); i++)
+                for(int j=0; j < institutionList.get(i).getRequisitions().size(); j++) {
+                    rows[currentRow] = new Object[]
+                            {institutionList.get(i).getName(),
+                                    institutionList.get(i).getRequisitions().get(j).getPatient().getFirstName() + " " + institutionList.get(i).getRequisitions().get(j).getPatient().getLastName(),
+                                    institutionList.get(i).getRequisitions().get(j).getBed().getType(),
+                                    institutionList.get(i).getRequisitions().get(j).getStatus()};
+                    currentRow++;
             }
 
             Object columns[] = {"Instituição", "Paciente", "Leito", "Status"};
@@ -414,8 +430,8 @@ public class View extends BaseView{
             providerContainer.add(searchButton);
             providerContainer.add(backButton);
             providerContainer.add(pane);
-        } catch (Exception e ){
-            System.out.println(e.getMessage());
+        } catch (Exception ex ){
+            System.out.println(ex.getMessage());
         }
         return providerContainer;
     }
@@ -488,7 +504,6 @@ public class View extends BaseView{
             providerStatusContainer.add(approved);
         }
 
-
         return  providerStatusContainer;
     }
 
@@ -519,11 +534,22 @@ public class View extends BaseView{
         requestTable.getColumnModel().getColumn(1).setPreferredWidth(200);
         requestTable.getColumnModel().getColumn(2).setPreferredWidth(125);
         requestTable.getColumnModel().getColumn(3).setPreferredWidth(75);
-        for(int i = 0; i <10 ; i++ ){
-            model.addRow(new Object[]{"NotreDame Intermédica Itaquera", "Roberto Augusto Alvares Cabral", "Baixa-Complexidade","Aprovado"});
-            model.addRow(new Object[]{"NotreDame Intermédica Itaquera", "Roberto Augusto Alvares Cabral", "Baixa-Complexidade","Em análise"});
-            model.addRow(new Object[]{"NotreDame Intermédica Itaquera", "Roberto Augusto Alvares Cabral", "Baixa-Complexidade","Recusado"});
+      
+        try
+        {
+            RequisitionController requisitionController = new RequisitionController();
+
+            ArrayList<Requisition> requisitions = requisitionController.listRequisitions(institution);
+            institution.setRequisitions(requisitions);
+
+            for(Requisition requisition : requisitions){
+                model.addRow(new Object[]{requisition.getDestinationInsitution().getName(), requisition.getPatient().getFirstName() + requisition.getPatient().getLastName(), requisition.getBed().getType(),requisition.getStatus()});
+            }
+
+        }catch (Exception ex){
+            ex.printStackTrace();
         }
+      
         requestTable.addMouseListener(new MouseAdapter() {
             @Override
             public void mousePressed(MouseEvent e) {
@@ -547,7 +573,6 @@ public class View extends BaseView{
                     } catch (Exception exception) {
                         exception.printStackTrace();
                     }
-
 */
 
                 }
@@ -573,10 +598,6 @@ public class View extends BaseView{
 */
         JScrollPane scroll = new JScrollPane(requestTable);
         scroll.setBounds(10,150,580,272);
-
-
-
-
 
         JButton backButton = super.createButton("Cancelar",510, 427, 80, 30);
 
@@ -645,9 +666,6 @@ public class View extends BaseView{
             });
             requestStatus.add(comeBack);
 
-
-
-
         return  requestStatus;
     }
 
@@ -672,9 +690,7 @@ public class View extends BaseView{
                     BedController bedController = new BedController();
 
                     bed.setType(typeInput.getSelectedItem().toString());
-                    bed.setInstitution(institution);
-
-                    bedController.registerBeds(bed,Integer.parseInt(amountInput.getText()));
+                    bedController.registerBeds(bed,Integer.parseInt(amountInput.getText()), institution);
 
                     JOptionPane.showMessageDialog(null,"Leito(s) cadastrado(s) com sucesso !", "WARNING",JOptionPane.WARNING_MESSAGE);
                 } catch (Exception ex) {
@@ -706,8 +722,6 @@ public class View extends BaseView{
     private Container requestBedContainer(Institution institution){
         JPanel requestBedContainer= new JPanel();
         requestBedContainer.setLayout(null);
-
-
 
         requestBedContainer.add(super.createHeaderLabel("Solicitar leito", 160,10,251,32));
 
@@ -772,10 +786,6 @@ public class View extends BaseView{
                     } catch (Exception exception) {
                         exception.printStackTrace();
                     }
-
-
-
-
                 }
 
             }
@@ -783,27 +793,17 @@ public class View extends BaseView{
 
 
         try {
-            for(Bed beds : bc.searchAvailableBeds()){
+            //TODO: Britez agrupar por tipo de leito.
+            for(Institution availableInstitution : bc.searchInsitutionswithAvailableBeds())
+                for(Bed bed : availableInstitution.getBeds())
+                    model.addRow(new Object[]{ availableInstitution.getName(),availableInstitution.getType(),availableInstitution.getAddress().getUf(),bed.getType(),5,availableInstitution.getContactNumber()});
 
-                model.addRow(new Object[]{ beds.getInstitution().getName(),beds.getInstitution().getType(),beds.getInstitution().getAddress().getNeighborhood(),beds.getType(),5,beds.getInstitution().getContactNumber()});
-
-
-
-
-            }
         } catch (Exception e) {
             e.printStackTrace();
         }
 
-
-
         JScrollPane scroll = new JScrollPane(requestBedTable);
         scroll.setBounds(10,110,580,300);
-
-
-
-
-
 
         JButton consult = super.createButton("Consultar",512, 62, 78, 26);
         consult.addActionListener(new ActionListener() {
@@ -814,9 +814,6 @@ public class View extends BaseView{
                 setContentPane(initMenu(institution));*/
             }
         });
-
-
-
 
         JButton exit = super.createButton("Cancelar",512, 427, 78, 30);
         exit.addActionListener(new ActionListener() {
@@ -898,7 +895,6 @@ public class View extends BaseView{
 
         JButton request = super.createButton("Solicitar",509,444,78, 30 );
         requestContainer.add(request);
-
 
         return  requestContainer;
     }
