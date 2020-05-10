@@ -39,4 +39,13 @@ public class InstitutionController {
         }
     }
 
+    public Institution getInstitutionByName(String name) throws Exception{
+
+        try(InstitutionDAO institutionDAO = new InstitutionDAO()){
+            return institutionDAO.getInstitutionByName(name);
+        } catch (Exception e){
+            System.out.println(e.getMessage());
+            throw e;
+        }
+    }
 }

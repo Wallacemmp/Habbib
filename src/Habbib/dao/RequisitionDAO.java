@@ -77,7 +77,7 @@ public class RequisitionDAO extends BaseDAO{
                 destinationInstitution.setAddress(address);
 
                 //requisition.setRequestingInsitution(institution);
-                requisition.setDestinationInsitution(destinationInstitution);
+                requisition.setDestinationInstitution(destinationInstitution);
 
                 requisitions.add(requisition);
             }
@@ -178,7 +178,7 @@ public class RequisitionDAO extends BaseDAO{
                 bed.setStatus(rs.getString("b.Status"));
                 requisition.setBed(bed);
 
-                    requisition.setDestinationInsitution(destinationInstitution);
+                    requisition.setDestinationInstitution(destinationInstitution);
 
                     requisitions.add(requisition);
 
@@ -205,11 +205,12 @@ public class RequisitionDAO extends BaseDAO{
 
             String select = "SELECT p.*, r.*, b.*, destinationI.*, a.*\n" +
                     " FROM Requisition r\n" +
-                    " JOIN Institution sourceI ON sourceI.Id = ?\n" +
+                    " JOIN Institution sourceI ON sourceI.Id = Id_Institution AND r.Id = ? " +
                     " JOIN Patient p ON r.Id_Patient = p.Id\n" +
                     " JOIN Bed b ON r.Id_Bed = b.Id\n" +
                     " JOIN Institution destinationI ON b.Id_Institution = destinationI.Id\n" +
                     " JOIN Address a ON destinationI.Id_Address = a.Id";
+
             stmt = super.connection.prepareStatement(select);
             stmt.setInt(1,id);
             rs = stmt.executeQuery();
@@ -257,7 +258,7 @@ public class RequisitionDAO extends BaseDAO{
                 address.setUf(rs.getString("UF"));
                 destinationInstitution.setAddress(address);
 
-                requisition.setDestinationInsitution(destinationInstitution);
+                requisition.setDestinationInstitution(destinationInstitution);
 
             }
 

@@ -384,10 +384,7 @@ public class View extends BaseView{
                         providerContainer.setVisible(false);
                         int requisitionID = (int)table.getValueAt(table.getSelectedRow(),0);
                         String institutionName = table.getValueAt(table.getSelectedRow(), 1).toString();
-                        String patientName = table.getValueAt(table.getSelectedRow(), 2).toString();
-                        String bedType = table.getValueAt(table.getSelectedRow(), 3).toString();
-                        String status = table.getValueAt(table.getSelectedRow(), 4).toString();
-                        setContentPane(providerStatusContainer(requisitionID,institution,institutionName,patientName,bedType,status));
+                        setContentPane(providerStatusContainer(requisitionID,institution,institutionName));
                     }
                 }
             });
@@ -444,81 +441,109 @@ public class View extends BaseView{
         return providerContainer;
     }
 
-    private Container providerStatusContainer(int requisitionID, Institution institution, String institutionName, String patientName, String bed, String status){
+    private Container providerStatusContainer(int requisitionID, Institution institution, String institutionName){
 
         RequisitionController requisitionController = new RequisitionController();
+        InstitutionController institutionController = new InstitutionController();
 
         try{
 
             Requisition requisition = requisitionController.getRequisitionById(requisitionID);
+            System.out.println(requisition.getId());
+            Institution requisitionOwner = institutionController.getInstitutionByName(institutionName);
 
             JPanel providerStatusContainer = new JPanel();
             providerStatusContainer.setLayout(null);
             providerStatusContainer.add(super.createHeaderLabel("Solicitação", 160,10,310,32));
-            providerStatusContainer.add(super.createTitleLabel("Instituição solicitante:", 10 ,57, 155,28 ));
-            providerStatusContainer.add(super.createTitleLabel(institutionName, 165 ,57,155,28 ));
-            providerStatusContainer.add(super.createTitleLabel("Tipo:", 10 ,80, 155,28 ));
+            providerStatusContainer.add(super.createInputLabel("Instituição:", 10 ,47, 155,28 ));
+            providerStatusContainer.add(super.createInputLabel(requisitionOwner.getName(), 80 ,47,450,28 ));
+            providerStatusContainer.add(super.createInputLabel("Tipo:", 400 ,47, 155,28 ));
+            providerStatusContainer.add(super.createInputLabel(requisitionOwner.getType(), 445 ,47,450,28));
+            providerStatusContainer.add(super.createInputLabel("Endereço:", 10 ,73, 155,28 ));
+            providerStatusContainer.add(super.createInputLabel(requisitionOwner.getAddress().getAddress(),80 ,73,450,28 ));
+            providerStatusContainer.add(super.createInputLabel("Bairro:" ,400 ,73,155,28 ));
+            providerStatusContainer.add(super.createInputLabel(requisitionOwner.getAddress().getNeighborhood(),445 ,73,450,28 ));
+            providerStatusContainer.add(super.createInputLabel("Cidade:",10,96,155,28));
+            providerStatusContainer.add(super.createInputLabel(requisitionOwner.getAddress().getCity(), 80 ,96,250,28 ));
+            providerStatusContainer.add(super.createInputLabel("UF:",400,96,155,28));
+            providerStatusContainer.add(super.createInputLabel(requisitionOwner.getAddress().getUf(), 445 ,96,250,28 ));
+            providerStatusContainer.add(super.createInputLabel("Telefone:",10,119,155,28));
+            providerStatusContainer.add(super.createInputLabel(requisitionOwner.getContactNumber(), 80 ,119,250,28 ));
+            providerStatusContainer.add(super.createInputLabel("___________________________________________________________________________________________________",10,130,600,28));
+            providerStatusContainer.add(super.createInputLabel("Paciente:",10,150,155,28));
+            providerStatusContainer.add(super.createInputLabel(requisition.getPatient().getFirstName() + " " + requisition.getPatient().getLastName() , 80 ,150,250,28 ));
+            providerStatusContainer.add(super.createInputLabel("Sexo:",400,150,155,28));
+            providerStatusContainer.add(super.createInputLabel(requisition.getPatient().getGender(), 460 ,150,250,28 ));
+            providerStatusContainer.add(super.createInputLabel("CPF:",10,173,155,28));
+            providerStatusContainer.add(super.createInputLabel(requisition.getPatient().getCpf(), 80 ,173,250,28 ));
+            providerStatusContainer.add(super.createInputLabel("Dt. Nasc.:",400,173,155,28));
+            providerStatusContainer.add(super.createInputLabel(((requisition.getPatient().getDob()).toString()), 460 ,173,250,28 ));
+            providerStatusContainer.add(super.createInputLabel("CID:",10,196,155,28));
+            providerStatusContainer.add(super.createInputLabel(requisition.getPatient().getCid(), 80 ,196,250,28 ));
+            providerStatusContainer.add(super.createInputLabel("Status:",400,196,155,28));
+            providerStatusContainer.add(super.createInputLabel(requisition.getStatus(),460,196,155,28));
+            providerStatusContainer.add(super.createInputLabel("Laudo médico:",10,230,155,28));
 
-            providerStatusContainer.add(super.createTitleLabel("Endereço:", 10 ,103, 155,28 ));
+            JTextArea requisitionDescription = super.createJTextArea(10,242,200,160);
+            requisitionDescription.setText(requisition.getDescription());
+            requisitionDescription.setEditable(false);
 
-            providerStatusContainer.add(super.createTextLabelLeftBold("Público", 260 ,80,52,25));
-            providerStatusContainer.add(super.createTextLabelLeft("Tel.: (11)4002-8922" ,456 ,80,117,20 ));
-            providerStatusContainer.add(super.createTextLabelLeft("R.: Domigues Figueredos Anhares da Silva,2506",10 ,110,440,20 ));
-            providerStatusContainer.add(super.createTextLabelLeft("Ferraz de vasconcelos,SP",456 ,110,150,20 ));
-
-            providerStatusContainer.add(super.createInputLabel("Paciente:",10,130,140,30));
-            providerStatusContainer.add(super.createTextLabelLeft("Leito Solicitado: " + bed, 10 ,160,250,20 ));
-            providerStatusContainer.add(super.createTextLabelLeft("Status: " + status, 456 ,160,180,20 ));
-            providerStatusContainer.add(super.createTextLabelLeft("Nome: " + patientName, 10 ,185,250,20 ));
-            providerStatusContainer.add(super.createTextLabelLeft("Idade: 42", 456 ,185,70,20 ));
-            providerStatusContainer.add(super.createTextLabelLeft("CPF: 437091978-55", 10 ,210,250,20 ));
-            providerStatusContainer.add(super.createTextLabelLeft("Sexo: Feminino",260,210,100,20 ));
-            providerStatusContainer.add(super.createTextLabelLeft("CID: COVID-19", 456 ,210,100,20 ));
-            providerStatusContainer.add(super.createTitleLabel("Observações sobre o paciente:", 10 ,235,300 ,28 ));
-            JTextArea obsText = super.createJTextArea(10,262,580,160);
-            obsText.setText("Paciente tem alergia a xereca");
-            obsText.setEditable(false);
-            JScrollPane scroll = new JScrollPane(obsText);
+            JScrollPane scroll = new JScrollPane(requisitionDescription);
             scroll.setBounds(10,262,580,160);
             scroll.setVerticalScrollBarPolicy(ScrollPaneConstants.VERTICAL_SCROLLBAR_ALWAYS);
             providerStatusContainer.add(scroll);
 
-            if(status.equals("Aprovado")|| status.equals("Recusado")){
+            JButton backButton = super.createButton("Voltar",330,427,80, 30 );
+            providerStatusContainer.add(backButton);
+            backButton.addActionListener(new ActionListener() {
+                @Override
+                public void actionPerformed(ActionEvent e) {
+                    providerStatusContainer.setVisible(false);
+                    setContentPane(providerContainer(institution));
+                }
+            });
 
-                JButton comeBack = super.createButton("Voltar",330,427,80, 30 );
-                comeBack.addActionListener(new ActionListener() {
-                    @Override
-                    public void actionPerformed(ActionEvent e) {
+            JButton disapproveButton = super.createButton("Reprovar",420,427,80, 30 );
+            providerStatusContainer.add(disapproveButton);
+            disapproveButton.addActionListener(new ActionListener() {
+                @Override
+                public void actionPerformed(ActionEvent e) {
+
+                    try{
+                        requisition.setStatus("Reprovado");
+                        requisitionController.updateRequisitionStatus(requisition);
+                        JOptionPane.showMessageDialog(null,"Solicitação n° " + requisition.getId() + " reprovada com sucesso.");
                         providerStatusContainer.setVisible(false);
                         setContentPane(providerContainer(institution));
+                    } catch (Exception ex){
+                        System.out.println(ex.getMessage());
                     }
-                });
-                providerStatusContainer.add(comeBack);
+                }
+            });
 
-                JButton refuse = super.createButton("Recusar",420,427,80, 30 );
-                refuse.setEnabled(false);
-                providerStatusContainer.add(refuse);
+            JButton approveButton = super.createButton("Aprovar",510,427,80, 30 );
+            providerStatusContainer.add(approveButton);
+            approveButton.addActionListener(new ActionListener() {
+                @Override
+                public void actionPerformed(ActionEvent e) {
 
-                JButton approved = super.createButton("Aprovar",510,427,80, 30 );
-                approved.setEnabled(false);
-                providerStatusContainer.add(approved);
-            }else{
-                JButton comeBack = super.createButton("Voltar",330,427,80, 30 );
-                comeBack.addActionListener(new ActionListener() {
-                    @Override
-                    public void actionPerformed(ActionEvent e) {
+                    try{
+                        requisition.setStatus("Aprovado");
+                        requisitionController.updateRequisitionStatus(requisition);
+                        JOptionPane.showMessageDialog(null,"Solicitação n° " + requisition.getId() + " aprovada com sucesso.");
                         providerStatusContainer.setVisible(false);
                         setContentPane(providerContainer(institution));
+                    } catch (Exception ex){
+                        System.out.println(ex.getMessage());
                     }
-                });
-                providerStatusContainer.add(comeBack);
+                }
+            });
 
-                JButton refuse = super.createButton("Recusar",420,427,80, 30 );
-                providerStatusContainer.add(refuse);
-
-                JButton approved = super.createButton("Aprovar",510,427,80, 30 );
-                providerStatusContainer.add(approved);
+            if(!requisition.getStatus().equals("Em análise")){
+                approveButton.setEnabled(false);
+                disapproveButton.setEnabled(false);
             }
+
             return  providerStatusContainer;
 
         } catch (Exception e){
@@ -563,7 +588,7 @@ public class View extends BaseView{
             institution.setRequisitions(requisitions);
 
             for(Requisition requisition : requisitions){
-                model.addRow(new Object[]{requisition.getDestinationInsitution().getName(), requisition.getPatient().getFirstName() + requisition.getPatient().getLastName(), requisition.getBed().getType(),requisition.getStatus()});
+                model.addRow(new Object[]{requisition.getDestinationInstitution().getName(), requisition.getPatient().getFirstName() + requisition.getPatient().getLastName(), requisition.getBed().getType(),requisition.getStatus()});
             }
 
         }catch (Exception ex){
