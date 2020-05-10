@@ -17,8 +17,6 @@ import javax.swing.table.TableRowSorter;
 import java.awt.*;
 import java.awt.event.*;
 import java.util.ArrayList;
-import java.util.List;
-import java.util.Objects;
 import java.util.regex.PatternSyntaxException;
 
 public class View extends BaseView{
@@ -335,27 +333,28 @@ public class View extends BaseView{
             if(institutionList.size() > 0){
                 int rowsCount = 0;
 
-                for(Institution insitutions : institutionList)
-                    rowsCount += insitutions.getRequisitions().size();
+                for(Institution inst : institutionList)
+                    rowsCount += inst.getRequisitions().size();
 
-                rows = new Object[rowsCount][3];
+                rows = new Object[rowsCount][4];
 
                 int currentRow = 0;
 
                 for (int i=0; i < institutionList.size(); i++)
                     for(int j=0; j < institutionList.get(i).getRequisitions().size(); j++) {
-                        rows[currentRow] = new Object[]
-                                {institutionList.get(i).getName(),
-                                        institutionList.get(i).getRequisitions().get(j).getPatient().getFirstName() + " " + institutionList.get(i).getRequisitions().get(j).getPatient().getLastName(),
-                                        institutionList.get(i).getRequisitions().get(j).getBed().getType(),
-                                        institutionList.get(i).getRequisitions().get(j).getStatus()};
+                        rows[currentRow] = new Object[]{
+                                institutionList.get(i).getRequisitions().get(j).getId(),
+                                institutionList.get(i).getName(),
+                                institutionList.get(i).getRequisitions().get(j).getPatient().getFirstName() + " " + institutionList.get(i).getRequisitions().get(j).getPatient().getLastName(),
+                                institutionList.get(i).getRequisitions().get(j).getBed().getType(),
+                                institutionList.get(i).getRequisitions().get(j).getStatus()};
                         currentRow++;
                     }
             }
             else
                 rows = new Object[0][0];
 
-            Object columns[] = {"Instituição", "Paciente", "Leito", "Status"};
+            Object[] columns = {"Código","Instituição", "Paciente", "Leito", "Status"};
 
             TableModel model = new DefaultTableModel(rows, columns) {
 
@@ -449,7 +448,7 @@ public class View extends BaseView{
 
         JPanel providerStatusContainer = new JPanel();
         providerStatusContainer.setLayout(null);
-        providerStatusContainer.add(super.createHeaderLabel("Solicitação", 160,10,251,32));
+        providerStatusContainer.add(super.createHeaderLabel("Solicitação", 160,10,310,32));
         providerStatusContainer.add(super.createTitleLabel("Instituição solicitante:", 10 ,57, 155,28 ));
         providerStatusContainer.add(super.createTextLabelLeft(institutionName, 10 ,80,250,32 ));
         providerStatusContainer.add(super.createTextLabelLeftBold("Público", 260 ,80,52,25));
