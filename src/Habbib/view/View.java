@@ -264,8 +264,10 @@ public class View extends BaseView{
 
         menuContainer.add(super.createHeaderLabel("Bem - vindo",178,10,251,32));
 
-        JButton provider = super.createDashboardButton("Fornecedor",84,166,167,61);
-        provider.addActionListener(new ActionListener() {
+        JButton providerButton = super.createDashboardButton("Solicitações",30,140,167,61);
+        JLabel providerDescription = super.createInputLabel("Consultar solicitações realizadas para a minha instituição.", 210,140,500,61);
+        menuContainer.add(providerDescription);
+        providerButton.addActionListener(new ActionListener() {
             @Override
             public void actionPerformed(ActionEvent e) {
                 menuContainer.setVisible(false);
@@ -273,7 +275,9 @@ public class View extends BaseView{
             }
         });
 
-        JButton requester = super.createDashboardButton("Solicitante",351,166,167,61);
+        JButton requester = super.createDashboardButton("Minhas Solicitações",30,200,167,61);
+        JLabel requesterDescription = super.createInputLabel("Consultar solicitações feitas pela minha instituição.", 210,200,500,61);
+        menuContainer.add(requesterDescription);
         requester.addActionListener(new ActionListener() {
             @Override
             public void actionPerformed(ActionEvent e) {
@@ -282,7 +286,9 @@ public class View extends BaseView{
             }
         });
 
-        JButton registerBed = super.createDashboardButton("Cadastrar Leito",84,287,167,61);
+        JButton registerBed = super.createDashboardButton("Cadastrar Leito",30,260,167,61);
+        JLabel registerBedDescription = super.createInputLabel("Cadastrar leitos disponíveis em minha instituição.", 210,260,500,61);
+        menuContainer.add(registerBedDescription);
         registerBed.addActionListener(new ActionListener() {
             @Override
             public void actionPerformed(ActionEvent e) {
@@ -335,7 +341,9 @@ public class View extends BaseView{
 
         });
 
-        JButton requestBed = super.createDashboardButton("Solicitar Leito",351,287,167,61);
+        JButton requestBed = super.createDashboardButton("Solicitar Leito",30,320,167,61);
+        JLabel requestBedDescription = super.createInputLabel("Solicitar um leito para um paciente da minha instituição.", 210,320,500,61);
+        menuContainer.add(requestBedDescription);
         requestBed.addActionListener(new ActionListener() {
             @Override
             public void actionPerformed(ActionEvent e) {
@@ -358,7 +366,7 @@ public class View extends BaseView{
             }
         });
 
-        menuContainer.add(provider);
+        menuContainer.add(providerButton);
         menuContainer.add(requester);
         menuContainer.add(registerBed);
         menuContainer.add(requestBed);
