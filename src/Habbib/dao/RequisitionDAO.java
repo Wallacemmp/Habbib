@@ -1,10 +1,7 @@
 package Habbib.dao;
 
 import Habbib.connection.BaseDAO;
-import Habbib.model.Bed;
-import Habbib.model.Institution;
-import Habbib.model.Patient;
-import Habbib.model.Requisition;
+import Habbib.model.*;
 
 import java.sql.PreparedStatement;
 import java.sql.ResultSet;
@@ -13,35 +10,37 @@ import java.util.ArrayList;
 
 public class RequisitionDAO extends BaseDAO{
 
-    public RequisitionDAO()
+    public RequisitionDAO() throws Exception
     {
         super();
     }
 
-    public ArrayList<Requisition> getRequisitionsByInstitution(Institution institution) throws Exception {
+    public ArrayList<Requisition> getInstitutionRequisitions(Institution institution) throws Exception {
         PreparedStatement stmt;
         ResultSet rs;
-        ArrayList<Requisition> requisitions;
-        Requisition requisition;
-        Patient patient;
-        Bed bed;
-        Institution bedOwner;
+        ArrayList<Requisition> requisitions = new ArrayList<>();
 
         try{
-            requisitions = new ArrayList<>();
-            //TODO fazer o join para retornar o paciente com a requisition
-            String select = "SELECT DISTINCT p.*, r.*, i.name AS Nome_Fornecedor, b.*" +
-                    " FROM Requisition r" +
-                    " JOIN Patient p ON r.Id_Patient = p.Id" +
-                    " JOIN Bed b ON r.Id_Bed = b.Id" +
-                    " JOIN Institution i ON i.Id = ?";
+
+            String select = "SELECT p.*, r.*, b.*, destinationI.*, a.*\n" +
+                            " FROM Requisition r\n" +
+                            " JOIN Institution sourceI ON sourceI.Id = ?\n" +
+                            " JOIN Patient p ON r.Id_Patient = p.Id\n" +
+                            " JOIN Bed b ON r.Id_Bed = b.Id\n" +
+                            " JOIN Institution destinationI ON b.Id_Institution = destinationI.Id\n" +
+                            " JOIN Address a ON destinationI.Id_Address = a.Id";
             stmt = super.connection.prepareStatement(select);
             stmt.setInt(1,institution.getId());
             rs = stmt.executeQuery();
 
             while(rs.next()){
 
-                patient = new Patient();
+                Requisition requisition = new Requisition();
+                requisition.setId(rs.getInt("r.Id"));
+                requisition.setStatus(rs.getString("r.Status"));
+                requisition.setDescription(rs.getString("Description"));
+
+                Patient patient = new Patient();
                 patient.setId(rs.getInt("p.Id"));
                 patient.setFirstName(rs.getString("FirstName"));
                 patient.setLastName(rs.getString("LastName"));
@@ -49,25 +48,37 @@ public class RequisitionDAO extends BaseDAO{
                 patient.setDob(rs.getDate("DOB"));
                 patient.setGender(rs.getString("Gender"));
                 patient.setCid(rs.getString("CID"));
+                requisition.setPatient(patient);
 
-                bed = new Bed();
-                bedOwner = new Institution();
+                Bed bed = new Bed();
                 bed.setId(rs.getInt("b.Id"));
                 bed.setType(rs.getString("Type"));
                 bed.setStatus(rs.getString("b.Status"));
-                bedOwner.setName(rs.getString("Nome_Fornecedor"));
-                bedOwner.setId(rs.getInt("b.Id_Institution"));
-                bed.setInstitution(bedOwner);
-                bed.setInstitution(institution);
-
-                requisition = new Requisition();
-                requisition.setId(rs.getInt("r.Id"));
-                requisition.setStatus(rs.getString("r.Status"));
-                requisition.setDescription(rs.getString("Description"));
-
-                requisition.setPatient(patient);
                 requisition.setBed(bed);
-                requisition.setInstitution(institution);
+
+                Institution destinationInstitution = new Institution();
+                Address address = new Address();
+
+                destinationInstitution.setId(rs.getInt("Id"));
+                destinationInstitution.setName(rs.getString("Name"));
+                destinationInstitution.setCnpj(rs.getString("CNPJ"));
+                destinationInstitution.setPassword(rs.getString("Password"));
+                destinationInstitution.setType(rs.getString("Type"));
+                destinationInstitution.setContactNumber(rs.getString("ContactNumber"));
+
+                address.setId(rs.getInt("a.Id"));
+                address.setZipCode(rs.getString("ZipCode"));
+                address.setAddress(rs.getString("Address"));
+                address.setNumber(rs.getInt("AddressNumber"));
+                address.setComplement(rs.getString("Complement"));
+                address.setNeighborhood(rs.getString("Neighborhood"));
+                address.setCity(rs.getString("City"));
+                address.setUf(rs.getString("UF"));
+                destinationInstitution.setAddress(address);
+
+                //requisition.setRequestingInsitution(institution);
+                requisition.setDestinationInsitution(destinationInstitution);
+
                 requisitions.add(requisition);
             }
 
@@ -77,28 +88,135 @@ public class RequisitionDAO extends BaseDAO{
             System.out.println(e.getMessage());
             throw e;
         }
-        // retorno do ArrayList carregado.
         return requisitions;
     }
 
-    public Requisition addRequisition(Requisition requisition, Institution institution) throws Exception{
+    public ArrayList<Institution> getRequestingInstitutions(Institution destinationInstitution) throws Exception {
+        PreparedStatement stmt;
+        ResultSet rs;
+        ArrayList<Institution> institutions = new ArrayList<>();
+        ArrayList<Requisition> requisitions = new ArrayList<>();
+
+        try{
+
+            String select = "SELECT sourceI.*, sourceA.*, p.*, r.*, b.*\n" +
+                            " FROM Requisition r\n" +
+                            " JOIN Institution sourceI ON sourceI.Id = r.Id_Institution\n" +
+                            " JOIN Patient p ON r.Id_Patient = p.Id\n" +
+                            " JOIN Bed b ON r.Id_Bed = b.Id\n" +
+                            " JOIN Institution destinationI ON b.Id_Institution = destinationI.Id\n" +
+                            " JOIN Address sourceA ON sourceI.Id_Address = sourceA.Id\n" +
+                            " WHERE destinationI.Id = ?";
+            stmt = super.connection.prepareStatement(select);
+            stmt.setInt(1,destinationInstitution.getId());
+            rs = stmt.executeQuery();
+
+            rs.next();
+
+            Institution institution = new Institution();
+            Address address = new Address();
+
+            institution.setId(rs.getInt("sourceI.Id"));
+            institution.setName(rs.getString("Name"));
+            institution.setCnpj(rs.getString("CNPJ"));
+            institution.setPassword(rs.getString("Password"));
+            institution.setType(rs.getString("Type"));
+            institution.setContactNumber(rs.getString("ContactNumber"));
+
+            address.setId(rs.getInt("sourceA.Id"));
+            address.setZipCode(rs.getString("ZipCode"));
+            address.setAddress(rs.getString("Address"));
+            address.setNumber(rs.getInt("AddressNumber"));
+            address.setComplement(rs.getString("Complement"));
+            address.setNeighborhood(rs.getString("Neighborhood"));
+            address.setCity(rs.getString("City"));
+            address.setUf(rs.getString("UF"));
+            institution.setAddress(address);
+
+            do {
+                if(institution.getId() != rs.getInt("sourceI.Id")){
+                    institution.setRequisitions(requisitions);
+                    institutions.add(institution);
+                    requisitions = new ArrayList<>();
+                    institution = new Institution();
+                    address = new Address();
+
+                    institution.setId(rs.getInt("sourceI.Id"));
+                    institution.setName(rs.getString("Name"));
+                    institution.setCnpj(rs.getString("CNPJ"));
+                    institution.setPassword(rs.getString("Password"));
+                    institution.setType(rs.getString("Type"));
+                    institution.setContactNumber(rs.getString("ContactNumber"));
+
+                    address.setId(rs.getInt("sourceA.Id"));
+                    address.setZipCode(rs.getString("ZipCode"));
+                    address.setAddress(rs.getString("Address"));
+                    address.setNumber(rs.getInt("AddressNumber"));
+                    address.setComplement(rs.getString("Complement"));
+                    address.setNeighborhood(rs.getString("Neighborhood"));
+                    address.setCity(rs.getString("City"));
+                    address.setUf(rs.getString("UF"));
+                    institution.setAddress(address);
+                }
+
+                Requisition requisition = new Requisition();
+                requisition.setId(rs.getInt("r.Id"));
+                requisition.setStatus(rs.getString("r.Status"));
+                requisition.setDescription(rs.getString("Description"));
+
+                Patient patient = new Patient();
+                patient.setId(rs.getInt("p.Id"));
+                patient.setFirstName(rs.getString("FirstName"));
+                patient.setLastName(rs.getString("LastName"));
+                patient.setCpf(rs.getString("CPF"));
+                patient.setDob(rs.getDate("DOB"));
+                patient.setGender(rs.getString("Gender"));
+                patient.setCid(rs.getString("CID"));
+                requisition.setPatient(patient);
+
+                Bed bed = new Bed();
+                bed.setId(rs.getInt("b.Id"));
+                bed.setType(rs.getString("Type"));
+                bed.setStatus(rs.getString("b.Status"));
+                requisition.setBed(bed);
+
+                requisition.setDestinationInsitution(destinationInstitution);
+
+                requisitions.add(requisition);
+
+            }while (rs.next());
+
+            institution.setRequisitions(requisitions);
+            institutions.add(institution);
+
+        } catch (Exception e){
+            System.out.println(e.getMessage());
+            throw e;
+        }
+        return institutions;
+    }
+
+    public Requisition addRequisition(Requisition requisition, Institution institution) throws Exception {
         PreparedStatement stmt;
         ResultSet rs;
 
         try {
-            String insert = "INSERT INTO Requisition VALUE (DEFAULT,DEFAULT,?,?,?,?)";
+            String insert = "INSERT INTO Requisition\n" +
+                            "    VALUE (DEFAULT,DEFAULT,?,\n" +
+                            "           (SELECT bed.Id FROM Bed bed WHERE bed.Id_Institution = ? and bed.Status = 'Disponivel' and bed.Type = ? limit 1),\n" +
+                            "           ?,?)";
             stmt = super.connection.prepareStatement(insert, Statement.RETURN_GENERATED_KEYS);
 
             stmt.setString(1, requisition.getDescription());
-            stmt.setInt(2,requisition.getBed().getId());
-            stmt.setInt(3,requisition.getPatient().getId());
-            //Instituição que faz a solicitação
-            stmt.setInt(4, requisition.getInstitution().getId());
-            stmt.executeUpdate();
+            stmt.setInt(2, institution.getId());
+            stmt.setString(3, requisition.getBed().getType());
+            stmt.setInt(4, requisition.getPatient().getId());
+            stmt.setInt(5, institution.getId());
+            stmt.execute();
+
             rs = stmt.getGeneratedKeys();
 
-            if(rs.next())
-            {
+            if (rs.next()) {
                 requisition.setId(rs.getInt(1));
             }
 
@@ -106,13 +224,10 @@ public class RequisitionDAO extends BaseDAO{
             System.out.println(e.getMessage());
             throw e;
         }
-
         return requisition;
     }
-
     public void updateRequisition(Requisition requisition) throws Exception {
         PreparedStatement stmt;
-        ResultSet rs;
 
         try
         {

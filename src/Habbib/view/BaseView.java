@@ -22,7 +22,7 @@ public class BaseView extends JFrame {
     public BaseView(String title) {
         super(title);
     }
-    
+
     public void showWindow(Container contentPane, int width, int height){
         super.setSize(width,height);
         super.setResizable(false);
