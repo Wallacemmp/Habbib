@@ -12,8 +12,7 @@ import java.util.ArrayList;
 
 public class BedDAO extends BaseDAO {
 
-    public BedDAO() throws Exception
-    {
+    public BedDAO() {
         super();
     }
 
@@ -144,23 +143,6 @@ public class BedDAO extends BaseDAO {
             stmt.setInt(1,bed.getId());
             stmt.executeUpdate();
         } catch (Exception e){
-            System.out.println(e.getMessage());
-            throw e;
-        }
-    }
-
-    public void updateBedStatus(Bed bed) throws Exception {
-
-        PreparedStatement stmt;
-
-        try {
-            String updateBed = "UPDATE Bed SET Status = ? WHERE Id = ?";
-            stmt = super.connection.prepareStatement(updateBed);
-            stmt.setString(1, bed.getStatus());
-            stmt.setInt(2, bed.getId());
-        }
-        catch (Exception e)
-        {
             System.out.println(e.getMessage());
             throw e;
         }

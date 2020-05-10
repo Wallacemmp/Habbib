@@ -13,6 +13,7 @@ public class Institution {
     private ArrayList<Requisition> requisitions;
     private ArrayList<Bed> beds;
 
+
     public int getId() {
         return id;
     }
