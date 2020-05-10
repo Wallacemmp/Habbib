@@ -264,7 +264,7 @@ public class View extends BaseView{
 
         menuContainer.add(super.createHeaderLabel("Bem - vindo",178,10,251,32));
 
-        JButton providerButton = super.createDashboardButton("Solicitações",30,140,167,61);
+        JButton providerButton = super.createDashboardButton("Solicitações",30,140,167,55);
         JLabel providerDescription = super.createInputLabel("Consultar solicitações realizadas para a minha instituição.", 210,140,500,61);
         menuContainer.add(providerDescription);
         providerButton.addActionListener(new ActionListener() {
@@ -275,7 +275,7 @@ public class View extends BaseView{
             }
         });
 
-        JButton requester = super.createDashboardButton("Minhas Solicitações",30,200,167,61);
+        JButton requester = super.createDashboardButton("Minhas Solicitações",30,200,167,55);
         JLabel requesterDescription = super.createInputLabel("Consultar solicitações feitas pela minha instituição.", 210,200,500,61);
         menuContainer.add(requesterDescription);
         requester.addActionListener(new ActionListener() {
@@ -286,7 +286,7 @@ public class View extends BaseView{
             }
         });
 
-        JButton registerBed = super.createDashboardButton("Cadastrar Leito",30,260,167,61);
+        JButton registerBed = super.createDashboardButton("Cadastrar Leito",30,260,167,55);
         JLabel registerBedDescription = super.createInputLabel("Cadastrar leitos disponíveis em minha instituição.", 210,260,500,61);
         menuContainer.add(registerBedDescription);
         registerBed.addActionListener(new ActionListener() {
@@ -341,7 +341,7 @@ public class View extends BaseView{
 
         });
 
-        JButton requestBed = super.createDashboardButton("Solicitar Leito",30,320,167,61);
+        JButton requestBed = super.createDashboardButton("Solicitar Leito",30,320,167,55);
         JLabel requestBedDescription = super.createInputLabel("Solicitar um leito para um paciente da minha instituição.", 210,320,500,61);
         menuContainer.add(requestBedDescription);
         requestBed.addActionListener(new ActionListener() {
