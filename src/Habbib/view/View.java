@@ -17,6 +17,7 @@ import javax.swing.table.TableRowSorter;
 import java.awt.*;
 import java.awt.event.*;
 import java.util.ArrayList;
+import java.util.List;
 import java.util.Objects;
 import java.util.regex.PatternSyntaxException;
 
@@ -318,135 +319,122 @@ public class View extends BaseView{
         providerContainer.add(super.createInputLabel("Instituição:",13,52,70,30));
         providerContainer.add(super.createInputLabel(institution.getName(),83,52,70,30));
         providerContainer.add(super.createInputLabel("Status:",13,82,60,30));
-        JComboBox statusCB = super.createComboBox(new String[]{"Selecionar","Em análise","Recusado","Aprovado"},10,110,110,30);
+
+        JComboBox statusCB = super.createComboBox(new String[]{"Todos","Em análise","Recusado","Aprovado"},10,110,110,30);
         JTextField searchInput = super.createTextField(120,110,393,30);
         JButton searchButton = super.createButton("Consultar",512, 108, 80, 32);
 
-        Object rows[][] = {
-                {"NotreDame Intermédica Itaquera", "Roberto Augusto Alvares Cabral", "Baixa-Complexidade","Aprovado"},
-                {"NotreDame Intermédica Itaquera", "Roberto Augusto Alvares Cabral", "Baixa-Complexidade","Aprovado"},
-                {"NotreDame Intermédica Itaquera", "Roberto Augusto Alvares Cabral", "Baixa-Complexidade","Aprovado"},
-                {"NotreDame Intermédica Itaquera", "Roberto Augusto Alvares Cabral", "Baixa-Complexidade","Aprovado"},
-                {"NotreDame Intermédica Itaquera", "Roberto Augusto Alvares Cabral", "Baixa-Complexidade","Em análise"},
-                {"NotreDame Intermédica Itaquera", "Roberto Augusto Alvares Cabral", "Baixa-Complexidade","Em análise"},
-                {"NotreDame Intermédica Itaquera", "Roberto Augusto Alvares Cabral", "Baixa-Complexidade","Em análise"},
-                {"NotreDame Intermédica Itaquera", "Roberto Augusto Alvares Cabral", "Baixa-Complexidade","Recusado"},
-                {"Rafal Augusto", "Roberto Augusto Alvares Cabral", "Baixa-Complexidade","Recusado"}
-
-        };
-
-
-        Object columns[] = {"Instituição", "Paciente", "Leito","Status"};
-        TableModel model =
-                new DefaultTableModel(rows,columns) {
-                    public Class getColumnClass(int column) {
-                        Class returnValue;
-                        if ((column >= 0) && (column < getColumnCount())) {
-                            returnValue = getValueAt(0, column).getClass();
-                        } else {
-                            returnValue = Object.class;
-                        }
-                        return returnValue;
-                    }
-                };
-
-
-
-        JTable table = new JTable(model);
-        final TableRowSorter<TableModel> sorter =
-                new TableRowSorter<TableModel>(model);
-        table.setRowSorter(sorter);
-        JScrollPane pane = new JScrollPane(table);
-        pane.setBounds(10,140,580,270);
-
-        searchButton.addActionListener(new ActionListener() {
-            public void actionPerformed(ActionEvent e) {
-                String text = searchInput.getText();
-                String cbText = statusCB.getSelectedItem().toString();
-                if (text.length() == 0 && cbText.equals("Selecionar")){
-                    sorter.setRowFilter(null);
-                } else if(text.length() != 0){
-                    try {
-                        sorter.setRowFilter(
-                                RowFilter.regexFilter(text));
-                    } catch (PatternSyntaxException pse) {
-                        System.err.println("Erro");
-                    }
-
-                }else{
-                    try {
-                        sorter.setRowFilter(
-                                RowFilter.regexFilter(cbText));
-                    } catch (PatternSyntaxException pse) {
-                        System.err.println("Erro");
-                    }
-                }
-
-            }
-        });
-
-/*
-        JTable providerTable = super.createTable(model);
-        providerTable.getColumnModel().getColumn(0).setPreferredWidth(180);
-        providerTable.getColumnModel().getColumn(1).setPreferredWidth(200);
-        providerTable.getColumnModel().getColumn(2).setPreferredWidth(125);
-        providerTable.getColumnModel().getColumn(3).setPreferredWidth(75);
-        providerTable.addMouseListener(new MouseAdapter() {
-            @Override
-            public void mousePressed(MouseEvent e) {
-                JTable table =(JTable) e.getSource();
-                if (e.getClickCount() == 2 && table.getSelectedRow() != -1) {
-                    providerContainer.setVisible(false);
-                    String institutionName = providerTable.getValueAt(providerTable.getSelectedRow(), 0).toString();
-                    String patientName = providerTable.getValueAt(providerTable.getSelectedRow(), 1).toString();
-                    String bed =  providerTable.getValueAt(providerTable.getSelectedRow(), 2).toString();
-                    String status = providerTable.getValueAt(providerTable.getSelectedRow(), 3).toString();
-                    setContentPane(providerStatusContainer(institution,institutionName,patientName,bed,status));
-                    try {
-                        InstitutionDAO  ad = new InstitutionDAO();
-                        Institution inst = ad.getInstitutionByName(name);
-                        String address = inst.getAddress().getAddress();
-                        String city  =  inst.getAddress().getCity();
-                        String numberAddress = Integer.toString(inst.getAddress().getNumber());
-                        setContentPane(initRequestBed(institution, name,type, uf, bed, phone, address, numberAddress , city));
-                    } catch (Exception exception) {
-                        exception.printStackTrace();
-                    }
-                }
-            }
-        });
         try {
-            for(Bed beds : rc.searchAvailableBeds()){
-                model.addRow(new Object[]{ beds.getInstitution().getName(),beds.getInstitution().getType(),beds.getInstitution().getAddress().getNeighborhood(),beds.getType(),5,beds.getInstitution().getContactNumber()});
+
+            RequisitionController requisitionController = new RequisitionController();
+
+            ArrayList<Institution> institutionList = requisitionController.getRequestingInstitutions(institution);
+
+            int rowsCount = 0;
+
+            for(Institution insitutions : institutionList)
+                rowsCount += insitutions.getRequisitions().size();
+
+            Object[][] rows = new Object[rowsCount][3];
+
+            int currentRow = 0;
+
+            for (int i=0; i < institutionList.size(); i++)
+                for(int j=0; j < institutionList.get(i).getRequisitions().size(); j++) {
+                    rows[currentRow] = new Object[]
+                            {institutionList.get(i).getName(),
+                                    institutionList.get(i).getRequisitions().get(j).getPatient().getFirstName() + " " + institutionList.get(i).getRequisitions().get(j).getPatient().getLastName(),
+                                    institutionList.get(i).getRequisitions().get(j).getBed().getType(),
+                                    institutionList.get(i).getRequisitions().get(j).getStatus()};
+                    currentRow++;
             }
-        } catch (Exception e) {
-            e.printStackTrace();
+
+            Object columns[] = {"Instituição", "Paciente", "Leito", "Status"};
+
+            TableModel model = new DefaultTableModel(rows, columns) {
+
+                public Class getColumnClass(int column) {
+
+                    Class returnValue;
+
+                    if ((column >= 0) && (column < getColumnCount())) {
+                        returnValue = getValueAt(0, column).getClass();
+                    } else {
+                        returnValue = Object.class;
+                    }
+                    return returnValue;
+                }
+
+                @Override
+                public boolean isCellEditable(final int row, final int column) {
+                    return false;
+                }
+            };
+
+            JTable table = new JTable(model);
+            table.addMouseListener(new MouseAdapter() {
+                @Override
+                public void mousePressed(MouseEvent e) {
+                    JTable table =(JTable) e.getSource();
+                    if (e.getClickCount() == 2 && table.getSelectedRow() != -1) {
+                        providerContainer.setVisible(false);
+                        String institutionName = table.getValueAt(table.getSelectedRow(), 0).toString();
+                        String patientName = table.getValueAt(table.getSelectedRow(), 1).toString();
+                        String bed = table.getValueAt(table.getSelectedRow(), 2).toString();
+                        String status = table.getValueAt(table.getSelectedRow(), 3).toString();
+                        setContentPane(providerStatusContainer(institution,institutionName,patientName,bed,status));
+                    }
+                }
+            });
+
+            final TableRowSorter<TableModel> orderer = new TableRowSorter<>(model);
+            table.setRowSorter(orderer);
+            JScrollPane pane = new JScrollPane(table);
+            pane.setBounds(10,140,580,270);
+
+            searchButton.addActionListener(new ActionListener() {
+                public void actionPerformed(ActionEvent e) {
+
+                    String text = searchInput.getText();
+                    String cbText = (String)(statusCB.getSelectedItem());
+
+                    try {
+                        if (text.length() == 0 && cbText.equals("Todos")) {
+                            orderer.setRowFilter(null);
+                        } else if (text.length() != 0 && cbText.equals("Todos")) {
+                            orderer.setRowFilter(RowFilter.regexFilter(text));
+                        } else if (text.length() != 0 && !(cbText.equals("Todos"))) {
+                            orderer.setRowFilter(RowFilter.regexFilter(text));
+                            orderer.setRowFilter(RowFilter.regexFilter(cbText));
+                        } else {
+                            orderer.setRowFilter(RowFilter.regexFilter(cbText));
+                        }
+                    }catch (PatternSyntaxException pse) {
+                        System.err.println("Erro");
+                    }
+                }
+            });
+
+            JButton backButton = super.createButton("Voltar",510, 427, 80, 30);
+
+            backButton.addActionListener(new ActionListener() {
+                @Override
+                public void actionPerformed(ActionEvent e) {
+
+                    providerContainer.setVisible(false);
+                    setContentPane(menuContainer(institution));
+                }
+            });
+            providerContainer.add(statusCB);
+            providerContainer.add(searchInput);
+            providerContainer.add(searchButton);
+            providerContainer.add(backButton);
+            providerContainer.add(pane);
+        } catch (Exception ex ){
+            System.out.println(ex.getMessage());
         }
-        JScrollPane scroll = new JScrollPane(providerTable);
-        scroll.setBounds(10,150,580,272);
-*/
-
-
-        JButton backButton = super.createButton("Cancelar",510, 427, 80, 30);
-
-
-        backButton.addActionListener(new ActionListener() {
-            @Override
-            public void actionPerformed(ActionEvent e) {
-
-                providerContainer.setVisible(false);
-                setContentPane(menuContainer(institution));
-            }
-        });
-        providerContainer.add(statusCB);
-        providerContainer.add(searchInput);
-        providerContainer.add(searchButton);
-        providerContainer.add(backButton);
-        providerContainer.add(pane);
-
         return providerContainer;
     }
-
     private Container providerStatusContainer(Institution institution, String institutionName, String patientName, String bed, String status){
         JPanel providerStatusContainer = new JPanel();
         providerStatusContainer.setLayout(null);

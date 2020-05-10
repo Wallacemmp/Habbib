@@ -30,7 +30,7 @@ public class RequisitionController {
             if(requisition.getStatus().equals("Aprovado"))
             {
                 bed.setId(requisition.getBed().getId());
-                bed.setStatus("Aprovado");
+                bed.setStatus("Ocupado");
                 bedDAO.updateBedStatus(bed);
             }
 
@@ -46,6 +46,18 @@ public class RequisitionController {
         try(RequisitionDAO requisitionDAO = new RequisitionDAO()){
 
             return requisitionDAO.getInstitutionRequisitions(institution);
+        }
+        catch (Exception e){
+            System.out.println(e.getMessage());
+            throw e;
+        }
+    }
+
+    public ArrayList<Institution> getRequestingInstitutions(Institution destinationInstitution) throws Exception{
+
+        try(RequisitionDAO requisitionDAO = new RequisitionDAO()){
+
+            return requisitionDAO.getRequestingInstitutions(destinationInstitution);
         }
         catch (Exception e){
             System.out.println(e.getMessage());

@@ -116,21 +116,21 @@ public class RequisitionDAO extends BaseDAO{
             Institution institution = new Institution();
             Address address = new Address();
 
-            institution.setId(rs.getInt("destinationI.Id"));
+            institution.setId(rs.getInt("sourceI.Id"));
             institution.setName(rs.getString("Name"));
             institution.setCnpj(rs.getString("CNPJ"));
             institution.setPassword(rs.getString("Password"));
             institution.setType(rs.getString("Type"));
             institution.setContactNumber(rs.getString("ContactNumber"));
 
-            address.setId(rs.getInt("desitnationA.Id"));
-            address.setZipCode(rs.getString("desitnationA.ZipCode"));
-            address.setAddress(rs.getString("desitnationA.Address"));
-            address.setNumber(rs.getInt("desitnationA.AddressNumber"));
-            address.setComplement(rs.getString("desitnationA.Complement"));
-            address.setNeighborhood(rs.getString("desitnationA.Neighborhood"));
-            address.setCity(rs.getString("desitnationA.City"));
-            address.setUf(rs.getString("desitnationA.UF"));
+            address.setId(rs.getInt("sourceA.Id"));
+            address.setZipCode(rs.getString("ZipCode"));
+            address.setAddress(rs.getString("Address"));
+            address.setNumber(rs.getInt("AddressNumber"));
+            address.setComplement(rs.getString("Complement"));
+            address.setNeighborhood(rs.getString("Neighborhood"));
+            address.setCity(rs.getString("City"));
+            address.setUf(rs.getString("UF"));
             institution.setAddress(address);
 
             do {
@@ -141,21 +141,21 @@ public class RequisitionDAO extends BaseDAO{
                     institution = new Institution();
                     address = new Address();
 
-                    institution.setId(rs.getInt("destinationI.Id"));
+                    institution.setId(rs.getInt("sourceI.Id"));
                     institution.setName(rs.getString("Name"));
                     institution.setCnpj(rs.getString("CNPJ"));
                     institution.setPassword(rs.getString("Password"));
                     institution.setType(rs.getString("Type"));
                     institution.setContactNumber(rs.getString("ContactNumber"));
 
-                    address.setId(rs.getInt("desitnationA.Id"));
-                    address.setZipCode(rs.getString("desitnationA.ZipCode"));
-                    address.setAddress(rs.getString("desitnationA.Address"));
-                    address.setNumber(rs.getInt("desitnationA.AddressNumber"));
-                    address.setComplement(rs.getString("desitnationA.Complement"));
-                    address.setNeighborhood(rs.getString("desitnationA.Neighborhood"));
-                    address.setCity(rs.getString("desitnationA.City"));
-                    address.setUf(rs.getString("desitnationA.UF"));
+                    address.setId(rs.getInt("sourceA.Id"));
+                    address.setZipCode(rs.getString("ZipCode"));
+                    address.setAddress(rs.getString("Address"));
+                    address.setNumber(rs.getInt("AddressNumber"));
+                    address.setComplement(rs.getString("Complement"));
+                    address.setNeighborhood(rs.getString("Neighborhood"));
+                    address.setCity(rs.getString("City"));
+                    address.setUf(rs.getString("UF"));
                     institution.setAddress(address);
                 }
 
@@ -187,6 +187,7 @@ public class RequisitionDAO extends BaseDAO{
             }while (rs.next());
 
             institution.setRequisitions(requisitions);
+            institutions.add(institution);
 
         } catch (Exception e){
             System.out.println(e.getMessage());
