@@ -330,28 +330,32 @@ public class View extends BaseView{
 
             ArrayList<Institution> institutionList = requisitionController.getRequestingInstitutions(institution);
 
-            int rowsCount = 0;
+            Object[][] rows;
 
-            for(Institution inst : institutionList)
-                rowsCount += inst.getRequisitions().size();
+            if(institutionList.size() > 0){
+                int rowsCount = 0;
 
-            Object[][] rows = new Object[rowsCount][4];
+                for(Institution insitutions : institutionList)
+                    rowsCount += insitutions.getRequisitions().size();
 
-            int currentRow = 0;
+                rows = new Object[rowsCount][3];
 
-            for (int i=0; i < institutionList.size(); i++)
-                for(int j=0; j < institutionList.get(i).getRequisitions().size(); j++) {
-                    rows[currentRow] = new Object[]{
-                            institutionList.get(i).getRequisitions().get(j).getId(),
-                            institutionList.get(i).getName(),
-                            institutionList.get(i).getRequisitions().get(j).getPatient().getFirstName() + " " + institutionList.get(i).getRequisitions().get(j).getPatient().getLastName(),
-                            institutionList.get(i).getRequisitions().get(j).getBed().getType(),
-                            institutionList.get(i).getRequisitions().get(j).getStatus()
-                    };
-                    currentRow++;
+                int currentRow = 0;
+
+                for (int i=0; i < institutionList.size(); i++)
+                    for(int j=0; j < institutionList.get(i).getRequisitions().size(); j++) {
+                        rows[currentRow] = new Object[]
+                                {institutionList.get(i).getName(),
+                                        institutionList.get(i).getRequisitions().get(j).getPatient().getFirstName() + " " + institutionList.get(i).getRequisitions().get(j).getPatient().getLastName(),
+                                        institutionList.get(i).getRequisitions().get(j).getBed().getType(),
+                                        institutionList.get(i).getRequisitions().get(j).getStatus()};
+                        currentRow++;
+                    }
             }
+            else
+                rows = new Object[0][0];
 
-            Object[] columns = {"Código","Instituição", "Paciente", "Leito", "Status"};
+            Object columns[] = {"Instituição", "Paciente", "Leito", "Status"};
 
             TableModel model = new DefaultTableModel(rows, columns) {
 
@@ -372,7 +376,6 @@ public class View extends BaseView{
                     return false;
                 }
             };
-
             JTable table = new JTable(model);
             table.addMouseListener(new MouseAdapter() {
                 @Override
@@ -394,6 +397,7 @@ public class View extends BaseView{
             table.setRowSorter(orderer);
             JScrollPane pane = new JScrollPane(table);
             pane.setBounds(10,140,580,270);
+            providerContainer.add(pane);
 
             searchButton.addActionListener(new ActionListener() {
                 public void actionPerformed(ActionEvent e) {

@@ -50,11 +50,11 @@ public class RequisitionDAO extends BaseDAO{
                 patient.setCid(rs.getString("CID"));
                 requisition.setPatient(patient);
 
-                Bed bed = new Bed();
-                bed.setId(rs.getInt("b.Id"));
-                bed.setType(rs.getString("Type"));
-                bed.setStatus(rs.getString("b.Status"));
-                requisition.setBed(bed);
+                    Bed bed = new Bed();
+                    bed.setId(rs.getInt("b.Id"));
+                    bed.setType(rs.getString("Type"));
+                    bed.setStatus(rs.getString("b.Status"));
+                    requisition.setBed(bed);
 
                 Institution destinationInstitution = new Institution();
                 Address address = new Address();
@@ -111,68 +111,66 @@ public class RequisitionDAO extends BaseDAO{
             stmt.setInt(1,destinationInstitution.getId());
             rs = stmt.executeQuery();
 
-            rs.next();
+            if(rs.next()){Institution institution = new Institution();
+                Address address = new Address();
 
-            Institution institution = new Institution();
-            Address address = new Address();
+                institution.setId(rs.getInt("sourceI.Id"));
+                institution.setName(rs.getString("Name"));
+                institution.setCnpj(rs.getString("CNPJ"));
+                institution.setPassword(rs.getString("Password"));
+                institution.setType(rs.getString("Type"));
+                institution.setContactNumber(rs.getString("ContactNumber"));
 
-            institution.setId(rs.getInt("sourceI.Id"));
-            institution.setName(rs.getString("Name"));
-            institution.setCnpj(rs.getString("CNPJ"));
-            institution.setPassword(rs.getString("Password"));
-            institution.setType(rs.getString("Type"));
-            institution.setContactNumber(rs.getString("ContactNumber"));
+                address.setId(rs.getInt("sourceA.Id"));
+                address.setZipCode(rs.getString("ZipCode"));
+                address.setAddress(rs.getString("Address"));
+                address.setNumber(rs.getInt("AddressNumber"));
+                address.setComplement(rs.getString("Complement"));
+                address.setNeighborhood(rs.getString("Neighborhood"));
+                address.setCity(rs.getString("City"));
+                address.setUf(rs.getString("UF"));
+                institution.setAddress(address);
 
-            address.setId(rs.getInt("sourceA.Id"));
-            address.setZipCode(rs.getString("ZipCode"));
-            address.setAddress(rs.getString("Address"));
-            address.setNumber(rs.getInt("AddressNumber"));
-            address.setComplement(rs.getString("Complement"));
-            address.setNeighborhood(rs.getString("Neighborhood"));
-            address.setCity(rs.getString("City"));
-            address.setUf(rs.getString("UF"));
-            institution.setAddress(address);
+                do {
+                    if(institution.getId() != rs.getInt("sourceI.Id")){
+                        institution.setRequisitions(requisitions);
+                        institutions.add(institution);
+                        requisitions = new ArrayList<>();
+                        institution = new Institution();
+                        address = new Address();
 
-            do {
-                if(institution.getId() != rs.getInt("sourceI.Id")){
-                    institution.setRequisitions(requisitions);
-                    institutions.add(institution);
-                    requisitions = new ArrayList<>();
-                    institution = new Institution();
-                    address = new Address();
+                        institution.setId(rs.getInt("sourceI.Id"));
+                        institution.setName(rs.getString("Name"));
+                        institution.setCnpj(rs.getString("CNPJ"));
+                        institution.setPassword(rs.getString("Password"));
+                        institution.setType(rs.getString("Type"));
+                        institution.setContactNumber(rs.getString("ContactNumber"));
 
-                    institution.setId(rs.getInt("sourceI.Id"));
-                    institution.setName(rs.getString("Name"));
-                    institution.setCnpj(rs.getString("CNPJ"));
-                    institution.setPassword(rs.getString("Password"));
-                    institution.setType(rs.getString("Type"));
-                    institution.setContactNumber(rs.getString("ContactNumber"));
+                        address.setId(rs.getInt("sourceA.Id"));
+                        address.setZipCode(rs.getString("ZipCode"));
+                        address.setAddress(rs.getString("Address"));
+                        address.setNumber(rs.getInt("AddressNumber"));
+                        address.setComplement(rs.getString("Complement"));
+                        address.setNeighborhood(rs.getString("Neighborhood"));
+                        address.setCity(rs.getString("City"));
+                        address.setUf(rs.getString("UF"));
+                        institution.setAddress(address);
+                    }
 
-                    address.setId(rs.getInt("sourceA.Id"));
-                    address.setZipCode(rs.getString("ZipCode"));
-                    address.setAddress(rs.getString("Address"));
-                    address.setNumber(rs.getInt("AddressNumber"));
-                    address.setComplement(rs.getString("Complement"));
-                    address.setNeighborhood(rs.getString("Neighborhood"));
-                    address.setCity(rs.getString("City"));
-                    address.setUf(rs.getString("UF"));
-                    institution.setAddress(address);
-                }
+                    Requisition requisition = new Requisition();
+                    requisition.setId(rs.getInt("r.Id"));
+                    requisition.setStatus(rs.getString("r.Status"));
+                    requisition.setDescription(rs.getString("Description"));
 
-                Requisition requisition = new Requisition();
-                requisition.setId(rs.getInt("r.Id"));
-                requisition.setStatus(rs.getString("r.Status"));
-                requisition.setDescription(rs.getString("Description"));
-              
-                Patient patient = new Patient();
-                patient.setId(rs.getInt("p.Id"));
-                patient.setFirstName(rs.getString("FirstName"));
-                patient.setLastName(rs.getString("LastName"));
-                patient.setCpf(rs.getString("CPF"));
-                patient.setDob(rs.getDate("DOB"));
-                patient.setGender(rs.getString("Gender"));
-                patient.setCid(rs.getString("CID"));
-                requisition.setPatient(patient);
+                    Patient patient = new Patient();
+                    patient.setId(rs.getInt("p.Id"));
+                    patient.setFirstName(rs.getString("FirstName"));
+                    patient.setLastName(rs.getString("LastName"));
+                    patient.setCpf(rs.getString("CPF"));
+                    patient.setDob(rs.getDate("DOB"));
+                    patient.setGender(rs.getString("Gender"));
+                    patient.setCid(rs.getString("CID"));
+                    requisition.setPatient(patient);
 
                 Bed bed = new Bed();
                 bed.setId(rs.getInt("b.Id"));
@@ -180,14 +178,16 @@ public class RequisitionDAO extends BaseDAO{
                 bed.setStatus(rs.getString("b.Status"));
                 requisition.setBed(bed);
 
-                requisition.setDestinationInsitution(destinationInstitution);
+                    requisition.setDestinationInsitution(destinationInstitution);
 
-                requisitions.add(requisition);
+                    requisitions.add(requisition);
 
-            }while (rs.next());
+                }while (rs.next());
 
-            institution.setRequisitions(requisitions);
-            institutions.add(institution);
+                institution.setRequisitions(requisitions);
+                institutions.add(institution);
+            }
+
 
         } catch (Exception e){
             System.out.println(e.getMessage());
