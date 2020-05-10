@@ -8,7 +8,6 @@ public class Main {
         try {
             new View();
         } catch (Exception ex) {
-
             System.out.println(ex.getMessage());
         }
     }
