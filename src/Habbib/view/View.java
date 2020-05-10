@@ -20,9 +20,6 @@ import java.util.ArrayList;
 import java.util.List;
 import java.util.Objects;
 import java.util.regex.PatternSyntaxException;
-import java.awt.event.*;
-import java.util.ArrayList;
-import java.util.regex.PatternSyntaxException;
 
 public class View extends BaseView{
     JFrame frameRegisterBed;
@@ -322,6 +319,7 @@ public class View extends BaseView{
         providerContainer.add(super.createInputLabel("Instituição:",13,52,70,30));
         providerContainer.add(super.createInputLabel(institution.getName(),83,52,70,30));
         providerContainer.add(super.createInputLabel("Status:",13,82,60,30));
+
         JComboBox statusCB = super.createComboBox(new String[]{"Todos","Em análise","Recusado","Aprovado"},10,110,110,30);
         JTextField searchInput = super.createTextField(120,110,393,30);
         JButton searchButton = super.createButton("Consultar",512, 108, 80, 32);
@@ -432,8 +430,8 @@ public class View extends BaseView{
             providerContainer.add(searchButton);
             providerContainer.add(backButton);
             providerContainer.add(pane);
-        } catch (Exception e ){
-            System.out.println(e.getMessage());
+        } catch (Exception ex ){
+            System.out.println(ex.getMessage());
         }
         return providerContainer;
     }
@@ -506,7 +504,6 @@ public class View extends BaseView{
             providerStatusContainer.add(approved);
         }
 
-
         return  providerStatusContainer;
     }
 
@@ -537,11 +534,22 @@ public class View extends BaseView{
         requestTable.getColumnModel().getColumn(1).setPreferredWidth(200);
         requestTable.getColumnModel().getColumn(2).setPreferredWidth(125);
         requestTable.getColumnModel().getColumn(3).setPreferredWidth(75);
-        for(int i = 0; i <10 ; i++ ){
-            model.addRow(new Object[]{"NotreDame Intermédica Itaquera", "Roberto Augusto Alvares Cabral", "Baixa-Complexidade","Aprovado"});
-            model.addRow(new Object[]{"NotreDame Intermédica Itaquera", "Roberto Augusto Alvares Cabral", "Baixa-Complexidade","Em análise"});
-            model.addRow(new Object[]{"NotreDame Intermédica Itaquera", "Roberto Augusto Alvares Cabral", "Baixa-Complexidade","Recusado"});
+      
+        try
+        {
+            RequisitionController requisitionController = new RequisitionController();
+
+            ArrayList<Requisition> requisitions = requisitionController.listRequisitions(institution);
+            institution.setRequisitions(requisitions);
+
+            for(Requisition requisition : requisitions){
+                model.addRow(new Object[]{requisition.getDestinationInsitution().getName(), requisition.getPatient().getFirstName() + requisition.getPatient().getLastName(), requisition.getBed().getType(),requisition.getStatus()});
+            }
+
+        }catch (Exception ex){
+            ex.printStackTrace();
         }
+      
         requestTable.addMouseListener(new MouseAdapter() {
             @Override
             public void mousePressed(MouseEvent e) {
@@ -565,7 +573,6 @@ public class View extends BaseView{
                     } catch (Exception exception) {
                         exception.printStackTrace();
                     }
-
 */
 
                 }
@@ -589,77 +596,6 @@ public class View extends BaseView{
 
 
 */
-        JScrollPane scroll = new JScrollPane(requestTable);
-        scroll.setBounds(10,150,580,272);
-
-
-
-
-
-        JButton backButton = super.createButton("Cancelar",510, 427, 80, 30);
-
-        DefaultTableModel model = new DefaultTableModel(){
-            @Override
-            public boolean isCellEditable(final int row, final int column) {
-                return false;
-            }
-        };
-        RequisitionController rc = new RequisitionController();
-        model.addColumn("Instituição");
-        model.addColumn("Paciente");
-        model.addColumn("Leito");
-        model.addColumn("Status");
-
-        JTable requestTable = super.createTable(model);
-        requestTable.getColumnModel().getColumn(0).setPreferredWidth(180);
-        requestTable.getColumnModel().getColumn(1).setPreferredWidth(200);
-        requestTable.getColumnModel().getColumn(2).setPreferredWidth(125);
-        requestTable.getColumnModel().getColumn(3).setPreferredWidth(75);
-        try
-        {
-            RequisitionController requisitionController = new RequisitionController();
-
-            ArrayList<Requisition> requisitions = requisitionController.listRequisitions(institution);
-            institution.setRequisitions(requisitions);
-
-            for(Requisition requisition : requisitions){
-                model.addRow(new Object[]{requisition.getDestinationInsitution().getName(), requisition.getPatient().getFirstName() + requisition.getPatient().getLastName(), requisition.getBed().getType(),requisition.getStatus()});
-            }
-
-        }catch (Exception ex){
-            ex.printStackTrace();
-        }
-
-        requestTable.addMouseListener(new MouseAdapter() {
-            @Override
-            public void mousePressed(MouseEvent e) {
-                JTable table =(JTable) e.getSource();
-                if (e.getClickCount() == 2 && table.getSelectedRow() != -1) {
-                    requestContainer.setVisible(false);
-                    String institutionName = requestTable.getValueAt(requestTable.getSelectedRow(), 0).toString();
-                    String patientName = requestTable.getValueAt(requestTable.getSelectedRow(), 1).toString();
-                    String bed =  requestTable.getValueAt(requestTable.getSelectedRow(), 2).toString();
-                    String status = requestTable.getValueAt(requestTable.getSelectedRow(), 3).toString();
-
-                    setContentPane(requestStatusContainer(institution,institutionName,patientName,bed,status));
-/*
-                    try {
-                        InstitutionDAO  ad = new InstitutionDAO();
-                        Institution inst = ad.getInstitutionByName(name);
-                        String address = inst.getAddress().getAddress();
-                        String city  =  inst.getAddress().getCity();
-                        String numberAddress = Integer.toString(inst.getAddress().getNumber());
-                        setContentPane(initRequestBed(institution, name,type, uf, bed, phone, address, numberAddress , city));
-                    } catch (Exception exception) {
-                        exception.printStackTrace();
-                    }
-*/
-
-                }
-
-            }
-        });
-
         JScrollPane scroll = new JScrollPane(requestTable);
         scroll.setBounds(10,150,580,272);
 
@@ -729,50 +665,6 @@ public class View extends BaseView{
                 }
             });
             requestStatus.add(comeBack);
-
-
-
-
-        return  requestStatus;
-
-        requestStatus.add(super.createHeaderLabel("Solicitação", 160,10,251,32));
-
-        requestStatus.add(super.createTitleLabel("Instituição solicitante:", 10 ,57, 155,28 ));
-        requestStatus.add(super.createTextLabelLeft(institutionName, 10 ,80,250,32 ));
-        requestStatus.add(super.createTextLabelLeftBold("Público", 260 ,80,52,25));
-        requestStatus.add(super.createTextLabelLeft("Tel.: (11)4002-8922" ,456 ,80,117,20 ));
-        requestStatus.add(super.createTextLabelLeft("R.: Domigues Figueredos Anhares da Silva,2506",10 ,110,440,20 ));
-        requestStatus.add(super.createTextLabelLeft("Ferraz de vasconcelos,SP",456 ,110,150,20 ));
-
-        requestStatus.add(super.createInputLabel("Paciente:",10,130,140,30));
-        requestStatus.add(super.createTextLabelLeft("Leito Solicitado: " + bed, 10 ,160,250,20 ));
-        requestStatus.add(super.createTextLabelLeft("Status: " + status, 456 ,160,180,20 ));
-        requestStatus.add(super.createTextLabelLeft("Nome: " + patientName, 10 ,185,250,20 ));
-        requestStatus.add(super.createTextLabelLeft("Idade: 42", 456 ,185,70,20 ));
-        requestStatus.add(super.createTextLabelLeft("CPF: 437091978-55", 10 ,210,250,20 ));
-        requestStatus.add(super.createTextLabelLeft("Sexo: Feminino",260,210,100,20 ));
-        requestStatus.add(super.createTextLabelLeft("CID: COVID-19", 456 ,210,100,20 ));
-        requestStatus.add(super.createTitleLabel("Observações sobre o paciente:", 10 ,235,300 ,28 ));
-        JTextArea obsText = super.createJTextArea(10,262,580,160);
-        obsText.setText("Paciente tem alergia a xereca");
-        obsText.setEditable(false);
-        JScrollPane scroll = new JScrollPane(obsText);
-        scroll.setBounds(10,262,580,160);
-        scroll.setVerticalScrollBarPolicy(ScrollPaneConstants.VERTICAL_SCROLLBAR_ALWAYS);
-        requestStatus.add(scroll);
-
-        JButton comeBack = super.createButton("Voltar",510,427,80, 30 );
-        comeBack.addActionListener(new ActionListener() {
-            @Override
-            public void actionPerformed(ActionEvent e) {
-                requestStatus.setVisible(false);
-                setContentPane(providerContainer(institution));
-            }
-        });
-        requestStatus.add(comeBack);
-
-
-
 
         return  requestStatus;
     }
@@ -894,10 +786,6 @@ public class View extends BaseView{
                     } catch (Exception exception) {
                         exception.printStackTrace();
                     }
-
-
-
-
                 }
 
             }
@@ -905,27 +793,17 @@ public class View extends BaseView{
 
 
         try {
-            for(Bed beds : bc.searchAvailableBeds()){
+            //TODO: Britez agrupar por tipo de leito.
+            for(Institution availableInstitution : bc.searchInsitutionswithAvailableBeds())
+                for(Bed bed : availableInstitution.getBeds())
+                    model.addRow(new Object[]{ availableInstitution.getName(),availableInstitution.getType(),availableInstitution.getAddress().getUf(),bed.getType(),5,availableInstitution.getContactNumber()});
 
-                model.addRow(new Object[]{ beds.getInstitution().getName(),beds.getInstitution().getType(),beds.getInstitution().getAddress().getNeighborhood(),beds.getType(),5,beds.getInstitution().getContactNumber()});
-
-
-
-
-            }
         } catch (Exception e) {
             e.printStackTrace();
         }
 
-
-
         JScrollPane scroll = new JScrollPane(requestBedTable);
         scroll.setBounds(10,110,580,300);
-
-
-
-
-
 
         JButton consult = super.createButton("Consultar",512, 62, 78, 26);
         consult.addActionListener(new ActionListener() {
@@ -946,12 +824,10 @@ public class View extends BaseView{
                 setContentPane(menuContainer(institution));
             }
         });
-
         requestBedContainer.add(status);
         requestBedContainer.add(neighborhood);
         requestBedContainer.add(type);
         requestBedContainer.add(consult);
-        requestBedContainer.add(userInput);
         requestBedContainer.add(exit);
         requestBedContainer.add(scroll);
 
@@ -1019,7 +895,6 @@ public class View extends BaseView{
 
         JButton request = super.createButton("Solicitar",509,444,78, 30 );
         requestContainer.add(request);
-
 
         return  requestContainer;
     }

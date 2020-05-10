@@ -10,7 +10,7 @@ import java.util.ArrayList;
 
 public class RequisitionDAO extends BaseDAO{
 
-    public RequisitionDAO() throws Exception
+    public RequisitionDAO()
     {
         super();
     }
@@ -163,7 +163,7 @@ public class RequisitionDAO extends BaseDAO{
                 requisition.setId(rs.getInt("r.Id"));
                 requisition.setStatus(rs.getString("r.Status"));
                 requisition.setDescription(rs.getString("Description"));
-
+              
                 Patient patient = new Patient();
                 patient.setId(rs.getInt("p.Id"));
                 patient.setFirstName(rs.getString("FirstName"));
@@ -196,7 +196,7 @@ public class RequisitionDAO extends BaseDAO{
         return institutions;
     }
 
-    public Requisition addRequisition(Requisition requisition, Institution institution) throws Exception {
+    public Requisition addRequisition(Requisition requisition, Institution institution) throws Exception{
         PreparedStatement stmt;
         ResultSet rs;
 
@@ -216,7 +216,8 @@ public class RequisitionDAO extends BaseDAO{
 
             rs = stmt.getGeneratedKeys();
 
-            if (rs.next()) {
+            if(rs.next())
+            {
                 requisition.setId(rs.getInt(1));
             }
 
@@ -224,10 +225,13 @@ public class RequisitionDAO extends BaseDAO{
             System.out.println(e.getMessage());
             throw e;
         }
+
         return requisition;
     }
+
     public void updateRequisition(Requisition requisition) throws Exception {
         PreparedStatement stmt;
+        ResultSet rs;
 
         try
         {

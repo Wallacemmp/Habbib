@@ -53,15 +53,15 @@ public class BedDAO extends BaseDAO {
         ArrayList<Institution> institutionList = new ArrayList<>();
 
         try{
-            String select = "SELECT i.*, a.*,\n" +
-                            "       (SELECT count(bed.Id) FROM Bed bed WHERE bed.Id_Institution = i.Id and bed.Status = 'Disponivel' and bed.Type = 'UTI') as UTICount,\n" +
-                            "       (SELECT count(bed.Id) FROM Bed bed WHERE bed.Id_Institution = i.Id and bed.Status = 'Disponivel' and bed.Type = 'Semi-intensivo') as SemiIntensiveCount,\n" +
-                            "       (SELECT count(bed.Id) FROM Bed bed WHERE bed.Id_Institution = i.Id and bed.Status = 'Disponivel' and bed.Type = 'Baixa complexidade') as LowComplexityCount\n" +
-                            "FROM Institution i\n" +
-                            "join Bed b on i.Id = b.Id_Institution\n" +
-                            "join Address a on i.Id_Address = a.Id\n" +
-                            "where b.Status = 'Disponivel'\n" +
-                            "GROUP BY i.Id";
+            String select = "SELECT i., a.,\n" +
+                    "       (SELECT count(bed.Id) FROM Bed bed WHERE bed.Id_Institution = i.Id and bed.Status = 'Disponivel' and bed.Type = 'UTI') as UTICount,\n" +
+                    "       (SELECT count(bed.Id) FROM Bed bed WHERE bed.Id_Institution = i.Id and bed.Status = 'Disponivel' and bed.Type = 'Semi-intensivo') as SemiIntensiveCount,\n" +
+                    "       (SELECT count(bed.Id) FROM Bed bed WHERE bed.Id_Institution = i.Id and bed.Status = 'Disponivel' and bed.Type = 'Baixa complexidade') as LowComplexityCount\n" +
+                    "FROM Institution i\n" +
+                    "join Bed b on i.Id = b.Id_Institution\n" +
+                    "join Address a on i.Id_Address = a.Id\n" +
+                    "where b.Status = 'Disponivel'\n" +
+                    "GROUP BY i.Id";
             stmt = super.connection.prepareStatement(select);
             rs = stmt.executeQuery();
 

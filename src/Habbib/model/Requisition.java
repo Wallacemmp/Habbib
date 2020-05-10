@@ -6,7 +6,7 @@ public class Requisition {
     private String description;
     private Bed bed;
     private Patient patient;
-    private Institution institution;
+    private Institution destinationInsitution;
 
     public int getId() {
         return id;
@@ -48,11 +48,11 @@ public class Requisition {
         this.patient = patient;
     }
 
-    public Institution getInstitution() {
-        return institution;
+    public Institution getDestinationInsitution() {
+        return destinationInsitution;
     }
 
-    public void setInstitution(Institution institution) {
-        this.institution = institution;
+    public void setDestinationInsitution(Institution destinationInsitution) {
+        this.destinationInsitution = destinationInsitution;
     }
 }
