@@ -3,6 +3,7 @@ package Habbib.controller;
 import Habbib.dao.BedDAO;
 import Habbib.dao.RequisitionDAO;
 import Habbib.model.*;
+
 import java.util.ArrayList;
 
 public class RequisitionController {
@@ -60,6 +61,16 @@ public class RequisitionController {
             return requisitionDAO.getRequestingInstitutions(destinationInstitution);
         }
         catch (Exception e){
+            System.out.println(e.getMessage());
+            throw e;
+        }
+    }
+
+    public Requisition getRequisitionById(int id) throws Exception {
+
+        try(RequisitionDAO requisitionDAO = new RequisitionDAO()){
+            return requisitionDAO.getRequisitionById(id);
+        } catch (Exception e){
             System.out.println(e.getMessage());
             throw e;
         }

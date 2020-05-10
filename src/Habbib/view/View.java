@@ -446,71 +446,85 @@ public class View extends BaseView{
 
     private Container providerStatusContainer(int requisitionID, Institution institution, String institutionName, String patientName, String bed, String status){
 
-        JPanel providerStatusContainer = new JPanel();
-        providerStatusContainer.setLayout(null);
-        providerStatusContainer.add(super.createHeaderLabel("Solicitação", 160,10,310,32));
-        providerStatusContainer.add(super.createTitleLabel("Instituição solicitante:", 10 ,57, 155,28 ));
-        providerStatusContainer.add(super.createTextLabelLeft(institutionName, 10 ,80,250,32 ));
-        providerStatusContainer.add(super.createTextLabelLeftBold("Público", 260 ,80,52,25));
-        providerStatusContainer.add(super.createTextLabelLeft("Tel.: (11)4002-8922" ,456 ,80,117,20 ));
-        providerStatusContainer.add(super.createTextLabelLeft("R.: Domigues Figueredos Anhares da Silva,2506",10 ,110,440,20 ));
-        providerStatusContainer.add(super.createTextLabelLeft("Ferraz de vasconcelos,SP",456 ,110,150,20 ));
+        RequisitionController requisitionController = new RequisitionController();
 
-        providerStatusContainer.add(super.createInputLabel("Paciente:",10,130,140,30));
-        providerStatusContainer.add(super.createTextLabelLeft("Leito Solicitado: " + bed, 10 ,160,250,20 ));
-        providerStatusContainer.add(super.createTextLabelLeft("Status: " + status, 456 ,160,180,20 ));
-        providerStatusContainer.add(super.createTextLabelLeft("Nome: " + patientName, 10 ,185,250,20 ));
-        providerStatusContainer.add(super.createTextLabelLeft("Idade: 42", 456 ,185,70,20 ));
-        providerStatusContainer.add(super.createTextLabelLeft("CPF: 437091978-55", 10 ,210,250,20 ));
-        providerStatusContainer.add(super.createTextLabelLeft("Sexo: Feminino",260,210,100,20 ));
-        providerStatusContainer.add(super.createTextLabelLeft("CID: COVID-19", 456 ,210,100,20 ));
-        providerStatusContainer.add(super.createTitleLabel("Observações sobre o paciente:", 10 ,235,300 ,28 ));
-        JTextArea obsText = super.createJTextArea(10,262,580,160);
-        obsText.setText("Paciente tem alergia a xereca");
-        obsText.setEditable(false);
-        JScrollPane scroll = new JScrollPane(obsText);
-        scroll.setBounds(10,262,580,160);
-        scroll.setVerticalScrollBarPolicy(ScrollPaneConstants.VERTICAL_SCROLLBAR_ALWAYS);
-        providerStatusContainer.add(scroll);
+        try{
 
-        if(status.equals("Aprovado")|| status.equals("Recusado")){
+            Requisition requisition = requisitionController.getRequisitionById(requisitionID);
 
-            JButton comeBack = super.createButton("Voltar",330,427,80, 30 );
-            comeBack.addActionListener(new ActionListener() {
-                @Override
-                public void actionPerformed(ActionEvent e) {
-                    providerStatusContainer.setVisible(false);
-                    setContentPane(providerContainer(institution));
-                }
-            });
-            providerStatusContainer.add(comeBack);
+            JPanel providerStatusContainer = new JPanel();
+            providerStatusContainer.setLayout(null);
+            providerStatusContainer.add(super.createHeaderLabel("Solicitação", 160,10,310,32));
+            providerStatusContainer.add(super.createTitleLabel("Instituição solicitante:", 10 ,57, 155,28 ));
+            providerStatusContainer.add(super.createTitleLabel(institutionName, 165 ,57,155,28 ));
+            providerStatusContainer.add(super.createTitleLabel("Tipo:", 10 ,80, 155,28 ));
 
-            JButton refuse = super.createButton("Recusar",420,427,80, 30 );
-            refuse.setEnabled(false);
-            providerStatusContainer.add(refuse);
+            providerStatusContainer.add(super.createTitleLabel("Endereço:", 10 ,103, 155,28 ));
 
-            JButton approved = super.createButton("Aprovar",510,427,80, 30 );
-            approved.setEnabled(false);
-            providerStatusContainer.add(approved);
-        }else{
-            JButton comeBack = super.createButton("Voltar",330,427,80, 30 );
-            comeBack.addActionListener(new ActionListener() {
-                @Override
-                public void actionPerformed(ActionEvent e) {
-                    providerStatusContainer.setVisible(false);
-                    setContentPane(providerContainer(institution));
-                }
-            });
-            providerStatusContainer.add(comeBack);
+            providerStatusContainer.add(super.createTextLabelLeftBold("Público", 260 ,80,52,25));
+            providerStatusContainer.add(super.createTextLabelLeft("Tel.: (11)4002-8922" ,456 ,80,117,20 ));
+            providerStatusContainer.add(super.createTextLabelLeft("R.: Domigues Figueredos Anhares da Silva,2506",10 ,110,440,20 ));
+            providerStatusContainer.add(super.createTextLabelLeft("Ferraz de vasconcelos,SP",456 ,110,150,20 ));
 
-            JButton refuse = super.createButton("Recusar",420,427,80, 30 );
-            providerStatusContainer.add(refuse);
+            providerStatusContainer.add(super.createInputLabel("Paciente:",10,130,140,30));
+            providerStatusContainer.add(super.createTextLabelLeft("Leito Solicitado: " + bed, 10 ,160,250,20 ));
+            providerStatusContainer.add(super.createTextLabelLeft("Status: " + status, 456 ,160,180,20 ));
+            providerStatusContainer.add(super.createTextLabelLeft("Nome: " + patientName, 10 ,185,250,20 ));
+            providerStatusContainer.add(super.createTextLabelLeft("Idade: 42", 456 ,185,70,20 ));
+            providerStatusContainer.add(super.createTextLabelLeft("CPF: 437091978-55", 10 ,210,250,20 ));
+            providerStatusContainer.add(super.createTextLabelLeft("Sexo: Feminino",260,210,100,20 ));
+            providerStatusContainer.add(super.createTextLabelLeft("CID: COVID-19", 456 ,210,100,20 ));
+            providerStatusContainer.add(super.createTitleLabel("Observações sobre o paciente:", 10 ,235,300 ,28 ));
+            JTextArea obsText = super.createJTextArea(10,262,580,160);
+            obsText.setText("Paciente tem alergia a xereca");
+            obsText.setEditable(false);
+            JScrollPane scroll = new JScrollPane(obsText);
+            scroll.setBounds(10,262,580,160);
+            scroll.setVerticalScrollBarPolicy(ScrollPaneConstants.VERTICAL_SCROLLBAR_ALWAYS);
+            providerStatusContainer.add(scroll);
 
-            JButton approved = super.createButton("Aprovar",510,427,80, 30 );
-            providerStatusContainer.add(approved);
+            if(status.equals("Aprovado")|| status.equals("Recusado")){
+
+                JButton comeBack = super.createButton("Voltar",330,427,80, 30 );
+                comeBack.addActionListener(new ActionListener() {
+                    @Override
+                    public void actionPerformed(ActionEvent e) {
+                        providerStatusContainer.setVisible(false);
+                        setContentPane(providerContainer(institution));
+                    }
+                });
+                providerStatusContainer.add(comeBack);
+
+                JButton refuse = super.createButton("Recusar",420,427,80, 30 );
+                refuse.setEnabled(false);
+                providerStatusContainer.add(refuse);
+
+                JButton approved = super.createButton("Aprovar",510,427,80, 30 );
+                approved.setEnabled(false);
+                providerStatusContainer.add(approved);
+            }else{
+                JButton comeBack = super.createButton("Voltar",330,427,80, 30 );
+                comeBack.addActionListener(new ActionListener() {
+                    @Override
+                    public void actionPerformed(ActionEvent e) {
+                        providerStatusContainer.setVisible(false);
+                        setContentPane(providerContainer(institution));
+                    }
+                });
+                providerStatusContainer.add(comeBack);
+
+                JButton refuse = super.createButton("Recusar",420,427,80, 30 );
+                providerStatusContainer.add(refuse);
+
+                JButton approved = super.createButton("Aprovar",510,427,80, 30 );
+                providerStatusContainer.add(approved);
+            }
+            return  providerStatusContainer;
+
+        } catch (Exception e){
+            System.out.println(e.getMessage());
+            return null;
         }
-
-        return  providerStatusContainer;
     }
 
     private Container requesterContainer(Institution institution) {

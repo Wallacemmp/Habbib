@@ -196,6 +196,78 @@ public class RequisitionDAO extends BaseDAO{
         return institutions;
     }
 
+    public Requisition getRequisitionById(int id) throws Exception {
+
+        PreparedStatement stmt;
+        ResultSet rs;
+        Requisition requisition = null;
+        try {
+
+            String select = "SELECT p.*, r.*, b.*, destinationI.*, a.*\n" +
+                    " FROM Requisition r\n" +
+                    " JOIN Institution sourceI ON sourceI.Id = ?\n" +
+                    " JOIN Patient p ON r.Id_Patient = p.Id\n" +
+                    " JOIN Bed b ON r.Id_Bed = b.Id\n" +
+                    " JOIN Institution destinationI ON b.Id_Institution = destinationI.Id\n" +
+                    " JOIN Address a ON destinationI.Id_Address = a.Id";
+            stmt = super.connection.prepareStatement(select);
+            stmt.setInt(1,id);
+            rs = stmt.executeQuery();
+
+            if(rs.next()){
+
+                requisition = new Requisition();
+                requisition.setId(rs.getInt("r.Id"));
+                requisition.setStatus(rs.getString("r.Status"));
+                requisition.setDescription(rs.getString("Description"));
+
+                Patient patient = new Patient();
+                patient.setId(rs.getInt("p.Id"));
+                patient.setFirstName(rs.getString("FirstName"));
+                patient.setLastName(rs.getString("LastName"));
+                patient.setCpf(rs.getString("CPF"));
+                patient.setDob(rs.getDate("DOB"));
+                patient.setGender(rs.getString("Gender"));
+                patient.setCid(rs.getString("CID"));
+                requisition.setPatient(patient);
+
+                Bed bed = new Bed();
+                bed.setId(rs.getInt("b.Id"));
+                bed.setType(rs.getString("Type"));
+                bed.setStatus(rs.getString("b.Status"));
+                requisition.setBed(bed);
+
+                Institution destinationInstitution = new Institution();
+                Address address = new Address();
+
+                destinationInstitution.setId(rs.getInt("Id"));
+                destinationInstitution.setName(rs.getString("Name"));
+                destinationInstitution.setCnpj(rs.getString("CNPJ"));
+                destinationInstitution.setPassword(rs.getString("Password"));
+                destinationInstitution.setType(rs.getString("Type"));
+                destinationInstitution.setContactNumber(rs.getString("ContactNumber"));
+
+                address.setId(rs.getInt("a.Id"));
+                address.setZipCode(rs.getString("ZipCode"));
+                address.setAddress(rs.getString("Address"));
+                address.setNumber(rs.getInt("AddressNumber"));
+                address.setComplement(rs.getString("Complement"));
+                address.setNeighborhood(rs.getString("Neighborhood"));
+                address.setCity(rs.getString("City"));
+                address.setUf(rs.getString("UF"));
+                destinationInstitution.setAddress(address);
+
+                requisition.setDestinationInsitution(destinationInstitution);
+
+            }
+
+        } catch (Exception e){
+            System.out.println(e.getMessage());
+            throw e;
+        }
+        return requisition;
+    }
+
     public Requisition addRequisition(Requisition requisition, Institution institution) throws Exception{
         PreparedStatement stmt;
         ResultSet rs;
