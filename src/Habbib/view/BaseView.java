@@ -13,7 +13,7 @@ public class BaseView extends JFrame {
     private Font inputLabelFont = new Font(font, Font.PLAIN, 14);
     private Font textLabelFont = new Font(font, Font.PLAIN, 12);
     private Font textLabelFontBold = new Font(font, Font.BOLD, 12);
-    private Font buttonFont = new Font(font, Font.PLAIN, 13);
+    private Font buttonFont = new Font(font, Font.PLAIN, 11);
     private Font buttonFontBig = new Font(font, Font.PLAIN, 16);
     private Font textTable = new Font(font, Font.PLAIN,11);
 
