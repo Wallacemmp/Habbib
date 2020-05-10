@@ -34,6 +34,64 @@ public class View extends BaseView{
         JTextField userInput = super.createTextField(219,180,200,20);
         JPasswordField passInput = super.createPasswordField(219,206,200,20);
 
+        passInput.addKeyListener(new KeyListener() {
+            @Override
+            public void keyPressed(KeyEvent e) {
+                if(e.getKeyCode() == KeyEvent.VK_ENTER) {
+                    try {
+
+                        SessionController sessionController = new SessionController();
+
+                        Institution institution = sessionController.login(userInput.getText(), passInput.getText());
+                        loginContainer.setVisible(false);
+                        setContentPane(menuContainer(institution));
+                    } catch (Exception ex) {
+                        if(userInput.getText().equals("") || passInput.getText().equals("")){
+                            JOptionPane.showMessageDialog(null,"Seu usuário ou senha está vazio", "WARNING",JOptionPane.WARNING_MESSAGE);
+
+                        } else{
+                            JOptionPane.showMessageDialog(null,"Seu usuário ou senha está incorreto.", "WARNING",JOptionPane.WARNING_MESSAGE);
+                        }
+
+                    }
+                }
+            }
+            @Override
+            public void keyTyped(KeyEvent e) {}
+
+            @Override
+            public void keyReleased(KeyEvent e) {}
+        });
+
+        userInput.addKeyListener(new KeyListener() {
+            @Override
+            public void keyPressed(KeyEvent e) {
+                if(e.getKeyCode() == KeyEvent.VK_ENTER) {
+                    try {
+
+                        SessionController sessionController = new SessionController();
+
+                        Institution institution = sessionController.login(userInput.getText(), passInput.getText());
+                        loginContainer.setVisible(false);
+                        setContentPane(menuContainer(institution));
+                    } catch (Exception ex) {
+                        if(userInput.getText().equals("") || passInput.getText().equals("")){
+                            JOptionPane.showMessageDialog(null,"Seu usuário ou senha está vazio", "WARNING",JOptionPane.WARNING_MESSAGE);
+
+                        } else{
+                            JOptionPane.showMessageDialog(null,"Seu usuário ou senha está incorreto.", "WARNING",JOptionPane.WARNING_MESSAGE);
+                        }
+
+                    }
+                }
+            }
+            @Override
+            public void keyTyped(KeyEvent e) {}
+
+            @Override
+            public void keyReleased(KeyEvent e) {}
+        });
+
         loginContainer.add(super.createHeaderLabel("Habbib Beds", 230,50,140,40));
         loginContainer.add(super.createTitleLabel("Login", 280,125,50,30));
         loginContainer.add(super.createInputLabel("Usuário:", 155,180,60,20));
@@ -51,6 +109,8 @@ public class View extends BaseView{
                 loginContainer.setVisible(false);
                 setContentPane(registerContainer());
             }
+
+
         });
 
         JButton loginButton = super.createButton("Entrar", 219,232,200,20);
