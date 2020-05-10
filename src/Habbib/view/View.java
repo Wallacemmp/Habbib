@@ -320,7 +320,7 @@ public class View extends BaseView{
         providerContainer.add(super.createInputLabel(institution.getName(),83,52,70,30));
         providerContainer.add(super.createInputLabel("Status:",13,82,60,30));
 
-        JComboBox statusCB = super.createComboBox(new String[]{"Todos","Em análise","Recusado","Aprovado"},10,110,110,30);
+        JComboBox statusCB = super.createComboBox(new String[]{"Todos","Em análise","Reprovado","Aprovado"},10,110,110,30);
         JTextField searchInput = super.createTextField(120,110,393,30);
         JButton searchButton = super.createButton("Consultar",512, 108, 80, 32);
 
@@ -332,24 +332,26 @@ public class View extends BaseView{
 
             int rowsCount = 0;
 
-            for(Institution insitutions : institutionList)
-                rowsCount += insitutions.getRequisitions().size();
+            for(Institution inst : institutionList)
+                rowsCount += inst.getRequisitions().size();
 
-            Object[][] rows = new Object[rowsCount][3];
+            Object[][] rows = new Object[rowsCount][4];
 
             int currentRow = 0;
 
             for (int i=0; i < institutionList.size(); i++)
                 for(int j=0; j < institutionList.get(i).getRequisitions().size(); j++) {
-                    rows[currentRow] = new Object[]
-                            {institutionList.get(i).getName(),
-                                    institutionList.get(i).getRequisitions().get(j).getPatient().getFirstName() + " " + institutionList.get(i).getRequisitions().get(j).getPatient().getLastName(),
-                                    institutionList.get(i).getRequisitions().get(j).getBed().getType(),
-                                    institutionList.get(i).getRequisitions().get(j).getStatus()};
+                    rows[currentRow] = new Object[]{
+                            institutionList.get(i).getRequisitions().get(j).getId(),
+                            institutionList.get(i).getName(),
+                            institutionList.get(i).getRequisitions().get(j).getPatient().getFirstName() + " " + institutionList.get(i).getRequisitions().get(j).getPatient().getLastName(),
+                            institutionList.get(i).getRequisitions().get(j).getBed().getType(),
+                            institutionList.get(i).getRequisitions().get(j).getStatus()
+                    };
                     currentRow++;
             }
 
-            Object columns[] = {"Instituição", "Paciente", "Leito", "Status"};
+            Object[] columns = {"Código","Instituição", "Paciente", "Leito", "Status"};
 
             TableModel model = new DefaultTableModel(rows, columns) {
 
@@ -375,14 +377,15 @@ public class View extends BaseView{
             table.addMouseListener(new MouseAdapter() {
                 @Override
                 public void mousePressed(MouseEvent e) {
-                    JTable table =(JTable) e.getSource();
+                    JTable table = (JTable) e.getSource();
                     if (e.getClickCount() == 2 && table.getSelectedRow() != -1) {
                         providerContainer.setVisible(false);
-                        String institutionName = table.getValueAt(table.getSelectedRow(), 0).toString();
-                        String patientName = table.getValueAt(table.getSelectedRow(), 1).toString();
-                        String bed = table.getValueAt(table.getSelectedRow(), 2).toString();
-                        String status = table.getValueAt(table.getSelectedRow(), 3).toString();
-                        setContentPane(providerStatusContainer(institution,institutionName,patientName,bed,status));
+                        int requisitionID = (int)table.getValueAt(table.getSelectedRow(),0);
+                        String institutionName = table.getValueAt(table.getSelectedRow(), 1).toString();
+                        String patientName = table.getValueAt(table.getSelectedRow(), 2).toString();
+                        String bedType = table.getValueAt(table.getSelectedRow(), 3).toString();
+                        String status = table.getValueAt(table.getSelectedRow(), 4).toString();
+                        setContentPane(providerStatusContainer(requisitionID,institution,institutionName,patientName,bedType,status));
                     }
                 }
             });
@@ -425,24 +428,24 @@ public class View extends BaseView{
                     setContentPane(menuContainer(institution));
                 }
             });
+
             providerContainer.add(statusCB);
             providerContainer.add(searchInput);
             providerContainer.add(searchButton);
             providerContainer.add(backButton);
             providerContainer.add(pane);
-        } catch (Exception ex ){
+
+        } catch (Exception ex){
             System.out.println(ex.getMessage());
         }
         return providerContainer;
     }
 
-    private Container providerStatusContainer(Institution institution, String institutionName, String patientName, String bed, String status){
+    private Container providerStatusContainer(int requisitionID, Institution institution, String institutionName, String patientName, String bed, String status){
+
         JPanel providerStatusContainer = new JPanel();
         providerStatusContainer.setLayout(null);
-
-
         providerStatusContainer.add(super.createHeaderLabel("Solicitação", 160,10,251,32));
-
         providerStatusContainer.add(super.createTitleLabel("Instituição solicitante:", 10 ,57, 155,28 ));
         providerStatusContainer.add(super.createTextLabelLeft(institutionName, 10 ,80,250,32 ));
         providerStatusContainer.add(super.createTextLabelLeftBold("Público", 260 ,80,52,25));
@@ -794,7 +797,7 @@ public class View extends BaseView{
 
         try {
             //TODO: Britez agrupar por tipo de leito.
-            for(Institution availableInstitution : bc.searchInsitutionswithAvailableBeds())
+            for(Institution availableInstitution : bc.searchInstitutionsWithAvailableBeds())
                 for(Bed bed : availableInstitution.getBeds())
                     model.addRow(new Object[]{ availableInstitution.getName(),availableInstitution.getType(),availableInstitution.getAddress().getUf(),bed.getType(),5,availableInstitution.getContactNumber()});
 

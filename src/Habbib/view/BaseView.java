@@ -104,10 +104,10 @@ public class BaseView extends JFrame {
         comboBox.setBounds(x,y,width,height);
         return comboBox;
     }
+
     public JTable createTable(DefaultTableModel model){
         JTable table = new JTable(model);
         table.setFont(textTable);
-
 
         return  table;
     }
@@ -118,8 +118,8 @@ public class BaseView extends JFrame {
         textLabel.setHorizontalAlignment(SwingConstants.LEFT);
         textLabel.setVerticalAlignment(SwingConstants.CENTER);
         textLabel.setBounds(x,y,width,height);
-        return textLabel;
 
+        return textLabel;
     }
 
     protected JLabel createTextLabelLeftBold(String name, int x, int y, int width, int height) {
@@ -128,6 +128,7 @@ public class BaseView extends JFrame {
         textLabel.setHorizontalAlignment(SwingConstants.LEFT);
         textLabel.setVerticalAlignment(SwingConstants.CENTER);
         textLabel.setBounds(x,y,width,height);
+
         return textLabel;
     }
 
@@ -137,8 +138,5 @@ public class BaseView extends JFrame {
         t.setBounds(x,y,width,height);
 
         return t;
-
     }
-
-
 }

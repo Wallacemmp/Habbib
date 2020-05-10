@@ -22,7 +22,7 @@ public class BedController {
         }
     }
 
-    public ArrayList<Institution> searchInsitutionswithAvailableBeds() throws Exception{
+    public ArrayList<Institution> searchInstitutionsWithAvailableBeds() throws Exception{
 
         ArrayList<Institution> institution;
 

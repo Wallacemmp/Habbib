@@ -176,7 +176,7 @@ public class RequisitionDAO extends BaseDAO{
 
                 Bed bed = new Bed();
                 bed.setId(rs.getInt("b.Id"));
-                bed.setType(rs.getString("Type"));
+                bed.setType(rs.getString("b.Type"));
                 bed.setStatus(rs.getString("b.Status"));
                 requisition.setBed(bed);
 

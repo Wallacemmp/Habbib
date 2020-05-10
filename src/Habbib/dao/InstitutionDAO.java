@@ -56,7 +56,6 @@ public class InstitutionDAO extends BaseDAO {
 
         return institution;
     }
-
     //TODO ajustar o método
     public Institution getInstitutionByCNPJ(String cnpj) throws Exception{
         PreparedStatement stmt;
