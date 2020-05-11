@@ -46,7 +46,7 @@ public class BedDAO extends BaseDAO {
         return beds;
     }
 
-    public ArrayList<Institution> getAvailableBedsFromInsitutions(Institution loggedInsitution) throws Exception{
+    public ArrayList<Institution> getAvailableBedsFromInstitutions(Institution loggedInsitution) throws Exception{
 
         PreparedStatement stmt;
         ResultSet rs;
