@@ -46,7 +46,7 @@ public class BedDAO extends BaseDAO {
         return beds;
     }
 
-    public ArrayList<Institution> getAvailableBedsFromInsitutions() throws Exception{
+    public ArrayList<Institution> getAvailableBedsFromInsitutions(Institution loggedInsitution) throws Exception{
 
         PreparedStatement stmt;
         ResultSet rs;
@@ -60,9 +60,10 @@ public class BedDAO extends BaseDAO {
                     "FROM Institution i\n" +
                     "join Bed b on i.Id = b.Id_Institution\n" +
                     "join Address a on i.Id_Address = a.Id\n" +
-                    "where b.Status = 'Disponivel'\n" +
+                    "where b.Status = 'Disponivel' AND i.Id != ? \n" +
                     "GROUP BY i.Id";
             stmt = super.connection.prepareStatement(select);
+            stmt.setInt(1, loggedInsitution.getId());
             rs = stmt.executeQuery();
 
             while(rs.next()) {

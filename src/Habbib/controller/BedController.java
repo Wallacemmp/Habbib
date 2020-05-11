@@ -22,13 +22,13 @@ public class BedController {
         }
     }
 
-    public ArrayList<Institution> searchInstitutionsWithAvailableBeds() throws Exception{
+    public ArrayList<Institution> searchInstitutionsWithAvailableBeds(Institution loggedInstitution) throws Exception{
 
         ArrayList<Institution> institution;
 
         try(BedDAO bedDAO = new BedDAO()){
 
-            institution = bedDAO.getAvailableBedsFromInsitutions();
+            institution = bedDAO.getAvailableBedsFromInsitutions(loggedInstitution);
 
         } catch (Exception e){
             System.out.println(e.getMessage());
