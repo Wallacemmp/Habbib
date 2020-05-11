@@ -438,10 +438,9 @@ public class View extends BaseView{
         providerContainer.add(super.createInputLabel("Instituição:",13,52,70,30));
         providerContainer.add(super.createInputLabel(institution.getName(),83,52,600,30));
         providerContainer.add(super.createInputLabel("Status:",13,82,60,30));
-
-        JComboBox statusCB = super.createComboBox(new String[]{"Todos","Em análise","Reprovado","Aprovado"},10,110,110,30);
-        JTextField searchInput = super.createTextField(120,110,393,30);
-        JButton searchButton = super.createButton("Consultar",512, 108, 80, 32);
+        JComboBox statusCB = super.createComboBox(new String[]{"Todos","Em análise","Reprovado","Aprovado"},10,110,100,30);
+        JTextField searchInput = super.createTextField(111,110,390,30);
+        JButton searchButton = super.createButton("Consultar",502, 108, 87, 32);
 
         try {
 
