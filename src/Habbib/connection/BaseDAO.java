@@ -8,7 +8,7 @@ import java.sql.SQLException;
 
 public class BaseDAO implements Closeable {
 
-    private static final String URL = "jdbc:mysql://habbib.c2 bkaqylozax.us-east-1.rds.amazonaws.com:3306/db_Habbib?useUnicode=true&characterEncoding=UTF-8&serverTimezone=GMT&useSSL=false";
+    private static final String URL = "jdbc:mysql://habbib.c2bkaqylozax.us-east-1.rds.amazonaws.com:3306/db_Habbib?useUnicode=true&characterEncoding=UTF-8&serverTimezone=GMT&useSSL=false";
     private static final String USER = "root";
     private static final String PASSWORD = "rootroot";
 
