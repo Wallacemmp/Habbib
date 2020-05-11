@@ -24,11 +24,12 @@ public class RequisitionDAO extends BaseDAO{
 
             String select = "SELECT p.*, r.*, b.*, destinationI.*, a.*\n" +
                             " FROM Requisition r\n" +
-                            " JOIN Institution sourceI ON sourceI.Id = ?\n" +
+                            " JOIN Institution sourceI ON sourceI.Id = r.Id_Institution\n" +
                             " JOIN Patient p ON r.Id_Patient = p.Id\n" +
                             " JOIN Bed b ON r.Id_Bed = b.Id\n" +
                             " JOIN Institution destinationI ON b.Id_Institution = destinationI.Id\n" +
-                            " JOIN Address a ON destinationI.Id_Address = a.Id";
+                            " JOIN Address a ON destinationI.Id_Address = a.Id\n" +
+                            " WHERE sourceI.Id = ?";
             stmt = super.connection.prepareStatement(select);
             stmt.setInt(1,institution.getId());
             rs = stmt.executeQuery();

@@ -906,10 +906,21 @@ public class View extends BaseView{
 
 
         try {
-            //TODO: Britez agrupar por tipo de leito.
-            for(Institution availableInstitution : bc.searchInstitutionsWithAvailableBeds())
-                for(Bed bed : availableInstitution.getBeds())
-                    model.addRow(new Object[]{ availableInstitution.getName(),availableInstitution.getType(),availableInstitution.getAddress().getUf(),bed.getType(),5,availableInstitution.getContactNumber()});
+            for(Institution availableInstitution : bc.searchInstitutionsWithAvailableBeds()){
+
+                long utiBedCount = availableInstitution.getBeds().stream().filter(x -> x.getType().equals("UTI")).count();
+                long semiBedCount = availableInstitution.getBeds().stream().filter(x -> x.getType().equals("Semi-intensivo")).count();
+                long lowComplexityBedCount = availableInstitution.getBeds().stream().filter(x -> x.getType().equals("Baixa complexidade")).count();
+
+                if(utiBedCount > 0)
+                    model.addRow(new Object[]{ availableInstitution.getName(),availableInstitution.getType(),availableInstitution.getAddress().getUf(),"UTI",utiBedCount,availableInstitution.getContactNumber()});
+
+                if(semiBedCount > 0)
+                    model.addRow(new Object[]{ availableInstitution.getName(),availableInstitution.getType(),availableInstitution.getAddress().getUf(),"Semi-intensivo",semiBedCount,availableInstitution.getContactNumber()});
+
+                if(lowComplexityBedCount > 0)
+                    model.addRow(new Object[]{ availableInstitution.getName(),availableInstitution.getType(),availableInstitution.getAddress().getUf(),"Baixa complexidade",lowComplexityBedCount,availableInstitution.getContactNumber()});
+            }
 
         } catch (Exception e) {
             e.printStackTrace();
