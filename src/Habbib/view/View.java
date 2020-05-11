@@ -1005,7 +1005,7 @@ public class View extends BaseView{
 
         requestBedContainer.add(super.createInputLabel("UF:",157,37,70,30));
 
-        requestBedContainer.add(super.createInputLabel("Leito:",372,37,70,30));
+        requestBedContainer.add(super.createInputLabel("Leito:",306,37,70,30));
 
         JComboBox typeCB = super.createComboBox(new String[]{ "Todos" ,"Privado","Publico"},10,62,98,26);
 
