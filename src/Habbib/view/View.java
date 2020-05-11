@@ -621,7 +621,7 @@ public class View extends BaseView{
     private Container requesterContainer(Institution institution) {
         JPanel requestContainer = new JPanel();
         requestContainer.setLayout(null);
-        requestContainer.add(super.createHeaderLabel("Fornecedor", 178,10,251,32));
+        requestContainer.add(super.createHeaderLabel("Solicitações", 178,10,251,32));
         requestContainer.add(super.createInputLabel("Instituição:",13,52,70,30));
         requestContainer.add(super.createInputLabel("Status:",13,82,60,30));
         JComboBox statusCB = super.createComboBox(new String[]{"Selecionar","Em análise","Recusado","Aprovado"},10,110,110,30);
@@ -772,7 +772,7 @@ public class View extends BaseView{
                 @Override
                 public void actionPerformed(ActionEvent e) {
                     requestStatus.setVisible(false);
-                    setContentPane(providerContainer(institution));
+                    setContentPane(requesterContainer(institution));
                 }
             });
             requestStatus.add(comeBack);

@@ -282,7 +282,7 @@ public class RequisitionDAO extends BaseDAO{
             stmt = super.connection.prepareStatement(insert, Statement.RETURN_GENERATED_KEYS);
 
             stmt.setString(1, requisition.getDescription());
-            stmt.setInt(2, institution.getId());
+            stmt.setInt(2, requisition.getDestinationInstitution().getId());
             stmt.setString(3, requisition.getBed().getType());
             stmt.setInt(4, requisition.getPatient().getId());
             stmt.setInt(5, institution.getId());

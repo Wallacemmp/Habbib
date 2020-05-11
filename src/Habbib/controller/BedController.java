@@ -28,7 +28,7 @@ public class BedController {
 
         try(BedDAO bedDAO = new BedDAO()){
 
-            institution = bedDAO.getAvailableBedsFromInsitutions(loggedInstitution);
+            institution = bedDAO.getAvailableBedsFromInstitutions(loggedInstitution);
 
         } catch (Exception e){
             System.out.println(e.getMessage());
