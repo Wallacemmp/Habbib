@@ -691,27 +691,22 @@ public class View extends BaseView{
             }
         });
 
+/*
         try {
-            for(Institution availableInstitution : bc.searchInstitutionsWithAvailableBeds()){
+            for(Bed beds : rc.searchAvailableBeds()){
 
-                long utiBedCount = availableInstitution.getBeds().stream().filter(x -> x.getType().equals("UTI")).count();
-                long semiBedCount = availableInstitution.getBeds().stream().filter(x -> x.getType().equals("Semi-intensivo")).count();
-                long lowComplexityBedCount = availableInstitution.getBeds().stream().filter(x -> x.getType().equals("Baixa complexidade")).count();
+                model.addRow(new Object[]{ beds.getInstitution().getName(),beds.getInstitution().getType(),beds.getInstitution().getAddress().getNeighborhood(),beds.getType(),5,beds.getInstitution().getContactNumber()});
 
-                if(utiBedCount > 0)
-                    model.addRow(new Object[]{ availableInstitution.getName(),availableInstitution.getType(),availableInstitution.getAddress().getUf(),"UTI",utiBedCount,availableInstitution.getContactNumber()});
 
-                if(semiBedCount > 0)
-                    model.addRow(new Object[]{ availableInstitution.getName(),availableInstitution.getType(),availableInstitution.getAddress().getUf(),"Semi-intensivo",semiBedCount,availableInstitution.getContactNumber()});
 
-                if(lowComplexityBedCount > 0)
-                    model.addRow(new Object[]{ availableInstitution.getName(),availableInstitution.getType(),availableInstitution.getAddress().getUf(),"Baixa complexidade",lowComplexityBedCount,availableInstitution.getContactNumber()});
+
             }
-
         } catch (Exception e) {
             e.printStackTrace();
         }
 
+
+*/
         JScrollPane scroll = new JScrollPane(requestTable);
         scroll.setBounds(10,150,580,272);
 
@@ -864,25 +859,58 @@ public class View extends BaseView{
                 int rowsCount = 0;
 
                 for (Institution inst : instituionList)
-                    rowsCount += inst.getBeds().size();
+                    rowsCount += inst.getBeds().stream().map(Bed::getType).distinct().count();
 
                 rows = new Object[rowsCount][7];
 
                 int currentRow = 0;
 
-                for (int i = 0; i < instituionList.size(); i++)
-                    for (int j = 0; j < instituionList.get(i).getBeds().size(); j++) {
+                for (int i = 0; i < instituionList.size(); i++){
+                    long utiBedCount = instituionList.get(i).getBeds().stream().filter(x -> x.getType().equals("UTI")).count();
+                    long semiBedCount = instituionList.get(i).getBeds().stream().filter(x -> x.getType().equals("Semi-intensivo")).count();
+                    long lowComplexityBedCount = instituionList.get(i).getBeds().stream().filter(x -> x.getType().equals("Baixa complexidade")).count();
+
+                    if(utiBedCount > 0){
                         rows[currentRow] = new Object[]{
                                 instituionList.get(i).getName(),
                                 instituionList.get(i).getType(),
                                 instituionList.get(i).getAddress().getNeighborhood(),
                                 instituionList.get(i).getAddress().getUf(),
-                                instituionList.get(i).getBeds().get(j).getType(),
-                                "2",
+                                "UTI",
+                                utiBedCount,
                                 instituionList.get(i).getContactNumber()
                         };
                         currentRow++;
                     }
+
+                    if(semiBedCount > 0){
+                        rows[currentRow] = new Object[]{
+                                instituionList.get(i).getName(),
+                                instituionList.get(i).getType(),
+                                instituionList.get(i).getAddress().getNeighborhood(),
+                                instituionList.get(i).getAddress().getUf(),
+                                "Semi-intensivo",
+                                utiBedCount,
+                                instituionList.get(i).getContactNumber()
+                        };
+                        currentRow++;
+                    }
+
+                    if(lowComplexityBedCount > 0){
+                        rows[currentRow] = new Object[]{
+                                instituionList.get(i).getName(),
+                                instituionList.get(i).getType(),
+                                instituionList.get(i).getAddress().getNeighborhood(),
+                                instituionList.get(i).getAddress().getUf(),
+                                "Baixa complexidade",
+                                lowComplexityBedCount,
+                                instituionList.get(i).getContactNumber()
+                        };
+                        currentRow++;
+                    }
+
+                }
+
             } else
                 rows = new Object[0][0];
 
