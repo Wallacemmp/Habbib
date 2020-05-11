@@ -36,4 +36,13 @@ public class BedController {
         }
         return institution;
     }
+
+    public ArrayList<Bed> getInstitutionBeds(Institution institution) throws Exception{
+
+        try(BedDAO bedDAO = new BedDAO()){
+            return bedDAO.getBedByInstitution(institution);
+        } catch (Exception e){
+            throw e;
+        }
+    }
 }

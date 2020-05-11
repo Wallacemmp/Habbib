@@ -28,7 +28,7 @@ public class View extends BaseView{
     private Container loginContainer() {
         ImageIcon icon = new ImageIcon("src/Habbib/view/HabbibLogo.png");
         JLabel label = new JLabel(icon);
-        label.setBounds(250 ,20,120,120);
+        label.setBounds(250 ,10,120,120);
         JPanel loginContainer = new JPanel();
         loginContainer.setLayout(null);
         loginContainer.add(label);
@@ -308,7 +308,7 @@ public class View extends BaseView{
         JPanel menuContainer = new JPanel();
         ImageIcon icon = new ImageIcon("src/Habbib/view/HabbibLogo.png");
         JLabel logo = new JLabel(icon);
-        logo.setBounds(250 ,20,120,120);
+        logo.setBounds(250 ,10,120,120);
         menuContainer.setLayout(null);
 
         JButton providerButton = super.createDashboardButton("Solicitações",30,140,167,55);
@@ -333,58 +333,64 @@ public class View extends BaseView{
             }
         });
 
-        JButton registerBed = super.createDashboardButton("Cadastrar Leito",30,260,167,55);
+        JButton registerBed = super.createDashboardButton("Meus Leitos",30,260,167,55);
         JLabel registerBedDescription = super.createInputLabel("Cadastrar leitos disponíveis em minha instituição.", 210,260,500,61);
         menuContainer.add(registerBedDescription);
         registerBed.addActionListener(new ActionListener() {
             @Override
             public void actionPerformed(ActionEvent e) {
                 menuContainer.setVisible(false);
-                frameRegisterBed = new JFrame();
-                frameRegisterBed.setSize(500,200);
-                frameRegisterBed.setResizable(false);
-                frameRegisterBed.setLocationRelativeTo(null);
-                frameRegisterBed.setContentPane(registerBedContainer(institution));
-                frameRegisterBed.setVisible(true);
-                frameRegisterBed.setDefaultCloseOperation(JFrame.DISPOSE_ON_CLOSE);
-                frameRegisterBed.addWindowListener(new WindowListener() {
-                    @Override
-                    public void windowOpened(WindowEvent e) {
-
-                    }
-
-                    @Override
-                    public void windowClosing(WindowEvent e) {
-
-                    }
-
-                    @Override
-                    public void windowClosed(WindowEvent e) {
-                        menuContainer.setVisible(true);
-                    }
-
-                    @Override
-                    public void windowIconified(WindowEvent e) {
-
-                    }
-
-                    @Override
-                    public void windowDeiconified(WindowEvent e) {
-
-                    }
-
-                    @Override
-                    public void windowActivated(WindowEvent e) {
-
-                    }
-
-                    @Override
-                    public void windowDeactivated(WindowEvent e) {
-
-                    }
-                });
-
+                setContentPane(bedStatusContainer(institution));
             }
+
+            //            @Override
+//            public void actionPerformed(ActionEvent e) {
+//                menuContainer.setVisible(false);
+//                frameRegisterBed = new JFrame();
+//                frameRegisterBed.setSize(500,200);
+//                frameRegisterBed.setResizable(false);
+//                frameRegisterBed.setLocationRelativeTo(null);
+//                frameRegisterBed.setContentPane(registerBedContainer(institution));
+//                frameRegisterBed.setVisible(true);
+//                frameRegisterBed.setDefaultCloseOperation(JFrame.DISPOSE_ON_CLOSE);
+//                frameRegisterBed.addWindowListener(new WindowListener() {
+//                    @Override
+//                    public void windowOpened(WindowEvent e) {
+//
+//                    }
+//
+//                    @Override
+//                    public void windowClosing(WindowEvent e) {
+//
+//                    }
+//
+//                    @Override
+//                    public void windowClosed(WindowEvent e) {
+//                        menuContainer.setVisible(true);
+//                    }
+//
+//                    @Override
+//                    public void windowIconified(WindowEvent e) {
+//
+//                    }
+//
+//                    @Override
+//                    public void windowDeiconified(WindowEvent e) {
+//
+//                    }
+//
+//                    @Override
+//                    public void windowActivated(WindowEvent e) {
+//
+//                    }
+//
+//                    @Override
+//                    public void windowDeactivated(WindowEvent e) {
+//
+//                    }
+//                });
+//
+//            }
 
         });
 
@@ -430,7 +436,7 @@ public class View extends BaseView{
         providerContainer.setLayout(null);
         providerContainer.add(super.createHeaderLabel("Fornecedor", 178,10,251,32));
         providerContainer.add(super.createInputLabel("Instituição:",13,52,70,30));
-        providerContainer.add(super.createInputLabel(institution.getName(),83,52,70,30));
+        providerContainer.add(super.createInputLabel(institution.getName(),83,52,600,30));
         providerContainer.add(super.createInputLabel("Status:",13,82,60,30));
 
         JComboBox statusCB = super.createComboBox(new String[]{"Todos","Em análise","Reprovado","Aprovado"},10,110,110,30);
@@ -856,6 +862,103 @@ public class View extends BaseView{
             requestStatus.add(comeBack);
 
         return  requestStatus;
+    }
+
+    private Container bedStatusContainer(Institution institution){
+
+        JPanel bedStatusContainer = new JPanel();
+        bedStatusContainer.setLayout(null);
+
+        bedStatusContainer.add(super.createHeaderLabel("Meus Leitos", 160,10,251,32));
+        bedStatusContainer.add(super.createInputLabel("Tipo:",10,37,70,30));
+        JComboBox bedCB = super.createComboBox(new String[]{ "Todos", "UTI","Semi-intensivo","Baixa complexidade"},10,62,98,26);
+
+        try {
+
+            BedController BedController = new BedController();
+
+            ArrayList<Bed> beds = BedController.getInstitutionBeds(institution);
+
+            Object[][] rows;
+
+            rows = new Object[beds.size()][2];
+
+            for (int i = 0; i < beds.size(); i++){
+                rows[i] = new Object[]{ beds.get(i).getId(), beds.get(i).getType(), beds.get(i).getStatus()};
+            }
+
+            Object[] columns = {"ID","Leito","Status"};
+
+            TableModel model = new DefaultTableModel(rows, columns) {
+
+                public Class getColumnClass(int column) {
+
+                    Class returnValue;
+
+                    if ((column >= 0) && (column < getColumnCount())) {
+                        returnValue = getValueAt(0, column).getClass();
+                    } else {
+                        returnValue = Object.class;
+                    }
+                    return returnValue;
+                }
+
+                @Override
+                public boolean isCellEditable(final int row, final int column) {
+                        return false;
+                    }
+            };
+
+            JTable table = new JTable(model);
+
+            final TableRowSorter<TableModel> orderer = new TableRowSorter<>(model);
+            table.setRowSorter(orderer);
+            JScrollPane pane = new JScrollPane(table);
+            pane.setBounds(10, 110, 580, 300);
+            bedStatusContainer.add(pane);
+
+            JButton consult = super.createButton("Consultar", 512, 62, 78, 26);
+            consult.addActionListener(new ActionListener() {
+                public void actionPerformed(ActionEvent e) {
+                    String bed = (String) (bedCB.getSelectedItem());
+
+                    try {
+                        if (bed.equals("Todos")) {
+                            orderer.setRowFilter(null);
+                        } else {
+                            orderer.setRowFilter(RowFilter.regexFilter(bed));
+                        }
+                    } catch (PatternSyntaxException pse) {
+                        System.err.println("Erro");
+                    }
+                }
+            });
+
+            bedStatusContainer.add(consult);
+
+
+        } catch (Exception e) {
+            e.printStackTrace();
+        }
+
+
+
+        JButton exit = super.createButton("Voltar",512, 427, 78, 30);
+        exit.addActionListener(new ActionListener() {
+            @Override
+            public void actionPerformed(ActionEvent e) {
+
+                bedStatusContainer.setVisible(false);
+                setContentPane(menuContainer(institution));
+            }
+        });
+
+
+        bedStatusContainer.add(bedCB);
+        bedStatusContainer.add(exit);
+
+
+        return  bedStatusContainer;
     }
 
     private Container registerBedContainer(Institution institution){
