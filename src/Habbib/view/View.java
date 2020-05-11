@@ -806,14 +806,14 @@ public class View extends BaseView{
         requestStatus.add(scroll);
 
         JButton comeBack = super.createButton("Voltar", 510, 427, 80, 30);
-            comeBack.addActionListener(new ActionListener() {
-                @Override
-                public void actionPerformed(ActionEvent e) {
-                    requestStatus.setVisible(false);
-                    setContentPane(requesterContainer(institution));
-                }
-            });
-            requestStatus.add(comeBack);
+        comeBack.addActionListener(new ActionListener() {
+            @Override
+            public void actionPerformed(ActionEvent e) {
+                requestStatus.setVisible(false);
+                setContentPane(requesterContainer(institution));
+            }
+        });
+        requestStatus.add(comeBack);
 
         return  requestStatus;
     }
@@ -859,8 +859,8 @@ public class View extends BaseView{
 
                 @Override
                 public boolean isCellEditable(final int row, final int column) {
-                        return false;
-                    }
+                    return false;
+                }
             };
 
             JTable table = new JTable(model);
@@ -899,7 +899,7 @@ public class View extends BaseView{
         registerBed.addActionListener(new ActionListener() {
             @Override
             public void actionPerformed(ActionEvent e) {
-               bedStatusContainer.setVisible(false);
+                bedStatusContainer.setVisible(false);
                 frameRegisterBed = new JFrame();
                 frameRegisterBed.setSize(500,200);
                 frameRegisterBed.setResizable(false);
@@ -920,9 +920,9 @@ public class View extends BaseView{
                     public void windowIconified(WindowEvent e) {}
                     @Override
                     public void windowDeiconified(WindowEvent e) {}
-                   @Override
-                   public void windowActivated(WindowEvent e) {}
-                   @Override
+                    @Override
+                    public void windowActivated(WindowEvent e) {}
+                    @Override
                     public void windowDeactivated(WindowEvent e) {}
                 });
 
