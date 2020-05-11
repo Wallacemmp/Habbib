@@ -691,22 +691,27 @@ public class View extends BaseView{
             }
         });
 
-/*
         try {
-            for(Bed beds : rc.searchAvailableBeds()){
+            for(Institution availableInstitution : bc.searchInstitutionsWithAvailableBeds()){
 
-                model.addRow(new Object[]{ beds.getInstitution().getName(),beds.getInstitution().getType(),beds.getInstitution().getAddress().getNeighborhood(),beds.getType(),5,beds.getInstitution().getContactNumber()});
+                long utiBedCount = availableInstitution.getBeds().stream().filter(x -> x.getType().equals("UTI")).count();
+                long semiBedCount = availableInstitution.getBeds().stream().filter(x -> x.getType().equals("Semi-intensivo")).count();
+                long lowComplexityBedCount = availableInstitution.getBeds().stream().filter(x -> x.getType().equals("Baixa complexidade")).count();
 
+                if(utiBedCount > 0)
+                    model.addRow(new Object[]{ availableInstitution.getName(),availableInstitution.getType(),availableInstitution.getAddress().getUf(),"UTI",utiBedCount,availableInstitution.getContactNumber()});
 
+                if(semiBedCount > 0)
+                    model.addRow(new Object[]{ availableInstitution.getName(),availableInstitution.getType(),availableInstitution.getAddress().getUf(),"Semi-intensivo",semiBedCount,availableInstitution.getContactNumber()});
 
-
+                if(lowComplexityBedCount > 0)
+                    model.addRow(new Object[]{ availableInstitution.getName(),availableInstitution.getType(),availableInstitution.getAddress().getUf(),"Baixa complexidade",lowComplexityBedCount,availableInstitution.getContactNumber()});
             }
+
         } catch (Exception e) {
             e.printStackTrace();
         }
 
-
-*/
         JScrollPane scroll = new JScrollPane(requestTable);
         scroll.setBounds(10,150,580,272);
 
