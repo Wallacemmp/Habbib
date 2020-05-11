@@ -377,11 +377,11 @@
       <screen x="0" y="0" width="1366" height="728" />
     </state>
     <state x="392" y="100" key="#dist/0.0.1366.728@0.0.1366.728" timestamp="1588643885018" />
-    <state x="134" y="0" width="1162" height="768" key="CommitChangelistDialog2" timestamp="1589215858846">
+    <state x="134" y="0" width="1162" height="768" key="CommitChangelistDialog2" timestamp="1589215928855">
       <screen x="0" y="0" width="1366" height="768" />
     </state>
     <state x="292" y="0" key="CommitChangelistDialog2/0.0.1366.717@0.0.1366.717" timestamp="1589166678187" />
-    <state x="134" y="0" width="1162" height="768" key="CommitChangelistDialog2/0.0.1366.768@0.0.1366.768" timestamp="1589215858846" />
+    <state x="134" y="0" width="1162" height="768" key="CommitChangelistDialog2/0.0.1366.768@0.0.1366.768" timestamp="1589215928855" />
     <state x="614" y="114" key="CommitChangelistDialog2/0.0.1920.1040/1920.0.1600.860@0.0.1920.1040" timestamp="1586908863127" />
     <state x="410" y="0" width="1162" height="1001" key="CommitChangelistDialog2/0.0.1920.1040@0.0.1920.1040" timestamp="1588445470778" />
     <state x="1658" y="0" key="CommitChangelistDialog2/1366.0.1366.768/0.0.1366.717@1366.0.1366.768" timestamp="1587531736603" />
@@ -510,11 +510,12 @@
     <state x="240" y="91" width="1040" height="760" key="SettingsEditor/0.0.1920.1040/1920.0.1600.860@0.0.1920.1040" timestamp="1587602173976" />
     <state x="171" y="0" key="SettingsEditor/1366.0.1366.768/0.0.1366.717@0.0.1366.717" timestamp="1587155633160" />
     <state x="1537" y="0" key="SettingsEditor/1366.0.1366.768/0.0.1366.717@1366.0.1366.768" timestamp="1587513092167" />
-    <state x="346" y="149" width="1137" height="685" key="Vcs.Push.Dialog.v2" timestamp="1589166686816">
-      <screen x="0" y="0" width="1366" height="717" />
+    <state x="229" y="34" width="1137" height="685" key="Vcs.Push.Dialog.v2" timestamp="1589215948518">
+      <screen x="0" y="0" width="1366" height="768" />
     </state>
     <state x="346" y="149" key="Vcs.Push.Dialog.v2/0.0.1366.717@0.0.1366.717" timestamp="1589166686816" />
     <state x="346" y="151" key="Vcs.Push.Dialog.v2/0.0.1366.728@0.0.1366.728" timestamp="1588642912495" />
+    <state x="229" y="34" key="Vcs.Push.Dialog.v2/0.0.1366.768@0.0.1366.768" timestamp="1589215948518" />
     <state x="487" y="216" width="1137" height="685" key="Vcs.Push.Dialog.v2/0.0.1920.1040@0.0.1920.1040" timestamp="1588446254434" />
     <state x="487" y="256" key="Vcs.Push.Dialog.v2/0.40.1920.1040@0.40.1920.1040" timestamp="1589158923841" />
     <state x="1712" y="160" key="Vcs.Push.Dialog.v2/1366.0.1366.768/0.0.1366.717@1366.0.1366.768" timestamp="1588720398848" />
