@@ -851,7 +851,7 @@ public class View extends BaseView{
 
             BedController BedController = new BedController();
 
-            ArrayList<Institution> instituionList = BedController.searchInstitutionsWithAvailableBeds();
+            ArrayList<Institution> instituionList = BedController.searchInstitutionsWithAvailableBeds(institution);
 
             Object[][] rows;
 
