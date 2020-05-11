@@ -20,15 +20,19 @@ import java.util.regex.PatternSyntaxException;
 public class View extends BaseView{
     JFrame frameRegisterBed;
     public View() {
-        super("Habbib beds");
-        super.showWindow(loginContainer(), 620,520);
+        super("Habbib corp.");
+        Institution i = new Institution();
+
+        super.showWindow(menuContainer(i), 620,520);
     }
 
     private Container loginContainer() {
-
+        ImageIcon icon = new ImageIcon("src/Habbib/view/HabbibLogo.png");
+        JLabel label = new JLabel(icon);
+        label.setBounds(250 ,20,120,120);
         JPanel loginContainer = new JPanel();
         loginContainer.setLayout(null);
-
+        loginContainer.add(label);
         JTextField userInput = super.createTextField(219,180,200,20);
         JPasswordField passInput = super.createPasswordField(219,206,200,20);
 
@@ -90,8 +94,6 @@ public class View extends BaseView{
             public void keyReleased(KeyEvent e) {}
         });
 
-        loginContainer.add(super.createHeaderLabel("Habbib Beds", 230,50,140,40));
-        loginContainer.add(super.createTitleLabel("Login", 280,125,50,30));
         loginContainer.add(super.createInputLabel("Usuário:", 155,180,60,20));
         loginContainer.add(super.createInputLabel("Senha:", 155,206,60,20));
         loginContainer.add(super.createTextLabel("Não tem uma conta?",219,400,120,20 ));
@@ -170,10 +172,60 @@ public class View extends BaseView{
         JTextField phoneInput = super.createTextField(489,220,101,22);
         JPasswordField passwordInput = super.createPasswordField(78,260,192,22);
         JPasswordField cPasswordInput = super.createPasswordField(390,260,200,22);
-        JButton backButton = super.createButton("Voltar",82,428,109,22);
-        JButton registerButton = super.createButton("Cadastra",200,428,109,22);
+        JButton backButton = super.createButton("Voltar",384,427,98,32);
+        JButton registerButton = super.createButton("Cadastrar",492,427,98,32);
         JComboBox typeCB = super.createComboBox(new String[]{"Selecionar","Privado","Publico"},490,100,100,20);
         JComboBox uFCB = super.createComboBox(new String[]{"Selecionar","AC","AL","AP","AM","BA","CE","DF","ES","GO","MA","MT","MS","MG","PA","PB","PR","PE","PI","RJ","RN","RS","RO","RR","SC","SP","SE","TO"},322,220,86,22);
+
+        cPasswordInput.addKeyListener(new KeyListener() {
+            @Override
+            public void keyPressed(KeyEvent e) {
+                if(e.getKeyCode() == KeyEvent.VK_ENTER) {
+                    try {
+
+                        if(uFCB.getSelectedItem().equals("Selecionar") || typeCB.getSelectedItem().equals("Selecionar")) {
+                            JOptionPane.showMessageDialog(null, "Dados inválidos, verifique se os campos estão preenchidos corretamente", "WARNING", JOptionPane.WARNING_MESSAGE);
+                        } else if (!(cPasswordInput).getText().equals(passwordInput.getText())) {
+                            JOptionPane.showMessageDialog(null, "As senhas digítadas não conferem !", "WARNING", JOptionPane.WARNING_MESSAGE);
+                        } else {
+
+                            Institution institution = new Institution();
+                            Address address = new Address();
+                            InstitutionController registerInstitution = new InstitutionController();
+
+                            address.setZipCode(zipCodeInput.getText());
+                            address.setAddress(addressInput.getText());
+                            address.setNumber(Integer.parseInt(numberInput.getText()));
+                            address.setComplement(complementInput.getText());
+                            address.setNeighborhood(neighborhoodInput.getText());
+                            address.setUf(uFCB.getSelectedItem().toString());
+                            address.setCity(cityInput.getText());
+                            address.setId(registerInstitution.registerAddress(address).getId());
+
+                            institution.setCnpj(cnpjInput.getText());
+                            institution.setName(nameInput.getText());
+                            institution.setPassword(passwordInput.getText());
+                            institution.setType(typeCB.getSelectedItem().toString());
+                            institution.setContactNumber(phoneInput.getText());
+                            institution.setAddress(address);
+                            registerInstitution.registerInstitution(institution);
+
+                            JOptionPane.showMessageDialog(null, "Cadastrado com sucesso!", "INFORMATION", JOptionPane.INFORMATION_MESSAGE);
+                            registerContainer.setVisible(false);
+                            setContentPane(loginContainer());
+                        }
+                    } catch (Exception ex) {
+                        JOptionPane.showMessageDialog(null,"Dados inválidos, verifique se os campos estão preenchidos corretamente", "WARNING",JOptionPane.WARNING_MESSAGE);
+                        System.out.println(ex.getMessage());
+                    }
+                }
+            }
+            @Override
+            public void keyTyped(KeyEvent e) {}
+
+            @Override
+            public void keyReleased(KeyEvent e) {}
+        });
 
         registerButton.addActionListener(new ActionListener() {
             @Override
@@ -256,9 +308,10 @@ public class View extends BaseView{
     private Container menuContainer(Institution institution) {
 
         JPanel menuContainer = new JPanel();
+        ImageIcon icon = new ImageIcon("src/Habbib/view/HabbibLogo.png");
+        JLabel logo = new JLabel(icon);
+        logo.setBounds(250 ,20,120,120);
         menuContainer.setLayout(null);
-
-        menuContainer.add(super.createHeaderLabel("Bem - vindo",178,10,251,32));
 
         JButton providerButton = super.createDashboardButton("Solicitações",30,140,167,55);
         JLabel providerDescription = super.createInputLabel("Consultar solicitações realizadas para a minha instituição.", 210,140,500,61);
@@ -361,7 +414,7 @@ public class View extends BaseView{
                 }
             }
         });
-
+        menuContainer.add(logo);
         menuContainer.add(providerButton);
         menuContainer.add(requester);
         menuContainer.add(registerBed);
@@ -755,8 +808,6 @@ public class View extends BaseView{
         JPanel requestStatus = new JPanel();
         requestStatus.setLayout(null);
         RequisitionController requisitionController = new RequisitionController();
-
-        //requisitionController.getRequestingInstitutions();
 
         requestStatus.add(super.createHeaderLabel("Solicitação", 160, 10, 251, 32));
 
