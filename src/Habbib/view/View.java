@@ -6,6 +6,7 @@ import Habbib.controller.RequisitionController;
 import Habbib.controller.SessionController;
 import Habbib.dao.PatientDAO;
 import Habbib.model.*;
+
 import java.sql.Date;
 import javax.swing.*;
 import javax.swing.table.DefaultTableModel;
@@ -21,9 +22,7 @@ public class View extends BaseView{
     JFrame frameRegisterBed;
     public View() {
         super("Habbib corp.");
-        Institution i = new Institution();
-
-        super.showWindow(menuContainer(i), 620,520);
+        super.showWindow(loginContainer(), 620,520);
     }
 
     private Container loginContainer() {
@@ -97,7 +96,6 @@ public class View extends BaseView{
         loginContainer.add(super.createInputLabel("Usuário:", 155,180,60,20));
         loginContainer.add(super.createInputLabel("Senha:", 155,206,60,20));
         loginContainer.add(super.createTextLabel("Não tem uma conta?",219,400,120,20 ));
-
         loginContainer.add(userInput);
         loginContainer.add(passInput);
         loginContainer.setVisible(true);
