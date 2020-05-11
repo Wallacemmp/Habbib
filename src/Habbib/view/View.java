@@ -28,7 +28,7 @@ public class View extends BaseView{
     private Container loginContainer() {
         ImageIcon icon = new ImageIcon("src/Habbib/view/HabbibLogo.png");
         JLabel label = new JLabel(icon);
-        label.setBounds(250 ,10,120,120);
+        label.setBounds( 0,10,620,120);
         JPanel loginContainer = new JPanel();
         loginContainer.setLayout(null);
         loginContainer.add(label);
@@ -142,38 +142,40 @@ public class View extends BaseView{
         JPanel registerContainer = new JPanel();
         registerContainer.setLayout(null);
 
-        registerContainer.add(super.createHeaderLabel("Cadastre sua instituição", 169,10, 251, 32));
-        registerContainer.add(super.createInputLabel("Nome:",10,59,40,20));
-        registerContainer.add(super.createInputLabel("CNPJ:",10,99,40,20));
-        registerContainer.add(super.createInputLabel("Tipo:",415,99,60,20));
-        registerContainer.add(super.createInputLabel("Endereco:",10,139,59,20));
-        registerContainer.add(super.createInputLabel("CEP:",10,179,27,20));
-        registerContainer.add(super.createInputLabel("Bairro:",212,179,39,20));
-        registerContainer.add(super.createInputLabel("Número:",415,139,59,20));
-        registerContainer.add(super.createInputLabel("Compl:",415,179,100,20));
-        registerContainer.add(super.createInputLabel("Cidade:",10,219,45,20));
-        registerContainer.add(super.createInputLabel("UF:",300,219,20,20));
-        registerContainer.add(super.createInputLabel("Telefone:",415,219,59,20));
-        registerContainer.add(super.createInputLabel("Senha:",10,259,40,20));
-        registerContainer.add(super.createInputLabel("Confirmar senha:",276,259,104,20));
-        registerContainer.add(super.createInputLabel("Voltar",86,428,109,311));
-        registerContainer.add(super.createInputLabel("Confirmar",106,428,109,311));
-
-        JTextField nameInput = super.createTextField(79,60,512,22);
-        JTextField cnpjInput = super.createTextField(79,100,330,22);
-        JTextField addressInput = super.createTextField(79,139,330,22);
-        JTextField zipCodeInput = super.createTextField(80,180,130,22);
-        JTextField neighborhoodInput = super.createTextField(254,180,155,22);
-        JTextField numberInput = super.createTextField(489,139,101,22);
-        JTextField complementInput = super.createTextField(489,180,101,22);
-        JTextField cityInput = super.createTextField(79,220,220,22);
-        JTextField phoneInput = super.createTextField(489,220,101,22);
-        JPasswordField passwordInput = super.createPasswordField(78,260,192,22);
-        JPasswordField cPasswordInput = super.createPasswordField(390,260,200,22);
+        ImageIcon icon = new ImageIcon("src/Habbib/view/HabbibLogo.png");
+        JLabel logo = new JLabel(icon);
+        registerContainer.add(logo);
+        logo.setBounds(250 ,10,120,120);
+        registerContainer.add(super.createInputLabel("Nome:",10,149,40,20));
+        JTextField nameInput = super.createTextField(79,148,512,22);
+        registerContainer.add(super.createInputLabel("CNPJ:",10,189,40,20));
+        JTextField cnpjInput = super.createTextField(79,188,330,22);
+        registerContainer.add(super.createInputLabel("Tipo:",415,189,60,20));
+        JComboBox typeCB = super.createComboBox(new String[]{"Selecionar","Privado","Publico"},490,188,100,20);
+        registerContainer.add(super.createInputLabel("Endereco:",10,229,59,20));
+        JTextField addressInput = super.createTextField(79, 228,330,22);
+        registerContainer.add(super.createInputLabel("Número:",415,229,59,20));
+        JTextField numberInput = super.createTextField(489,228,101,22);
+        registerContainer.add(super.createInputLabel("CEP:",10,269,27,20));
+        JTextField zipCodeInput = super.createTextField(80,268,130,22);
+        registerContainer.add(super.createInputLabel("Bairro:",212,269,39,20));
+        JTextField neighborhoodInput = super.createTextField(254,268,155,22);
+        registerContainer.add(super.createInputLabel("Compl:",415,269,100,20));
+        JTextField complementInput = super.createTextField(489,268,101,22);
+        registerContainer.add(super.createInputLabel("Cidade:",10,309,45,20));
+        JTextField cityInput = super.createTextField(79,308,220,22);
+        registerContainer.add(super.createInputLabel("UF:",300,309,20,20));
+        JComboBox uFCB = super.createComboBox(new String[]{"Selecionar","AC","AL","AP","AM","BA","CE","DF","ES","GO","MA","MT","MS","MG","PA","PB","PR","PE","PI","RJ","RN","RS","RO","RR","SC","SP","SE","TO"},322,309,86,22);
+        registerContainer.add(super.createInputLabel("Telefone:",415,309,59,20));
+        JTextField phoneInput = super.createTextField(489,308,101,22);
+        registerContainer.add(super.createInputLabel("Senha:",10,349,40,20));
+        JPasswordField passwordInput = super.createPasswordField(78,348,192,22);
+        registerContainer.add(super.createInputLabel("Confirmar senha:",274,349,104,20));
+        JPasswordField cPasswordInput = super.createPasswordField(390,348,200,22);
+        //      registerContainer.add(super.createInputLabel("Voltar",86,428,109,311));
+        //     registerContainer.add(super.createInputLabel("Confirmar",106,428,109,311));
         JButton backButton = super.createButton("Voltar",384,427,98,32);
         JButton registerButton = super.createButton("Cadastrar",492,427,98,32);
-        JComboBox typeCB = super.createComboBox(new String[]{"Selecionar","Privado","Publico"},490,100,100,20);
-        JComboBox uFCB = super.createComboBox(new String[]{"Selecionar","AC","AL","AP","AM","BA","CE","DF","ES","GO","MA","MT","MS","MG","PA","PB","PR","PE","PI","RJ","RN","RS","RO","RR","SC","SP","SE","TO"},322,220,86,22);
 
         cPasswordInput.addKeyListener(new KeyListener() {
             @Override
@@ -343,54 +345,7 @@ public class View extends BaseView{
                 setContentPane(bedStatusContainer(institution));
             }
 
-            //            @Override
-//            public void actionPerformed(ActionEvent e) {
-//                menuContainer.setVisible(false);
-//                frameRegisterBed = new JFrame();
-//                frameRegisterBed.setSize(500,200);
-//                frameRegisterBed.setResizable(false);
-//                frameRegisterBed.setLocationRelativeTo(null);
-//                frameRegisterBed.setContentPane(registerBedContainer(institution));
-//                frameRegisterBed.setVisible(true);
-//                frameRegisterBed.setDefaultCloseOperation(JFrame.DISPOSE_ON_CLOSE);
-//                frameRegisterBed.addWindowListener(new WindowListener() {
-//                    @Override
-//                    public void windowOpened(WindowEvent e) {
-//
-//                    }
-//
-//                    @Override
-//                    public void windowClosing(WindowEvent e) {
-//
-//                    }
-//
-//                    @Override
-//                    public void windowClosed(WindowEvent e) {
-//                        menuContainer.setVisible(true);
-//                    }
-//
-//                    @Override
-//                    public void windowIconified(WindowEvent e) {
-//
-//                    }
-//
-//                    @Override
-//                    public void windowDeiconified(WindowEvent e) {
-//
-//                    }
-//
-//                    @Override
-//                    public void windowActivated(WindowEvent e) {
-//
-//                    }
-//
-//                    @Override
-//                    public void windowDeactivated(WindowEvent e) {
-//
-//                    }
-//                });
-//
-//            }
+
 
         });
 
@@ -434,7 +389,7 @@ public class View extends BaseView{
 
         JPanel providerContainer = new JPanel();
         providerContainer.setLayout(null);
-        providerContainer.add(super.createHeaderLabel("Fornecedor", 178,10,251,32));
+        providerContainer.add(super.createHeaderLabel("Solicitações recebidas", 0,10,620,32));
         providerContainer.add(super.createInputLabel("Instituição:",13,52,70,30));
         providerContainer.add(super.createInputLabel(institution.getName(),83,52,600,30));
         providerContainer.add(super.createInputLabel("Status:",13,82,60,30));
@@ -589,7 +544,7 @@ public class View extends BaseView{
             providerStatusContainer.add(super.createInputLabel(requisitionOwner.getAddress().getUf(), 445 ,96,250,28 ));
             providerStatusContainer.add(super.createInputLabel("Telefone:",10,119,155,28));
             providerStatusContainer.add(super.createInputLabel(requisitionOwner.getContactNumber(), 80 ,119,250,28 ));
-            providerStatusContainer.add(super.createInputLabel("___________________________________________________________________________________________________",10,130,600,28));
+            providerStatusContainer.add(super.createInputLabel("_____________________________________________________________________________",10,130,600,28));
             providerStatusContainer.add(super.createInputLabel("Paciente:",10,150,155,28));
             providerStatusContainer.add(super.createInputLabel(requisition.getPatient().getFirstName() + " " + requisition.getPatient().getLastName() , 80 ,150,250,28 ));
             providerStatusContainer.add(super.createInputLabel("Sexo:",400,150,155,28));
@@ -678,9 +633,9 @@ public class View extends BaseView{
         requestContainer.add(super.createHeaderLabel("Solicitações", 178,10,251,32));
         requestContainer.add(super.createInputLabel("Instituição:",13,52,70,30));
         requestContainer.add(super.createInputLabel("Status:",13,82,60,30));
-        JComboBox statusCB = super.createComboBox(new String[]{"Selecionar","Em análise","Recusado","Aprovado"},10,110,110,30);
-        JTextField searchInput = super.createTextField(120,110,393,30);
-        JButton searchButton = super.createButton("Consultar",512, 108, 80, 32);
+        JComboBox statusCB = super.createComboBox(new String[]{"Selecionar","Em análise","Recusado","Aprovado"},10,110,100,30);
+        JTextField searchInput = super.createTextField(111,110,390,30);
+        JButton searchButton = super.createButton("Consultar",502, 108, 87, 32);
 
         try {
             RequisitionController requisitionController = new RequisitionController();
@@ -870,7 +825,7 @@ public class View extends BaseView{
 
         bedStatusContainer.add(super.createHeaderLabel("Meus Leitos", 160,10,251,32));
         bedStatusContainer.add(super.createInputLabel("Tipo:",10,37,70,30));
-        JComboBox bedCB = super.createComboBox(new String[]{ "Todos", "UTI","Semi-intensivo","Baixa complexidade"},10,62,98,26);
+        JComboBox bedCB = super.createComboBox(new String[]{ "Todos", "UTI","Semi-intensivo","Baixa complexidade"},10,62,120,26);
 
         try {
 
@@ -916,7 +871,7 @@ public class View extends BaseView{
             pane.setBounds(10, 110, 580, 300);
             bedStatusContainer.add(pane);
 
-            JButton consult = super.createButton("Consultar", 512, 62, 78, 26);
+            JButton consult = super.createButton("Consultar", 508, 62, 84, 30);
             consult.addActionListener(new ActionListener() {
                 public void actionPerformed(ActionEvent e) {
                     String bed = (String) (bedCB.getSelectedItem());
@@ -939,7 +894,41 @@ public class View extends BaseView{
         } catch (Exception e) {
             e.printStackTrace();
         }
+        JButton registerBed = super.createButton("Cadastrar leitos",10, 427, 130, 30);
 
+        registerBed.addActionListener(new ActionListener() {
+            @Override
+            public void actionPerformed(ActionEvent e) {
+               bedStatusContainer.setVisible(false);
+                frameRegisterBed = new JFrame();
+                frameRegisterBed.setSize(500,200);
+                frameRegisterBed.setResizable(false);
+                frameRegisterBed.setLocationRelativeTo(null);
+                frameRegisterBed.setContentPane(registerBedContainer(institution));
+                frameRegisterBed.setVisible(true);
+                frameRegisterBed.setDefaultCloseOperation(JFrame.DISPOSE_ON_CLOSE);
+                frameRegisterBed.addWindowListener(new WindowListener() {
+                    @Override
+                    public void windowOpened(WindowEvent e) {}
+                    @Override
+                    public void windowClosing(WindowEvent e) {}
+                    @Override
+                    public void windowClosed(WindowEvent e) {
+                        bedStatusContainer.setVisible(true);
+                    }
+                    @Override
+                    public void windowIconified(WindowEvent e) {}
+                    @Override
+                    public void windowDeiconified(WindowEvent e) {}
+                   @Override
+                   public void windowActivated(WindowEvent e) {}
+                   @Override
+                    public void windowDeactivated(WindowEvent e) {}
+                });
+
+
+            }
+        });
 
 
         JButton exit = super.createButton("Voltar",512, 427, 78, 30);
@@ -952,7 +941,7 @@ public class View extends BaseView{
             }
         });
 
-
+        bedStatusContainer.add(registerBed);
         bedStatusContainer.add(bedCB);
         bedStatusContainer.add(exit);
 
@@ -969,8 +958,8 @@ public class View extends BaseView{
         registerBedContainer.add(super.createInputLabel("Quantidade:",10,100,100,20));
         JComboBox typeInput = super.createComboBox(new String[]{"Selecionar","UTI", "Semi-intensivo","Baixa Complexidade"},170,60,120,20);
         JTextField amountInput = super.createTextField(170,100,25,22);
-        JButton registerButton = super.createButton("Cadastrar",400,120,78, 30 );
-        JButton backButton = super.createButton("Voltar",315,120 , 78, 30);
+        JButton registerButton = super.createButton("Cadastrar",392,120,86, 30 );
+        JButton backButton = super.createButton("Voltar",304,120 , 86, 30);
 
         registerButton.addActionListener(new ActionListener() {
             @Override
@@ -1121,13 +1110,15 @@ public class View extends BaseView{
                 public void mousePressed(MouseEvent e) {
                     JTable table = (JTable) e.getSource();
                     if (e.getClickCount() == 2 && table.getSelectedRow() != -1) {
-                       requestBedContainer.setVisible(false);
+                        requestBedContainer.setVisible(false);
                         String institutionName = table.getValueAt(table.getSelectedRow(), 0).toString();
                         String type = table.getValueAt(table.getSelectedRow(), 1).toString();
+                        String neighborhood =  table.getValueAt(table.getSelectedRow(),2).toString();
                         String uf = table.getValueAt(table.getSelectedRow(), 3).toString();
                         String bed = table.getValueAt(table.getSelectedRow(), 4).toString();
-                        setContentPane(requestBedStatusContainer(institution, institutionName , type, uf, bed, institution.getContactNumber(),institution.getAddress().getAddress(),institution.getAddress().getNumber(),institution.getAddress().getCity()));
-                       // requestBedStatusContainer(Institution institution, String name, String type, String uf, String bed, String phone, String address, String numberAddress , String city)
+
+                        setContentPane(requestBedStatusContainer(institution, institutionName , type,neighborhood, uf, bed, institution.getContactNumber(),institution.getAddress().getAddress(),institution.getAddress().getNumber(),institution.getAddress().getCity()));
+                        // requestBedStatusContainer(Institution institution, String name, String type, String uf, String bed, String phone, String address, String numberAddress , String city)
                     }
                 }
             });
@@ -1138,7 +1129,7 @@ public class View extends BaseView{
             pane.setBounds(10,110,580,300);
             requestBedContainer.add(pane);
 
-            JButton consult = super.createButton("Consultar",512, 62, 78, 26);
+            JButton consult = super.createButton("Consultar",506, 62, 84, 30);
             consult.addActionListener(new ActionListener() {
                 public void actionPerformed(ActionEvent e) {
                     String type = (String) (typeCB.getSelectedItem());
@@ -1174,29 +1165,8 @@ public class View extends BaseView{
                     }
                 }
             });
+
             requestBedContainer.add(consult);
-       /*     searchButton.addActionListener(new ActionListener() {
-                public void actionPerformed(ActionEvent e) {
-
-                    String text = searchInput.getText();
-                    String cbText = (String) (statusCB.getSelectedItem());
-
-                    try {
-                        if (text.length() == 0 && cbText.equals("Todos")) {
-                            orderer.setRowFilter(null);
-                        } else if (text.length() != 0 && cbText.equals("Todos")) {
-                            orderer.setRowFilter(RowFilter.regexFilter(text));
-                        } else if (text.length() != 0 && !(cbText.equals("Todos"))) {
-                            orderer.setRowFilter(RowFilter.regexFilter(text));
-                            orderer.setRowFilter(RowFilter.regexFilter(cbText));
-                        } else {
-                            orderer.setRowFilter(RowFilter.regexFilter(cbText));
-                        }
-                    } catch (PatternSyntaxException pse) {
-                        System.err.println("Erro");
-                    }
-                }
-            });*/
 
         } catch (Exception e) {
             e.printStackTrace();
@@ -1224,53 +1194,62 @@ public class View extends BaseView{
         return  requestBedContainer;
     }
 
-    private Container requestBedStatusContainer(Institution institution, String name, String type, String uf, String bed, String phone, String address, int numberAddress , String city){
-        System.out.println(name);
+    private Container requestBedStatusContainer(Institution institution, String name, String type,String neighborhood, String uf, String bed, String phone, String address, int numberAddress , String city){
         JPanel requestContainer = new JPanel();
         requestContainer.setLayout(null);
-        requestContainer.add(super.createHeaderLabel("Solicitação", 251,10,103,27));
-        requestContainer.add(super.createTitleLabel("Instituição solicitante:", 10 ,57, 155,28 ));
-        requestContainer.add(super.createTextLabelLeft(name, 10 ,80,250,32 ));
-        requestContainer.add(super.createTextLabelLeftBold(type, 260 ,80,52,25));
-        requestContainer.add(super.createTextLabelLeft("Tel.:"+ phone ,458 ,80,117,20 ));
-        requestContainer.add(super.createTextLabelLeft("R.:"+address+","+numberAddress,10 ,110,440,20 ));
-        requestContainer.add(super.createTextLabelLeft(city+","+uf,458 ,110,150,20 ));
+        requestContainer.add(super.createHeaderLabel("Solicitação", 160,10,310,32));
+        requestContainer.add(super.createInputLabel("Instituição:", 10 ,47, 155,28 ));
+        requestContainer.add(super.createInputLabel(name, 80 ,47,450,28 ));
+        requestContainer.add(super.createInputLabel("Tipo:", 400 ,47, 155,28 ));
+        requestContainer.add(super.createInputLabel(type, 445 ,47,450,28));
+        requestContainer.add(super.createInputLabel("Endereço:", 10 ,73, 155,28 ));
+        requestContainer.add(super.createInputLabel(address+","+numberAddress,80 ,73,450,28 ));
+        requestContainer.add(super.createInputLabel("Bairro:" ,400 ,73,155,28 ));
+        requestContainer.add(super.createInputLabel(neighborhood,445 ,73,450,28 ));
+        requestContainer.add(super.createInputLabel("Cidade:",10,96,155,28));
+        requestContainer.add(super.createInputLabel(city, 80 ,96,250,28 ));
+        requestContainer.add(super.createInputLabel("UF:",400,96,155,28));
+        requestContainer.add(super.createInputLabel(uf, 445 ,96,250,28 ));
+        requestContainer.add(super.createInputLabel("Telefone:",10,119,155,28));
+        requestContainer.add(super.createInputLabel(phone, 80 ,119,250,28 ));
 
+        requestContainer.add(super.createInputLabel("___________________________________________________________________________________________________",10,130,600,28));
 
-        requestContainer.add(super.createTitleLabel("Paciente:", 10 ,135, 80,28 ));
-        requestContainer.add(super.createTextLabelLeft("Leito solicitado:",10 ,162,85,20 ));
-        requestContainer.add(super.createTextLabelLeftBold(bed,95,162,200,20 ));
+        requestContainer.add(super.createInputLabel("Paciente:",10,150,155,28));
+        requestContainer.add(super.createInputLabel("Leito solicitado:",10 ,170,100,28 ));
+        requestContainer.add(super.createInputLabel(bed,120,170,150,28 ));
 
-        requestContainer.add(super.createTextLabelLeft("Nome:",10,192,40,20 ));
-        JTextField firstNameInput = createTextField(55,192,224,20);
+        requestContainer.add(super.createTextLabel("Nome:",10,210,36,20));
+        JTextField firstNameInput = createTextField(52,210,230,20);
         requestContainer.add(firstNameInput);
 
-        requestContainer.add(super.createTextLabelLeft("Sobrenome:",283,192,64,20 ));
-        JTextField lastNameInput = super.createTextField(368,192,224,20);
+        requestContainer.add(super.createTextLabel("Sobrenome:",286,210,64,20 ));
+        JTextField lastNameInput = super.createTextField(363,210,230,20);
         requestContainer.add(lastNameInput);
 
-        requestContainer.add(super.createTextLabelLeft("CPF:",10,217,40,20 ));
-        JTextField cpfInput = super.createTextField(55,217,224,20);
+        requestContainer.add(super.createTextLabel("CPF:",10,235,36,20 ));
+        JTextField cpfInput = super.createTextField(52,235,230,20);
         requestContainer.add(cpfInput);
-        requestContainer.add(super.createTextLabelLeft("Data de Nasc.:",283,217,75,20 ));
-        JTextField dob = super.createTextField(368,217,75,20);
+
+        requestContainer.add(super.createTextLabel("Data de Nasc.:",286,235,75,20 ));
+        JTextField dob = super.createTextField(363,235,75,20);
         requestContainer.add(dob);
-        requestContainer.add(super.createTextLabelLeft("Sexo:",447,217,41,20 ));
-        JComboBox generCB = super.createComboBox(new String[]{"Selecionar","Masculino","Feminino"},488,217,104,20);
+
+        requestContainer.add(super.createTextLabel("Sexo:",444,235,41,20 ));
+        JComboBox generCB = super.createComboBox(new String[]{"Selecionar","Masculino","Feminino"},488,235,104,20);
         requestContainer.add(generCB);
 
-        requestContainer.add(super.createTextLabelLeft("CID:",10,242,40,20 ));
-        JTextField cidInput = super.createTextField(55,242,224,20);
+        requestContainer.add(super.createInputLabel("CID:",10,260,40,20 ));
+        JTextField cidInput = super.createTextField(55,260,224,20);
         requestContainer.add(cidInput);
-
-        requestContainer.add(super.createTitleLabel("Obs.:", 10 ,267, 50,28 ));
-        JTextArea obsText = super.createJTextArea(10,295,490,150);
+        requestContainer.add(super.createTextLabel("Laudo médico:", 10 ,285, 200,20));
+        JTextArea obsText = super.createJTextArea(10,308,490,130);
         JScrollPane scroll = new JScrollPane(obsText);
-        scroll.setBounds(10,295,580,140);
+        scroll.setBounds(10,308,580,115);
         scroll.setVerticalScrollBarPolicy(ScrollPaneConstants.VERTICAL_SCROLLBAR_ALWAYS);
         requestContainer.add(scroll);
 
-        JButton comeBack = super.createButton("Voltar",333,444,78, 30 );
+        JButton comeBack = super.createButton("Voltar",336,427,78, 30 );
         comeBack.addActionListener(new ActionListener() {
             @Override
             public void actionPerformed(ActionEvent e) {
@@ -1281,7 +1260,7 @@ public class View extends BaseView{
         });
         requestContainer.add(comeBack);
 
-        JButton cancel = super.createButton("Cancelar",421,444,78, 30 );
+        JButton cancel = super.createButton("Cancelar",424,427,78, 30 );
         cancel.addActionListener(new ActionListener() {
             @Override
             public void actionPerformed(ActionEvent e) {
@@ -1296,7 +1275,7 @@ public class View extends BaseView{
         });
         requestContainer.add(cancel);
 
-        JButton request = super.createButton("Solicitar",509,444,78, 30 );
+        JButton request = super.createButton("Solicitar",512,427,78, 30 );
         request.addActionListener(new ActionListener() {
             @Override
             public void actionPerformed(ActionEvent e) {
@@ -1338,7 +1317,7 @@ public class View extends BaseView{
                 try {
                     req.setDestinationInstitution(ic.getInstitutionByName(name));
 
-                RequisitionController rc = new RequisitionController();
+                    RequisitionController rc = new RequisitionController();
                     rc.createRequisition(req, institution);
                     JOptionPane.showMessageDialog(null,"Leito solicitado com sucesso!","Informe", JOptionPane.INFORMATION_MESSAGE);
                     requestContainer.setVisible(false);
