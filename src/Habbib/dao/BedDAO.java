@@ -159,9 +159,9 @@ public class BedDAO extends BaseDAO {
             stmt = super.connection.prepareStatement(updateBed);
             stmt.setString(1, bed.getStatus());
             stmt.setInt(2, bed.getId());
-        }
-        catch (Exception e)
-        {
+            stmt.executeUpdate();
+
+        } catch (Exception e) {
             System.out.println(e.getMessage());
             throw e;
         }

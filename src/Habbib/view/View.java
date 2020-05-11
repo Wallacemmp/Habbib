@@ -21,39 +21,43 @@ import java.util.regex.PatternSyntaxException;
 public class View extends BaseView{
     JFrame frameRegisterBed;
     public View() {
-        super("Habbib corp.");
+        super("Habbib ®");
         super.showWindow(loginContainer(), 620,520);
     }
 
     private Container loginContainer() {
-        ImageIcon icon = new ImageIcon("src/Habbib/view/HabbibLogo.png");
-        JLabel label = new JLabel(icon);
-        label.setBounds( 0,10,620,120);
+
         JPanel loginContainer = new JPanel();
         loginContainer.setLayout(null);
-        loginContainer.add(label);
+
+        ImageIcon img = new ImageIcon("src/Habbib/view/HabbibLogo.png");
+        JLabel logoLabel = new JLabel(img);
+        logoLabel.setBounds( 0,10,620,120);
+
         JTextField userInput = super.createTextField(219,180,200,20);
         JPasswordField passInput = super.createPasswordField(219,206,200,20);
+        JButton registerButton = super.createButton("Crie uma", 340,400,81,20);
+        JButton loginButton = super.createButton("Entrar", 219,232,200,20);
+        loginContainer.add(super.createInputLabel("Usuário:", 155,180,60,20));
+        loginContainer.add(super.createInputLabel("Senha:", 155,206,60,20));
+        loginContainer.add(super.createTextLabel("Não tem uma conta?",219,400,120,20 ));
+        loginContainer.add(logoLabel);
 
         passInput.addKeyListener(new KeyListener() {
             @Override
             public void keyPressed(KeyEvent e) {
                 if(e.getKeyCode() == KeyEvent.VK_ENTER) {
                     try {
-
                         SessionController sessionController = new SessionController();
-
                         Institution institution = sessionController.login(userInput.getText(), passInput.getText());
                         loginContainer.setVisible(false);
                         setContentPane(menuContainer(institution));
                     } catch (Exception ex) {
                         if(userInput.getText().equals("") || passInput.getText().equals("")){
                             JOptionPane.showMessageDialog(null,"Seu usuário ou senha está vazio", "WARNING",JOptionPane.WARNING_MESSAGE);
-
                         } else{
                             JOptionPane.showMessageDialog(null,"Seu usuário ou senha está incorreto.", "WARNING",JOptionPane.WARNING_MESSAGE);
                         }
-
                     }
                 }
             }
@@ -78,11 +82,9 @@ public class View extends BaseView{
                     } catch (Exception ex) {
                         if(userInput.getText().equals("") || passInput.getText().equals("")){
                             JOptionPane.showMessageDialog(null,"Seu usuário ou senha está vazio", "WARNING",JOptionPane.WARNING_MESSAGE);
-
                         } else{
                             JOptionPane.showMessageDialog(null,"Seu usuário ou senha está incorreto.", "WARNING",JOptionPane.WARNING_MESSAGE);
                         }
-
                     }
                 }
             }
@@ -93,14 +95,6 @@ public class View extends BaseView{
             public void keyReleased(KeyEvent e) {}
         });
 
-        loginContainer.add(super.createInputLabel("Usuário:", 155,180,60,20));
-        loginContainer.add(super.createInputLabel("Senha:", 155,206,60,20));
-        loginContainer.add(super.createTextLabel("Não tem uma conta?",219,400,120,20 ));
-        loginContainer.add(userInput);
-        loginContainer.add(passInput);
-        loginContainer.setVisible(true);
-
-        JButton registerButton = super.createButton("Crie uma", 340,400,81,20);
         registerButton.addActionListener(new ActionListener() {
             @Override
             public void actionPerformed(ActionEvent e) {
@@ -109,7 +103,6 @@ public class View extends BaseView{
             }
         });
 
-        JButton loginButton = super.createButton("Entrar", 219,232,200,20);
         loginButton.addActionListener(new ActionListener() {
             @Override
             public void actionPerformed(ActionEvent e) {
@@ -132,20 +125,25 @@ public class View extends BaseView{
             }
         });
 
+        loginContainer.add(userInput);
+        loginContainer.add(passInput);
         loginContainer.add(loginButton);
         loginContainer.add(registerButton);
+        loginContainer.setVisible(true);
 
         return loginContainer;
     }
 
     private Container registerContainer() {
+
         JPanel registerContainer = new JPanel();
         registerContainer.setLayout(null);
 
-        ImageIcon icon = new ImageIcon("src/Habbib/view/HabbibLogo.png");
-        JLabel logo = new JLabel(icon);
-        registerContainer.add(logo);
-        logo.setBounds(250 ,10,120,120);
+        ImageIcon img = new ImageIcon("src/Habbib/view/HabbibLogo.png");
+        JLabel logoLabel = new JLabel(img);
+
+        registerContainer.add(logoLabel);
+        logoLabel.setBounds(250 ,10,120,120);
         registerContainer.add(super.createInputLabel("Nome:",10,149,40,20));
         JTextField nameInput = super.createTextField(79,148,512,22);
         registerContainer.add(super.createInputLabel("CNPJ:",10,189,40,20));
@@ -172,8 +170,6 @@ public class View extends BaseView{
         JPasswordField passwordInput = super.createPasswordField(78,348,192,22);
         registerContainer.add(super.createInputLabel("Confirmar senha:",274,349,104,20));
         JPasswordField cPasswordInput = super.createPasswordField(390,348,200,22);
-        //      registerContainer.add(super.createInputLabel("Voltar",86,428,109,311));
-        //     registerContainer.add(super.createInputLabel("Confirmar",106,428,109,311));
         JButton backButton = super.createButton("Voltar",384,427,98,32);
         JButton registerButton = super.createButton("Cadastrar",492,427,98,32);
 
@@ -1083,7 +1079,7 @@ public class View extends BaseView{
             } else
                 rows = new Object[0][0];
 
-            Object columns[] = {"Instituição", "Tipo", "Bairro","UF" ,"Leito","QTD","Telefone"};
+            Object[] columns = {"Instituição", "Tipo", "Bairro","UF" ,"Leito","QTD","Telefone"};
 
             TableModel model = new DefaultTableModel(rows, columns) {
 

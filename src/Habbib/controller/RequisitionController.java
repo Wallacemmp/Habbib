@@ -28,11 +28,10 @@ public class RequisitionController {
 
             requisitionDAO.updateRequisition(requisition);
 
-            if(requisition.getStatus().equals("Aprovado"))
-            {
-                bed.setId(requisition.getBed().getId());
-                bed.setStatus("Ocupado");
-                bedDAO.updateBedStatus(bed);
+            if(requisition.getStatus().equals("Aprovado")) {
+
+                requisition.getBed().setStatus("Ocupado");
+                bedDAO.updateBedStatus(requisition.getBed());
             }
 
         }catch (Exception e){
