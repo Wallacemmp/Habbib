@@ -53,7 +53,7 @@ public class BedDAO extends BaseDAO {
         ArrayList<Institution> institutionList = new ArrayList<>();
 
         try{
-            String select = "SELECT i.*, a.*,\n" +
+            String select = "SELECT i.*, a.*, \n" +
                     "       (SELECT count(bed.Id) FROM Bed bed WHERE bed.Id_Institution = i.Id and bed.Status = 'Disponivel' and bed.Type = 'UTI') as UTICount,\n" +
                     "       (SELECT count(bed.Id) FROM Bed bed WHERE bed.Id_Institution = i.Id and bed.Status = 'Disponivel' and bed.Type = 'Semi-intensivo') as SemiIntensiveCount,\n" +
                     "       (SELECT count(bed.Id) FROM Bed bed WHERE bed.Id_Institution = i.Id and bed.Status = 'Disponivel' and bed.Type = 'Baixa complexidade') as LowComplexityCount\n" +

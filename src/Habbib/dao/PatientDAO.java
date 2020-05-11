@@ -16,7 +16,7 @@ public class PatientDAO extends BaseDAO {
         super();
     }
     //TODO arrumar o DOB
-    public void addPatient(Patient patient) throws Exception {
+    public Patient addPatient(Patient patient) throws Exception {
         PreparedStatement stmt;
         ResultSet rs;
         try
@@ -43,6 +43,7 @@ public class PatientDAO extends BaseDAO {
             System.out.println(e.getMessage());
             throw e;
         }
+        return patient;
     }
 
 

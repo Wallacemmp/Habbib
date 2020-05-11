@@ -4,18 +4,16 @@ import Habbib.controller.BedController;
 import Habbib.controller.InstitutionController;
 import Habbib.controller.RequisitionController;
 import Habbib.controller.SessionController;
-import Habbib.dao.InstitutionDAO;
-import Habbib.model.Address;
-import Habbib.model.Bed;
-import Habbib.model.Institution;
-import Habbib.model.Requisition;
-
+import Habbib.dao.PatientDAO;
+import Habbib.model.*;
+import java.sql.Date;
 import javax.swing.*;
 import javax.swing.table.DefaultTableModel;
 import javax.swing.table.TableModel;
 import javax.swing.table.TableRowSorter;
 import java.awt.*;
 import java.awt.event.*;
+
 import java.util.ArrayList;
 import java.util.regex.PatternSyntaxException;
 
@@ -833,7 +831,7 @@ public class View extends BaseView{
     }
 
     private Container requestBedContainer(Institution institution){
-        JPanel requestBedContainer= new JPanel();
+        JPanel requestBedContainer = new JPanel();
         requestBedContainer.setLayout(null);
 
         requestBedContainer.add(super.createHeaderLabel("Solicitar leito", 160,10,251,32));
@@ -844,102 +842,156 @@ public class View extends BaseView{
 
         requestBedContainer.add(super.createInputLabel("Leito:",372,37,70,30));
 
-        JComboBox status = super.createComboBox(new String[]{"Privado","Público"},10,62,89,26);
+        JComboBox typeCB = super.createComboBox(new String[]{ "Todos" ,"Privado","Publico"},10,62,98,26);
 
-        JComboBox neighborhood = super.createComboBox(new String[]{"Selecionar","AC","AL","AP","AM","BA","CE","DF","ES","GO","MA","MT","MS","MG","PA","PB","PR","PE","PI","RJ","RN","RS","RO","RR","SC","SP","SE","TO"},157,62,86,22);
+        JComboBox ufCB = super.createComboBox(new String[]{"Todos","AC","AL","AP","AM","BA","CE","DF","ES","GO","MA","MT","MS","MG","PA","PB","PR","PE","PI","RJ","RN","RS","RO","RR","SC","SP","SE","TO"},158,62,98,26);
 
-        JComboBox type = super.createComboBox(new String[]{"UTI","Semi-intensivo","Baixa complexidade"},372,62,98,26);
+        JComboBox bedCB = super.createComboBox(new String[]{ "Todos", "UTI","Semi-intensivo","Baixa complexidade"},306,62,98,26);
+        try {
 
+            BedController BedController = new BedController();
 
-        DefaultTableModel model = new DefaultTableModel(){
-            @Override
-            public boolean isCellEditable(final int row, final int column) {
-                return false;
-            }
-        };
-        BedController bc = new BedController();
-        model.addColumn("Instituição");
-        model.addColumn("Tipo");
-        model.addColumn("UF");
-        model.addColumn("Leito");
-        model.addColumn("QTD");
-        model.addColumn("Telefone");
+            ArrayList<Institution> instituionList = BedController.searchInstitutionsWithAvailableBeds();
 
-        JTable requestBedTable = super.createTable(model);
-        requestBedTable.getColumnModel().getColumn(0).setPreferredWidth(150);
-        requestBedTable.getColumnModel().getColumn(1).setPreferredWidth(50);
-        requestBedTable.getColumnModel().getColumn(2).setPreferredWidth(100);
-        requestBedTable.getColumnModel().getColumn(3).setPreferredWidth(95);
-        requestBedTable.getColumnModel().getColumn(4).setPreferredWidth(30);
-        requestBedTable.getColumnModel().getColumn(5).setPreferredWidth(100);
+            Object[][] rows;
 
+            if (instituionList.size() > 0) {
+                int rowsCount = 0;
 
-        requestBedTable.addMouseListener(new MouseAdapter() {
-            @Override
-            public void mousePressed(MouseEvent e) {
-                JTable table =(JTable) e.getSource();
-                if (e.getClickCount() == 2 && table.getSelectedRow() != -1) {
+                for (Institution inst : instituionList)
+                    rowsCount += inst.getBeds().size();
 
-                    requestBedContainer.setVisible(false);
+                rows = new Object[rowsCount][7];
 
-                    String name = requestBedTable.getValueAt(requestBedTable.getSelectedRow(), 0).toString();
-                    String type = requestBedTable.getValueAt(requestBedTable.getSelectedRow(), 1).toString();
-                    String uf =  requestBedTable.getValueAt(requestBedTable.getSelectedRow(), 2).toString();
-                    String bed = requestBedTable.getValueAt(requestBedTable.getSelectedRow(), 3).toString();
-                    String phone = requestBedTable.getValueAt(requestBedTable.getSelectedRow(), 5).toString();
+                int currentRow = 0;
 
-
-                    try {
-                        InstitutionDAO  ad = new InstitutionDAO();
-                        Institution inst = ad.getInstitutionByName(name);
-                        String address = inst.getAddress().getAddress();
-                        String city  =  inst.getAddress().getCity();
-                        String numberAddress = Integer.toString(inst.getAddress().getNumber());
-                        setContentPane(initRequestBed(institution, name,type, uf, bed, phone, address, numberAddress , city));
-                    } catch (Exception exception) {
-                        exception.printStackTrace();
+                for (int i = 0; i < instituionList.size(); i++)
+                    for (int j = 0; j < instituionList.get(i).getBeds().size(); j++) {
+                        rows[currentRow] = new Object[]{
+                                instituionList.get(i).getName(),
+                                instituionList.get(i).getType(),
+                                instituionList.get(i).getAddress().getNeighborhood(),
+                                instituionList.get(i).getAddress().getUf(),
+                                instituionList.get(i).getBeds().get(j).getType(),
+                                "2",
+                                instituionList.get(i).getContactNumber()
+                        };
+                        currentRow++;
                     }
+            } else
+                rows = new Object[0][0];
+
+            Object columns[] = {"Instituição", "Tipo", "Bairro","UF" ,"Leito","QTD","Telefone"};
+
+            TableModel model = new DefaultTableModel(rows, columns) {
+
+                public Class getColumnClass(int column) {
+
+                    Class returnValue;
+
+                    if ((column >= 0) && (column < getColumnCount())) {
+                        returnValue = getValueAt(0, column).getClass();
+                    } else {
+                        returnValue = Object.class;
+                    }
+                    return returnValue;
                 }
 
-            }
-        });
+                @Override
+                public boolean isCellEditable(final int row, final int column) {
+                    return false;
+                }
+            };
+            JTable table = new JTable(model);
+            table.addMouseListener(new MouseAdapter() {
+                @Override
+                public void mousePressed(MouseEvent e) {
+                    JTable table = (JTable) e.getSource();
+                    if (e.getClickCount() == 2 && table.getSelectedRow() != -1) {
+                       requestBedContainer.setVisible(false);
+                        String institutionName = table.getValueAt(table.getSelectedRow(), 0).toString();
+                        String type = table.getValueAt(table.getSelectedRow(), 1).toString();
+                        String uf = table.getValueAt(table.getSelectedRow(), 3).toString();
+                        String bed = table.getValueAt(table.getSelectedRow(), 4).toString();
+                        setContentPane(requestBedStatusContainer(institution, institutionName , type, uf, bed, institution.getContactNumber(),institution.getAddress().getAddress(),institution.getAddress().getNumber(),institution.getAddress().getCity()));
+                       // requestBedStatusContainer(Institution institution, String name, String type, String uf, String bed, String phone, String address, String numberAddress , String city)
+                    }
+                }
+            });
 
+            final TableRowSorter<TableModel> orderer = new TableRowSorter<>(model);
+            table.setRowSorter(orderer);
+            JScrollPane pane = new JScrollPane(table);
+            pane.setBounds(10,110,580,300);
+            requestBedContainer.add(pane);
 
-        try {
-            for(Institution availableInstitution : bc.searchInstitutionsWithAvailableBeds()){
+            JButton consult = super.createButton("Consultar",512, 62, 78, 26);
+            consult.addActionListener(new ActionListener() {
+                public void actionPerformed(ActionEvent e) {
+                    String type = (String) (typeCB.getSelectedItem());
+                    String uf= (String) (ufCB.getSelectedItem());
+                    String bed = (String) (bedCB.getSelectedItem());
 
-                long utiBedCount = availableInstitution.getBeds().stream().filter(x -> x.getType().equals("UTI")).count();
-                long semiBedCount = availableInstitution.getBeds().stream().filter(x -> x.getType().equals("Semi-intensivo")).count();
-                long lowComplexityBedCount = availableInstitution.getBeds().stream().filter(x -> x.getType().equals("Baixa complexidade")).count();
+                    try {
+                        if (type.equals("Todos")  && uf.equals("Todos")  && bed.equals("Todos")) {
+                            orderer.setRowFilter(null);
+                        } else if (! type.equals("Todos")  &&  uf.equals("Todos")  && bed.equals("Todos")) {
+                            orderer.setRowFilter(RowFilter.regexFilter(type));
+                        }else if ( type.equals("Todos")  && ! uf.equals("Todos")  && bed.equals("Todos")) {
+                            orderer.setRowFilter(RowFilter.regexFilter(uf));
+                        }else if ( type.equals("Todos")  &&  uf.equals("Todos")  && ! bed.equals("Todos")) {
+                            orderer.setRowFilter(RowFilter.regexFilter(bed));
+                        }else if (! type.equals("Todos")  && ! uf.equals("Todos")  && bed.equals("Todos")) {
+                            orderer.setRowFilter(RowFilter.regexFilter(type));
+                            orderer.setRowFilter(RowFilter.regexFilter(uf));
 
-                if(utiBedCount > 0)
-                    model.addRow(new Object[]{ availableInstitution.getName(),availableInstitution.getType(),availableInstitution.getAddress().getUf(),"UTI",utiBedCount,availableInstitution.getContactNumber()});
+                        } else if (! type.equals("Todos")  &&  uf.equals("Todos")  && ! bed.equals("Todos")) {
+                            orderer.setRowFilter(RowFilter.regexFilter(type));
+                            orderer.setRowFilter(RowFilter.regexFilter(bed));
+                        } else if ( type.equals("Todos")  &&  ! uf.equals("Todos")  && ! bed.equals("Todos")) {
+                            orderer.setRowFilter(RowFilter.regexFilter(uf));
+                            orderer.setRowFilter(RowFilter.regexFilter(bed));
+                        }  else {
+                            orderer.setRowFilter(RowFilter.regexFilter(type));
+                            orderer.setRowFilter(RowFilter.regexFilter(uf));
+                            orderer.setRowFilter(RowFilter.regexFilter(bed));
+                        }
+                    } catch (PatternSyntaxException pse) {
+                        System.err.println("Erro");
+                    }
+                }
+            });
+            requestBedContainer.add(consult);
+       /*     searchButton.addActionListener(new ActionListener() {
+                public void actionPerformed(ActionEvent e) {
 
-                if(semiBedCount > 0)
-                    model.addRow(new Object[]{ availableInstitution.getName(),availableInstitution.getType(),availableInstitution.getAddress().getUf(),"Semi-intensivo",semiBedCount,availableInstitution.getContactNumber()});
+                    String text = searchInput.getText();
+                    String cbText = (String) (statusCB.getSelectedItem());
 
-                if(lowComplexityBedCount > 0)
-                    model.addRow(new Object[]{ availableInstitution.getName(),availableInstitution.getType(),availableInstitution.getAddress().getUf(),"Baixa complexidade",lowComplexityBedCount,availableInstitution.getContactNumber()});
-            }
+                    try {
+                        if (text.length() == 0 && cbText.equals("Todos")) {
+                            orderer.setRowFilter(null);
+                        } else if (text.length() != 0 && cbText.equals("Todos")) {
+                            orderer.setRowFilter(RowFilter.regexFilter(text));
+                        } else if (text.length() != 0 && !(cbText.equals("Todos"))) {
+                            orderer.setRowFilter(RowFilter.regexFilter(text));
+                            orderer.setRowFilter(RowFilter.regexFilter(cbText));
+                        } else {
+                            orderer.setRowFilter(RowFilter.regexFilter(cbText));
+                        }
+                    } catch (PatternSyntaxException pse) {
+                        System.err.println("Erro");
+                    }
+                }
+            });*/
 
         } catch (Exception e) {
             e.printStackTrace();
         }
 
-        JScrollPane scroll = new JScrollPane(requestBedTable);
-        scroll.setBounds(10,110,580,300);
 
-        JButton consult = super.createButton("Consultar",512, 62, 78, 26);
-        consult.addActionListener(new ActionListener() {
-            @Override
-            public void actionPerformed(ActionEvent e) {
 
-                /*providerContainer.setVisible(false);
-                setContentPane(initMenu(institution));*/
-            }
-        });
-
-        JButton exit = super.createButton("Cancelar",512, 427, 78, 30);
+        JButton exit = super.createButton("Voltar",512, 427, 78, 30);
         exit.addActionListener(new ActionListener() {
             @Override
             public void actionPerformed(ActionEvent e) {
@@ -948,18 +1000,19 @@ public class View extends BaseView{
                 setContentPane(menuContainer(institution));
             }
         });
-        requestBedContainer.add(status);
-        requestBedContainer.add(neighborhood);
-        requestBedContainer.add(type);
-        requestBedContainer.add(consult);
+
+
+        requestBedContainer.add(typeCB);
+        requestBedContainer.add(ufCB);
+        requestBedContainer.add(bedCB);
         requestBedContainer.add(exit);
-        requestBedContainer.add(scroll);
+
 
         return  requestBedContainer;
     }
 
-    private Container initRequestBed(Institution institution, String name, String type, String uf,String bed, String phone, String address,String numberAddress ,String city){
-
+    private Container requestBedStatusContainer(Institution institution, String name, String type, String uf, String bed, String phone, String address, int numberAddress , String city){
+        System.out.println(name);
         JPanel requestContainer = new JPanel();
         requestContainer.setLayout(null);
         requestContainer.add(super.createHeaderLabel("Solicitação", 251,10,103,27));
@@ -1010,14 +1063,74 @@ public class View extends BaseView{
             public void actionPerformed(ActionEvent e) {
                 requestContainer.setVisible(false);
                 setContentPane(requestBedContainer(institution));
+
             }
         });
         requestContainer.add(comeBack);
 
         JButton cancel = super.createButton("Cancelar",421,444,78, 30 );
+        cancel.addActionListener(new ActionListener() {
+            @Override
+            public void actionPerformed(ActionEvent e) {
+                int result = JOptionPane.showConfirmDialog(null,
+                        "Deseja realmente sair?",null, JOptionPane.YES_NO_OPTION);
+                if(result == JOptionPane.YES_OPTION) {
+                    requestContainer.setVisible(false);
+                    setContentPane(menuContainer(institution));
+                }
+
+            }
+        });
         requestContainer.add(cancel);
 
         JButton request = super.createButton("Solicitar",509,444,78, 30 );
+        request.addActionListener(new ActionListener() {
+            @Override
+            public void actionPerformed(ActionEvent e) {
+                Bed beds = new Bed();
+                beds.setType(bed);
+                Patient patient = new Patient();
+                patient.setFirstName(firstNameInput.getText());
+                patient.setLastName(lastNameInput.getText());
+                patient.setCpf(cpfInput.getText());
+                patient.setCid(cidInput.getText());
+
+                Date data = new Date(2016-1900,11,26);
+                patient.setDob(data);
+                patient.setGender((String) generCB.getSelectedItem());
+                PatientDAO pDAO = new PatientDAO();
+
+
+                Requisition req = new Requisition();
+                req.setDescription(obsText.getText());
+                req.setBed(beds);
+
+
+                try {
+                    req.setPatient(pDAO.addPatient(patient));
+                } catch (Exception exception) {
+                    exception.printStackTrace();
+                }
+                InstitutionController ic = new  InstitutionController();
+
+                try {
+                    req.setDestinationInstitution(ic.getInstitutionByName(name));
+
+                RequisitionController rc = new RequisitionController();
+                    rc.createRequisition(req, institution);
+                    JOptionPane.showMessageDialog(null,"Leito solicitado com sucesso!","Atenção", JOptionPane.INFORMATION_MESSAGE);
+                    requestContainer.setVisible(false);
+                    setContentPane(requestBedContainer(institution));
+
+                } catch (Exception exception) {
+                    exception.printStackTrace();
+                }
+
+
+
+            }
+
+        });
         requestContainer.add(request);
 
         return  requestContainer;
