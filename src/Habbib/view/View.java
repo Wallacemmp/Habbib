@@ -1095,11 +1095,19 @@ public class View extends BaseView{
                 patient.setCpf(cpfInput.getText());
                 patient.setCid(cidInput.getText());
 
-                Date data = new Date(2016-1900,11,26);
-                patient.setDob(data);
+                if(dob.getText().length() != 10){
+                    JOptionPane.showMessageDialog(null, "Data inválida, informe no formato dd/mm/yyyy","Atenção", JOptionPane.WARNING_MESSAGE);
+                }
+                else{
+                    int year = Integer.parseInt(dob.getText().substring(6,10));
+                    int month = Integer.parseInt(dob.getText().substring(3,5))-1;
+                    int day = Integer.parseInt(dob.getText().substring(0,2))+1;
+                    Date data = new Date(year-1900, month,day);
+                    patient.setDob(data);
+                }
+
                 patient.setGender((String) generCB.getSelectedItem());
                 PatientDAO pDAO = new PatientDAO();
-
 
                 Requisition req = new Requisition();
                 req.setDescription(obsText.getText());
@@ -1118,11 +1126,12 @@ public class View extends BaseView{
 
                 RequisitionController rc = new RequisitionController();
                     rc.createRequisition(req, institution);
-                    JOptionPane.showMessageDialog(null,"Leito solicitado com sucesso!","Atenção", JOptionPane.INFORMATION_MESSAGE);
+                    JOptionPane.showMessageDialog(null,"Leito solicitado com sucesso!","Informe", JOptionPane.INFORMATION_MESSAGE);
                     requestContainer.setVisible(false);
                     setContentPane(requestBedContainer(institution));
 
                 } catch (Exception exception) {
+                    JOptionPane.showMessageDialog(null,"Falha ao cadastrar, verifique os dados.","Atenção", JOptionPane.INFORMATION_MESSAGE);
                     exception.printStackTrace();
                 }
 
