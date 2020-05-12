@@ -32,15 +32,23 @@ public class View extends BaseView{
 
         ImageIcon img = new ImageIcon("Resource/HabbibLogo.png");
         JLabel logoLabel = new JLabel(img);
-        logoLabel.setBounds( 0,10,620,120);
+        logoLabel.setBounds(0, 10, 620, 120);
+        logoLabel.addMouseListener(new MouseAdapter() {
+            @Override
+            public void mousePressed(MouseEvent e) {
+                if (e.getClickCount() == 5) {
+                    JOptionPane.showMessageDialog(null, "Criadores: \n\n" + "Alex Batista Farias\n" + "Arthur Machado Pires de Camargo\n" + "Donald de Mello Barbosa\n" + "Rafael Augusto Monteiro\n" + "Wallace Machado Moreira Pontes\n" + "Wesley Felix da Mata\n");
+                }
+            }
+        });
 
-        JTextField userInput = super.createTextField(219,180,200,20);
-        JPasswordField passInput = super.createPasswordField(219,206,200,20);
-        JButton registerButton = super.createButton("Crie uma", 340,400,81,20);
-        JButton loginButton = super.createButton("Entrar", 219,232,200,20);
-        loginContainer.add(super.createInputLabel("Usuário:", 155,180,60,20));
-        loginContainer.add(super.createInputLabel("Senha:", 155,206,60,20));
-        loginContainer.add(super.createTextLabel("Não tem uma conta?",219,400,120,20 ));
+        JTextField userInput = super.createTextField(219, 180, 200, 20);
+        JPasswordField passInput = super.createPasswordField(219, 206, 200, 20);
+        JButton registerButton = super.createButton("Crie uma", 340, 400, 81, 20);
+        JButton loginButton = super.createButton("Entrar", 219, 232, 200, 20);
+        loginContainer.add(super.createInputLabel("Usuário:", 155, 180, 60, 20));
+        loginContainer.add(super.createInputLabel("Senha:", 155, 206, 60, 20));
+        loginContainer.add(super.createTextLabel("Não tem uma conta?", 219, 400, 120, 20));
         loginContainer.add(logoLabel);
 
         passInput.addKeyListener(new KeyListener() {
