@@ -11,11 +11,10 @@ import java.sql.Statement;
 
 public class PatientDAO extends BaseDAO {
 
-    public PatientDAO()
-    {
+    public PatientDAO() throws Exception {
         super();
     }
-    //TODO arrumar o DOB
+
     public Patient addPatient(Patient patient) throws Exception {
         PreparedStatement stmt;
         ResultSet rs;

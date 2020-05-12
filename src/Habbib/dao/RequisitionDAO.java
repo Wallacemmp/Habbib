@@ -10,8 +10,7 @@ import java.util.ArrayList;
 
 public class RequisitionDAO extends BaseDAO{
 
-    public RequisitionDAO()
-    {
+    public RequisitionDAO() throws Exception {
         super();
     }
 

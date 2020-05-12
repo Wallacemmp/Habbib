@@ -12,8 +12,7 @@ import java.util.ArrayList;
 
 public class BedDAO extends BaseDAO {
 
-    public BedDAO() throws Exception
-    {
+    public BedDAO() throws Exception {
         super();
     }
 
