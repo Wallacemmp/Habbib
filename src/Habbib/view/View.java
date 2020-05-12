@@ -236,9 +236,8 @@ public class View extends BaseView{
             public void actionPerformed(ActionEvent e) {
 
                 try {
-
                     if(uFCB.getSelectedItem().equals("Selecionar") || typeCB.getSelectedItem().equals("Selecionar")) {
-                        JOptionPane.showMessageDialog(null, "Dados inválidos, verifique se os campos estão preenchidos corretamente", "WARNING", JOptionPane.WARNING_MESSAGE);
+                        JOptionPane.showMessageDialog(null, "1Dados inválidos, verifique se os campos estão preenchidos corretamente", "WARNING", JOptionPane.WARNING_MESSAGE);
                     } else if (!(cPasswordInput).getText().equals(passwordInput.getText())) {
                         JOptionPane.showMessageDialog(null, "As senhas digítadas não conferem !", "WARNING", JOptionPane.WARNING_MESSAGE);
                     } else {
@@ -980,7 +979,6 @@ public class View extends BaseView{
                     JOptionPane.showMessageDialog(null, "Erro ao cadastrar leito(s).", "WARNING", JOptionPane.WARNING_MESSAGE);
                     System.out.println(ex.getMessage());
                 }
-
             }
         });
 

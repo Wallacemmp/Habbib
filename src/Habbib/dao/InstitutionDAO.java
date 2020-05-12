@@ -7,6 +7,7 @@ import Habbib.model.Institution;
 import java.sql.PreparedStatement;
 import java.sql.ResultSet;
 import java.sql.Statement;
+import java.util.ArrayList;
 
 public class InstitutionDAO extends BaseDAO {
 
@@ -159,5 +160,49 @@ public class InstitutionDAO extends BaseDAO {
             System.out.println(e.getMessage());
             throw e;
         }
+    }
+
+    public ArrayList<String> getRegisteredInstitutions() throws Exception{
+        PreparedStatement stmt;
+        ResultSet rs;
+        ArrayList<String> institutions = null;
+        try {
+            String select = "SELECT Name FROM Institution";
+            stmt = super.connection.prepareStatement(select);
+            rs = stmt.executeQuery();
+
+            while (rs.next()){
+
+                String institution = rs.getString("Name");
+
+                institutions.add(institution);
+            }
+        } catch (Exception e){
+            System.out.println(e.getMessage());
+            throw e;
+        }
+        return institutions;
+    }
+
+    public ArrayList<String> getRegisteredCNPJ() throws Exception{
+        PreparedStatement stmt;
+        ResultSet rs;
+        ArrayList<String> institutionsCnpj = null;
+        try {
+            String select = "SELECT CNPJ FROM Institution";
+            stmt = super.connection.prepareStatement(select);
+            rs = stmt.executeQuery();
+
+            while (rs.next()){
+
+                String cnpj = rs.getString("CNPJ");
+
+                institutionsCnpj.add(cnpj);
+            }
+        } catch (Exception e){
+            System.out.println(e.getMessage());
+            throw e;
+        }
+        return institutionsCnpj;
     }
 }
