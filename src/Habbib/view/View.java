@@ -761,7 +761,6 @@ public class View extends BaseView{
     private Container requestStatusContainer(Institution institution, Requisition requisition) {
         JPanel requestStatus = new JPanel();
         requestStatus.setLayout(null);
-        RequisitionController requisitionController = new RequisitionController();
 
         requestStatus.add(super.createHeaderLabel("Solicitação", 160, 10, 310, 32));
         requestStatus.add(super.createInputLabel("Instituição fornecedora:", 10, 47, 155, 28));
@@ -1055,7 +1054,7 @@ public class View extends BaseView{
                                 instituionList.get(i).getAddress().getNeighborhood(),
                                 instituionList.get(i).getAddress().getUf(),
                                 "Semi-intensivo",
-                                utiBedCount,
+                                semiBedCount,
                                 instituionList.get(i).getContactNumber()
                         };
                         currentRow++;
