@@ -629,8 +629,8 @@ public class View extends BaseView{
         requestContainer.add(super.createHeaderLabel("Solicitações", 178,10,251,32));
         requestContainer.add(super.createInputLabel("Instituição:",13,52,70,30));
         requestContainer.add(super.createInputLabel("Status:",13,82,60,30));
-        JComboBox statusCB = super.createComboBox(new String[]{"Selecionar","Em análise","Recusado","Aprovado"},10,110,100,30);
-        JTextField searchInput = super.createTextField(111,110,390,30);
+        JComboBox statusCB = super.createComboBox(new String[]{"Todos", "Em análise", "Recusado", "Aprovado"}, 10, 110, 100, 30);
+        JTextField searchInput = super.createTextField(111, 110, 390, 30);
         JButton searchButton = super.createButton("Consultar",502, 108, 87, 32);
 
         try {
@@ -952,8 +952,8 @@ public class View extends BaseView{
         registerBedContainer.add(super.createHeaderLabel("Cadastrar leito", 80,10,300,32));
         registerBedContainer.add(super.createInputLabel("Tipo:",10,60,100,20));
         registerBedContainer.add(super.createInputLabel("Quantidade:",10,100,100,20));
-        JComboBox typeInput = super.createComboBox(new String[]{"Selecionar","UTI", "Semi-intensivo","Baixa Complexidade"},170,60,120,20);
-        JTextField amountInput = super.createTextField(170,100,25,22);
+        JComboBox typeInput = super.createComboBox(new String[]{"Todos", "UTI", "Semi-intensivo", "Baixa Complexidade"}, 170, 60, 120, 20);
+        JTextField amountInput = super.createTextField(170, 100, 25, 22);
         JButton registerButton = super.createButton("Cadastrar",392,120,86, 30 );
         JButton backButton = super.createButton("Voltar",304,120 , 86, 30);
 
@@ -1114,7 +1114,6 @@ public class View extends BaseView{
                         String bed = table.getValueAt(table.getSelectedRow(), 4).toString();
 
                         setContentPane(requestBedStatusContainer(institution, institutionName , type,neighborhood, uf, bed, institution.getContactNumber(),institution.getAddress().getAddress(),institution.getAddress().getNumber(),institution.getAddress().getCity()));
-                        // requestBedStatusContainer(Institution institution, String name, String type, String uf, String bed, String phone, String address, String numberAddress , String city)
                     }
                 }
             });
@@ -1235,7 +1234,7 @@ public class View extends BaseView{
         JComboBox generCB = super.createComboBox(new String[]{"Selecionar","Masculino","Feminino"},488,235,104,20);
         requestContainer.add(generCB);
 
-        requestContainer.add(super.createInputLabel("CID:",10,260,40,20 ));
+        requestContainer.add(super.createInputLabel("CID:", 10, 260, 60, 20));
         JTextField cidInput = super.createTextField(55,260,224,20);
         requestContainer.add(cidInput);
         requestContainer.add(super.createTextLabel("Laudo médico:", 10 ,285, 200,20));
@@ -1285,17 +1284,22 @@ public class View extends BaseView{
 
                 if(dob.getText().length() != 10){
                     JOptionPane.showMessageDialog(null, "Data inválida, informe no formato dd/mm/yyyy","Atenção", JOptionPane.WARNING_MESSAGE);
-                }
-                else{
-                    int year = Integer.parseInt(dob.getText().substring(6,10));
-                    int month = Integer.parseInt(dob.getText().substring(3,5))-1;
-                    int day = Integer.parseInt(dob.getText().substring(0,2))+1;
-                    Date data = new Date(year-1900, month,day);
+                } else {
+                    int year = Integer.parseInt(dob.getText().substring(6, 10));
+                    int month = Integer.parseInt(dob.getText().substring(3, 5)) - 1;
+                    int day = Integer.parseInt(dob.getText().substring(0, 2)) + 1;
+                    Date data = new Date(year - 1900, month, day);
                     patient.setDob(data);
                 }
 
                 patient.setGender((String) generCB.getSelectedItem());
-                PatientDAO pDAO = new PatientDAO();
+
+                PatientDAO pDAO = null;
+                try {
+                    pDAO = new PatientDAO();
+                } catch (Exception exception) {
+                    exception.printStackTrace();
+                }
 
 
                 Requisition req = new Requisition();

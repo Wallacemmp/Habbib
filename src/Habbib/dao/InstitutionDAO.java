@@ -55,7 +55,7 @@ public class InstitutionDAO extends BaseDAO {
 
         return institution;
     }
-    //TODO ajustar o método
+
     public Institution getInstitutionByCNPJ(String cnpj) throws Exception{
         PreparedStatement stmt;
         ResultSet rs;
@@ -94,7 +94,7 @@ public class InstitutionDAO extends BaseDAO {
         }
         return institution;
     }
-    // Método para remover instituição.
+
     public void removeInstitutionByName(String name) throws Exception{
         PreparedStatement stmt;
         // A query deleta tando a instituição quanto o endereço atrelado a ela.
@@ -109,7 +109,7 @@ public class InstitutionDAO extends BaseDAO {
             throw e;
         }
     }
-    // Método para adicionar um endereço que retorna a pk do registro criado.
+
     public Address addAddressInstitution(Address address) throws Exception{
         PreparedStatement stmt;
         ResultSet rs;
@@ -138,7 +138,7 @@ public class InstitutionDAO extends BaseDAO {
         }
         return address;
     }
-    // Método responsável por adicionar novas instituições.
+
     public void addInstitution(Institution institution) throws Exception{
         PreparedStatement stmt;
         try {
