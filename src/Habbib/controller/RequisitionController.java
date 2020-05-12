@@ -22,14 +22,12 @@ public class RequisitionController {
     public Requisition updateRequisitionStatus(Requisition requisition) throws Exception{
 
         BedDAO bedDAO = new BedDAO();
-        Bed bed = new Bed();
 
         try(RequisitionDAO requisitionDAO = new RequisitionDAO()){
 
             requisitionDAO.updateRequisition(requisition);
 
             if(requisition.getStatus().equals("Aprovado")) {
-
                 requisition.getBed().setStatus("Ocupado");
                 bedDAO.updateBedStatus(requisition.getBed());
             }

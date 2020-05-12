@@ -16,6 +16,7 @@ public class RequisitionDAO extends BaseDAO{
     }
 
     public ArrayList<Requisition> getInstitutionRequisitions(Institution institution) throws Exception {
+
         PreparedStatement stmt;
         ResultSet rs;
         ArrayList<Requisition> requisitions = new ArrayList<>();

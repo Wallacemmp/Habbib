@@ -30,7 +30,7 @@ public class View extends BaseView{
         JPanel loginContainer = new JPanel();
         loginContainer.setLayout(null);
 
-        ImageIcon img = new ImageIcon("src/Habbib/view/HabbibLogo.png");
+        ImageIcon img = new ImageIcon("Resource/HabbibLogo.png");
         JLabel logoLabel = new JLabel(img);
         logoLabel.setBounds( 0,10,620,120);
 
@@ -139,7 +139,7 @@ public class View extends BaseView{
         JPanel registerContainer = new JPanel();
         registerContainer.setLayout(null);
 
-        ImageIcon img = new ImageIcon("src/Habbib/view/HabbibLogo.png");
+        ImageIcon img = new ImageIcon("Resource/HabbibLogo.png");
         JLabel logoLabel = new JLabel(img);
 
         registerContainer.add(logoLabel);
@@ -304,12 +304,12 @@ public class View extends BaseView{
     private Container menuContainer(Institution institution) {
 
         JPanel menuContainer = new JPanel();
-        ImageIcon icon = new ImageIcon("src/Habbib/view/HabbibLogo.png");
+        ImageIcon icon = new ImageIcon("Resource/HabbibLogo.png");
         JLabel logo = new JLabel(icon);
         logo.setBounds(250 ,10,120,120);
         menuContainer.setLayout(null);
 
-        JButton providerButton = super.createDashboardButton("Solicitações",30,140,167,55);
+        JButton providerButton = super.createDashboardButton("Solicitações recebidas",30,140,167,55);
         JLabel providerDescription = super.createInputLabel("Consultar solicitações realizadas para a minha instituição.", 210,140,500,61);
         menuContainer.add(providerDescription);
         providerButton.addActionListener(new ActionListener() {
@@ -540,7 +540,7 @@ public class View extends BaseView{
             providerStatusContainer.add(super.createInputLabel(requisitionOwner.getAddress().getUf(), 445 ,96,250,28 ));
             providerStatusContainer.add(super.createInputLabel("Telefone:",10,119,155,28));
             providerStatusContainer.add(super.createInputLabel(requisitionOwner.getContactNumber(), 80 ,119,250,28 ));
-            providerStatusContainer.add(super.createInputLabel("_____________________________________________________________________________",10,130,600,28));
+            providerStatusContainer.add(super.createInputLabel("___________________________________________________________________________________________________",10,130,600,28));
             providerStatusContainer.add(super.createInputLabel("Paciente:",10,150,155,28));
             providerStatusContainer.add(super.createInputLabel(requisition.getPatient().getFirstName() + " " + requisition.getPatient().getLastName() , 80 ,150,250,28 ));
             providerStatusContainer.add(super.createInputLabel("Sexo:",400,150,155,28));
