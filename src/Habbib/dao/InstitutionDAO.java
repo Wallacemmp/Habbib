@@ -165,7 +165,7 @@ public class InstitutionDAO extends BaseDAO {
     public ArrayList<String> getRegisteredInstitutions() throws Exception{
         PreparedStatement stmt;
         ResultSet rs;
-        ArrayList<String> institutions = null;
+        ArrayList<String> institutions = new ArrayList<>();
         try {
             String select = "SELECT Name FROM Institution";
             stmt = super.connection.prepareStatement(select);
@@ -187,7 +187,7 @@ public class InstitutionDAO extends BaseDAO {
     public ArrayList<String> getRegisteredCNPJ() throws Exception{
         PreparedStatement stmt;
         ResultSet rs;
-        ArrayList<String> institutionsCnpj = null;
+        ArrayList<String> institutionsCnpj = new ArrayList<>();
         try {
             String select = "SELECT CNPJ FROM Institution";
             stmt = super.connection.prepareStatement(select);

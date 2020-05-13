@@ -55,15 +55,19 @@ public class InstitutionController {
     }
 
     protected boolean isRegistered_Institution(ArrayList<String> institutionList, Institution institution, int i){
-        if(institutionList.get(i).equals(institution.getName())) return true;
-        if (i > institutionList.size()) return false;
+        if (i >= institutionList.size())
+            return false;
+        if(institutionList.get(i).equals(institution.getName()))
+            return true;
 
         return isRegistered_Institution(institutionList, institution, i+1);
     }
 
     protected boolean isRegistered_CNPJ(ArrayList<String> cnpjList, Institution institution, int i){
-        if(cnpjList.get(i).equals(institution.getCnpj())) return true;
-        if (i > cnpjList.size()) return false;
+        if (i >= cnpjList.size())
+            return false;
+        if(cnpjList.get(i).equals(institution.getCnpj()))
+            return true;
 
         return isRegistered_CNPJ(cnpjList, institution, i+1);
     }
