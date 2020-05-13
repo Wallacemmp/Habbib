@@ -62,9 +62,9 @@ public class View extends BaseView{
                         setContentPane(menuContainer(institution));
                     } catch (Exception ex) {
                         if(userInput.getText().equals("") || passInput.getText().equals("")){
-                            JOptionPane.showMessageDialog(null,"Seu usuário ou senha está vazio", "WARNING",JOptionPane.WARNING_MESSAGE);
+                            JOptionPane.showMessageDialog(loginContainer,"Seu usuário ou senha está vazio", "WARNING",JOptionPane.WARNING_MESSAGE);
                         } else{
-                            JOptionPane.showMessageDialog(null,"Seu usuário ou senha está incorreto.", "WARNING",JOptionPane.WARNING_MESSAGE);
+                            JOptionPane.showMessageDialog(loginContainer,"Seu usuário ou senha está incorreto.", "WARNING",JOptionPane.WARNING_MESSAGE);
                         }
                     }
                 }
@@ -89,9 +89,9 @@ public class View extends BaseView{
                         setContentPane(menuContainer(institution));
                     } catch (Exception ex) {
                         if(userInput.getText().equals("") || passInput.getText().equals("")){
-                            JOptionPane.showMessageDialog(null,"Seu usuário ou senha está vazio", "WARNING",JOptionPane.WARNING_MESSAGE);
+                            JOptionPane.showMessageDialog(loginContainer,"Seu usuário ou senha está vazio", "WARNING",JOptionPane.WARNING_MESSAGE);
                         } else{
-                            JOptionPane.showMessageDialog(null,"Seu usuário ou senha está incorreto.", "WARNING",JOptionPane.WARNING_MESSAGE);
+                            JOptionPane.showMessageDialog(loginContainer,"Seu usuário ou senha está incorreto.", "WARNING",JOptionPane.WARNING_MESSAGE);
                         }
                     }
                 }
@@ -123,10 +123,10 @@ public class View extends BaseView{
                     setContentPane(menuContainer(institution));
                 } catch (Exception ex) {
                     if(userInput.getText().equals("") || passInput.getText().equals("")){
-                        JOptionPane.showMessageDialog(null,"Seu usuário ou senha está vazio", "WARNING",JOptionPane.WARNING_MESSAGE);
+                        JOptionPane.showMessageDialog(loginContainer,"Seu usuário ou senha está vazio", "WARNING",JOptionPane.WARNING_MESSAGE);
 
                     } else{
-                        JOptionPane.showMessageDialog(null,"Seu usuário ou senha está incorreto.", "WARNING",JOptionPane.WARNING_MESSAGE);
+                        JOptionPane.showMessageDialog(loginContainer,"Seu usuário ou senha está incorreto.", "WARNING",JOptionPane.WARNING_MESSAGE);
                     }
 
                 }
@@ -238,9 +238,9 @@ public class View extends BaseView{
                 try {
 
                     if(uFCB.getSelectedItem().equals("Selecionar") || typeCB.getSelectedItem().equals("Selecionar")) {
-                        JOptionPane.showMessageDialog(null, "Dados inválidos, verifique se os campos estão preenchidos corretamente", "WARNING", JOptionPane.WARNING_MESSAGE);
+                        JOptionPane.showMessageDialog(registerContainer, "Dados inválidos, verifique se os campos estão preenchidos corretamente", "WARNING", JOptionPane.WARNING_MESSAGE);
                     } else if (!(cPasswordInput).getText().equals(passwordInput.getText())) {
-                        JOptionPane.showMessageDialog(null, "As senhas digítadas não conferem !", "WARNING", JOptionPane.WARNING_MESSAGE);
+                        JOptionPane.showMessageDialog(registerContainer, "As senhas digítadas não conferem !", "WARNING", JOptionPane.WARNING_MESSAGE);
                     } else {
 
                         Institution institution = new Institution();
@@ -262,14 +262,18 @@ public class View extends BaseView{
                         institution.setType(typeCB.getSelectedItem().toString());
                         institution.setContactNumber(phoneInput.getText());
                         institution.setAddress(address);
-                        registerInstitution.registerInstitution(institution);
 
-                        JOptionPane.showMessageDialog(null, "Cadastrado com sucesso!", "INFORMATION", JOptionPane.INFORMATION_MESSAGE);
-                        registerContainer.setVisible(false);
-                        setContentPane(loginContainer());
+                        if(registerInstitution.getInstitutionByName(institution.getName()) != null || registerInstitution.getInstitutionByCNPJ(institution.getCnpj()) != null){
+                            JOptionPane.showMessageDialog(registerContainer, "Instituição e/ou CNPJ já cadastrado", "INFORMATION", JOptionPane.INFORMATION_MESSAGE);
+                        } else {
+                            registerInstitution.registerInstitution(institution);
+                            JOptionPane.showMessageDialog(registerContainer, "Cadastrado com sucesso!", "INFORMATION", JOptionPane.INFORMATION_MESSAGE);
+                            registerContainer.setVisible(false);
+                            setContentPane(loginContainer());
+                        }
                     }
                 } catch (Exception ex) {
-                    JOptionPane.showMessageDialog(null,"Dados inválidos, verifique se os campos estão preenchidos corretamente", "WARNING",JOptionPane.WARNING_MESSAGE);
+                    JOptionPane.showMessageDialog(registerContainer,"Erro ao inserir Instituição no banco de dados", "WARNING",JOptionPane.WARNING_MESSAGE);
                     System.out.println(ex.getMessage());
                 }
             }
@@ -369,8 +373,7 @@ public class View extends BaseView{
             @Override
             public void actionPerformed(ActionEvent e) {
 
-                int result = JOptionPane.showConfirmDialog(null,
-                        "Deseja realmente sair?",null, JOptionPane.YES_NO_OPTION);
+                int result = JOptionPane.showConfirmDialog(menuContainer, "Deseja realmente sair?",null, JOptionPane.YES_NO_OPTION);
                 if(result == JOptionPane.YES_OPTION) {
                     menuContainer.setVisible(false);
                     setContentPane(loginContainer());
@@ -591,7 +594,7 @@ public class View extends BaseView{
                     try{
                         requisition.setStatus("Reprovado");
                         requisitionController.updateRequisitionStatus(requisition);
-                        JOptionPane.showMessageDialog(null,"Solicitação n° " + requisition.getId() + " reprovada com sucesso.");
+                        JOptionPane.showMessageDialog(providerStatusContainer,"Solicitação n° " + requisition.getId() + " reprovada com sucesso.");
                         providerStatusContainer.setVisible(false);
                         setContentPane(providerContainer(institution));
                     } catch (Exception ex){
@@ -609,7 +612,7 @@ public class View extends BaseView{
                     try{
                         requisition.setStatus("Aprovado");
                         requisitionController.updateRequisitionStatus(requisition);
-                        JOptionPane.showMessageDialog(null,"Solicitação n° " + requisition.getId() + " aprovada com sucesso.");
+                        JOptionPane.showMessageDialog(providerStatusContainer,"Solicitação n° " + requisition.getId() + " aprovada com sucesso.");
                         providerStatusContainer.setVisible(false);
                         setContentPane(providerContainer(institution));
                     } catch (Exception ex){
@@ -636,6 +639,7 @@ public class View extends BaseView{
         requestContainer.setLayout(null);
         requestContainer.add(super.createHeaderLabel("Solicitações", 178,10,251,32));
         requestContainer.add(super.createInputLabel("Instituição:",13,52,70,30));
+        requestContainer.add(super.createInputLabel(institution.getName(),83,52,600,30));
         requestContainer.add(super.createInputLabel("Status:",13,82,60,30));
         JComboBox statusCB = super.createComboBox(new String[]{"Todos", "Em análise", "Recusado", "Aprovado"}, 10, 110, 100, 30);
         JTextField searchInput = super.createTextField(111, 110, 390, 30);
@@ -699,10 +703,6 @@ public class View extends BaseView{
                         Requisition requisitionID = new Requisition();
                         requestContainer.setVisible(false);
                         int idRequisition = (int) table.getValueAt(table.getSelectedRow(), 0);
-                        String providerName = table.getValueAt(table.getSelectedRow(), 1).toString();
-                        String pacientName = table.getValueAt(table.getSelectedRow(), 2).toString();
-                        String bedType = table.getValueAt(table.getSelectedRow(), 3).toString();
-                        String requisitionStatus = table.getValueAt(table.getSelectedRow(), 4).toString();
                         try {
                             requisitionID = requisitionController.getRequisitionById(idRequisition);
                         } catch (Exception exception) {
@@ -975,9 +975,9 @@ public class View extends BaseView{
                     bed.setType(typeInput.getSelectedItem().toString());
                     bedController.registerBeds(bed, Integer.parseInt(amountInput.getText()), institution);
 
-                    JOptionPane.showMessageDialog(null, "Leito(s) cadastrado(s) com sucesso !", "WARNING", JOptionPane.WARNING_MESSAGE);
+                    JOptionPane.showMessageDialog(registerBedContainer, "Leito(s) cadastrado(s) com sucesso !", "WARNING", JOptionPane.WARNING_MESSAGE);
                 } catch (Exception ex) {
-                    JOptionPane.showMessageDialog(null, "Erro ao cadastrar leito(s).", "WARNING", JOptionPane.WARNING_MESSAGE);
+                    JOptionPane.showMessageDialog(registerBedContainer, "Erro ao cadastrar leito(s).", "WARNING", JOptionPane.WARNING_MESSAGE);
                     System.out.println(ex.getMessage());
                 }
 
@@ -1007,76 +1007,71 @@ public class View extends BaseView{
         requestBedContainer.setLayout(null);
 
         requestBedContainer.add(super.createHeaderLabel("Solicitar leito", 160,10,251,32));
-
         requestBedContainer.add(super.createInputLabel("Tipo:",10,37,70,30));
-
         requestBedContainer.add(super.createInputLabel("UF:",157,37,70,30));
-
         requestBedContainer.add(super.createInputLabel("Leito:",306,37,70,30));
-
         JComboBox typeCB = super.createComboBox(new String[]{ "Todos" ,"Privado","Publico"},10,62,98,26);
-
         JComboBox ufCB = super.createComboBox(new String[]{"Todos","AC","AL","AP","AM","BA","CE","DF","ES","GO","MA","MT","MS","MG","PA","PB","PR","PE","PI","RJ","RN","RS","RO","RR","SC","SP","SE","TO"},158,62,98,26);
-
         JComboBox bedCB = super.createComboBox(new String[]{ "Todos", "UTI","Semi-intensivo","Baixa complexidade"},306,62,98,26);
+
         try {
 
             BedController BedController = new BedController();
 
-            ArrayList<Institution> instituionList = BedController.searchInstitutionsWithAvailableBeds(institution);
+            ArrayList<Institution> institutionList = BedController.searchInstitutionsWithAvailableBeds(institution);
 
             Object[][] rows;
 
-            if (instituionList.size() > 0) {
+            if (institutionList.size() > 0) {
                 int rowsCount = 0;
 
-                for (Institution inst : instituionList)
+                for (Institution inst : institutionList)
                     rowsCount += inst.getBeds().stream().map(Bed::getType).distinct().count();
 
                 rows = new Object[rowsCount][7];
 
                 int currentRow = 0;
 
-                for (int i = 0; i < instituionList.size(); i++){
-                    long utiBedCount = instituionList.get(i).getBeds().stream().filter(x -> x.getType().equals("UTI")).count();
-                    long semiBedCount = instituionList.get(i).getBeds().stream().filter(x -> x.getType().equals("Semi-intensivo")).count();
-                    long lowComplexityBedCount = instituionList.get(i).getBeds().stream().filter(x -> x.getType().equals("Baixa complexidade")).count();
+                for (int i = 0; i < institutionList.size(); i++){
+                    long utiBedCount = institutionList.get(i).getBeds().stream().filter(x -> x.getType().equals("UTI")).count();
+                    long semiBedCount = institutionList.get(i).getBeds().stream().filter(x -> x.getType().equals("Semi-intensivo")).count();
+                    long lowComplexityBedCount = institutionList.get(i).getBeds().stream().filter(x -> x.getType().equals("Baixa complexidade")).count();
 
                     if(utiBedCount > 0){
                         rows[currentRow] = new Object[]{
-                                instituionList.get(i).getName(),
-                                instituionList.get(i).getType(),
-                                instituionList.get(i).getAddress().getNeighborhood(),
-                                instituionList.get(i).getAddress().getUf(),
+                                institutionList.get(i).getName(),
+                                institutionList.get(i).getType(),
+                                institutionList.get(i).getAddress().getNeighborhood(),
+                                institutionList.get(i).getAddress().getUf(),
                                 "UTI",
                                 utiBedCount,
-                                instituionList.get(i).getContactNumber()
+                                institutionList.get(i).getContactNumber()
                         };
                         currentRow++;
                     }
 
                     if(semiBedCount > 0){
                         rows[currentRow] = new Object[]{
-                                instituionList.get(i).getName(),
-                                instituionList.get(i).getType(),
-                                instituionList.get(i).getAddress().getNeighborhood(),
-                                instituionList.get(i).getAddress().getUf(),
+                                institutionList.get(i).getName(),
+                                institutionList.get(i).getType(),
+                                institutionList.get(i).getAddress().getNeighborhood(),
+                                institutionList.get(i).getAddress().getUf(),
                                 "Semi-intensivo",
                                 semiBedCount,
-                                instituionList.get(i).getContactNumber()
+                                institutionList.get(i).getContactNumber()
                         };
                         currentRow++;
                     }
 
                     if(lowComplexityBedCount > 0){
                         rows[currentRow] = new Object[]{
-                                instituionList.get(i).getName(),
-                                instituionList.get(i).getType(),
-                                instituionList.get(i).getAddress().getNeighborhood(),
-                                instituionList.get(i).getAddress().getUf(),
+                                institutionList.get(i).getName(),
+                                institutionList.get(i).getType(),
+                                institutionList.get(i).getAddress().getNeighborhood(),
+                                institutionList.get(i).getAddress().getUf(),
                                 "Baixa complexidade",
                                 lowComplexityBedCount,
-                                instituionList.get(i).getContactNumber()
+                                institutionList.get(i).getContactNumber()
                         };
                         currentRow++;
                     }
@@ -1174,8 +1169,6 @@ public class View extends BaseView{
             e.printStackTrace();
         }
 
-
-
         JButton exit = super.createButton("Voltar",512, 427, 78, 30);
         exit.addActionListener(new ActionListener() {
             @Override
@@ -1196,7 +1189,7 @@ public class View extends BaseView{
         return  requestBedContainer;
     }
 
-    private Container requestBedStatusContainer(Institution institution, String name, String type,String neighborhood, String uf, String bed, String phone, String address, int numberAddress , String city){
+    private Container requestBedStatusContainer(Institution institution, String name, String type,String neighborhood, String uf, String bed, String phone, String address, int numberAddress , String city) {
         JPanel requestContainer = new JPanel();
         requestContainer.setLayout(null);
         requestContainer.add(super.createHeaderLabel("Solicitação", 160,10,310,32));
@@ -1214,9 +1207,7 @@ public class View extends BaseView{
         requestContainer.add(super.createInputLabel(uf, 445 ,96,250,28 ));
         requestContainer.add(super.createInputLabel("Telefone:",10,119,155,28));
         requestContainer.add(super.createInputLabel(phone, 80 ,119,250,28 ));
-
         requestContainer.add(super.createInputLabel("___________________________________________________________________________________________________",10,130,600,28));
-
         requestContainer.add(super.createInputLabel("Paciente:",10,150,155,28));
         requestContainer.add(super.createInputLabel("Leito solicitado:",10 ,170,100,28 ));
         requestContainer.add(super.createInputLabel(bed,120,170,150,28 ));
@@ -1266,8 +1257,7 @@ public class View extends BaseView{
         cancel.addActionListener(new ActionListener() {
             @Override
             public void actionPerformed(ActionEvent e) {
-                int result = JOptionPane.showConfirmDialog(null,
-                        "Deseja realmente sair?",null, JOptionPane.YES_NO_OPTION);
+                int result = JOptionPane.showConfirmDialog(requestContainer, "Deseja realmente sair?",null, JOptionPane.YES_NO_OPTION);
                 if(result == JOptionPane.YES_OPTION) {
                     requestContainer.setVisible(false);
                     setContentPane(menuContainer(institution));
@@ -1290,7 +1280,7 @@ public class View extends BaseView{
                 patient.setCid(cidInput.getText());
 
                 if(dob.getText().length() != 10){
-                    JOptionPane.showMessageDialog(null, "Data inválida, informe no formato dd/mm/yyyy","Atenção", JOptionPane.WARNING_MESSAGE);
+                    JOptionPane.showMessageDialog(requestContainer, "Data inválida, informe no formato dd/mm/yyyy","Atenção", JOptionPane.WARNING_MESSAGE);
                 } else {
                     int year = Integer.parseInt(dob.getText().substring(6, 10));
                     int month = Integer.parseInt(dob.getText().substring(3, 5)) - 1;
@@ -1326,12 +1316,12 @@ public class View extends BaseView{
 
                     RequisitionController rc = new RequisitionController();
                     rc.createRequisition(req, institution);
-                    JOptionPane.showMessageDialog(null,"Leito solicitado com sucesso!","Informe", JOptionPane.INFORMATION_MESSAGE);
+                    JOptionPane.showMessageDialog(requestContainer,"Leito solicitado com sucesso!","Informe", JOptionPane.INFORMATION_MESSAGE);
                     requestContainer.setVisible(false);
                     setContentPane(requestBedContainer(institution));
 
                 } catch (Exception exception) {
-                    JOptionPane.showMessageDialog(null,"Falha ao cadastrar, verifique os dados.","Atenção", JOptionPane.INFORMATION_MESSAGE);
+                    JOptionPane.showMessageDialog(requestContainer,"Falha ao cadastrar, verifique os dados.","Atenção", JOptionPane.INFORMATION_MESSAGE);
                     exception.printStackTrace();
                 }
 

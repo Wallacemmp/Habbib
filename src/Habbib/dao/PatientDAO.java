@@ -3,8 +3,6 @@ package Habbib.dao;
 import Habbib.connection.BaseDAO;
 import Habbib.model.Patient;
 
-
-import javax.swing.*;
 import java.sql.PreparedStatement;
 import java.sql.ResultSet;
 import java.sql.Statement;
@@ -18,9 +16,9 @@ public class PatientDAO extends BaseDAO {
     public Patient addPatient(Patient patient) throws Exception {
         PreparedStatement stmt;
         ResultSet rs;
-        try
-        {
-            String insert = "INSERT INTO Patient VALUE(DEFAULT, ?, ?, ?, ?, ?, ?)";
+        try {
+
+            String insert = "INSERT INTO Patient VALUE (DEFAULT, ?, ?, ?, ?, ?, ?)";
 
             stmt = super.connection.prepareStatement(insert, Statement.RETURN_GENERATED_KEYS);
             stmt.setString(1, patient.getFirstName());
@@ -44,6 +42,5 @@ public class PatientDAO extends BaseDAO {
         }
         return patient;
     }
-
 
 }
