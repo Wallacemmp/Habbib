@@ -1,9 +1,6 @@
-dist: xenial
-
 language: java
 
 jdk:
-  - openjdk14
-  - oraclejdk13
+  - openjdk13
 
 script: echo "Success!"

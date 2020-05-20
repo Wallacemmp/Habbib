@@ -1,25 +1,27 @@
 package Habbib.view;
 
 import javax.swing.*;
+import javax.swing.table.DefaultTableModel;
 import java.awt.*;
 
 public class BaseView extends JFrame {
 
     private String font = "Segoe UI Historic";
 
-    private Font titleFont = new Font(font, Font.PLAIN, 16);
+
     private Font headerFont = new Font(font, Font.PLAIN, 20);
     private Font inputLabelFont = new Font(font, Font.PLAIN, 14);
     private Font textLabelFont = new Font(font, Font.PLAIN, 12);
-    private Font buttonFont = new Font(font, Font.PLAIN, 10);
-    private Font buttonFontBig = new Font(font, Font.PLAIN, 16);
+    private Font buttonFont = new Font(font, Font.PLAIN, 11);
+    private Font buttonFontBig = new Font(font, Font.PLAIN, 15);
+
 
     protected Container currentContainer;
 
     public BaseView(String title) {
         super(title);
     }
-    
+
     public void showWindow(Container contentPane, int width, int height){
         super.setSize(width,height);
         super.setResizable(false);
@@ -34,12 +36,6 @@ public class BaseView extends JFrame {
         super.setContentPane(contentPane);
     }
 
-    public JLabel createTitleLabel(String title, int x, int y, int width, int height){
-        JLabel tittleLabel = new JLabel(title);
-        tittleLabel.setFont(titleFont);
-        tittleLabel.setBounds(x,y,width,height);
-        return tittleLabel;
-    }
 
     public JLabel createHeaderLabel(String title, int x, int y, int width, int height) {
         JLabel headerLabel = new JLabel(title);
@@ -73,7 +69,7 @@ public class BaseView extends JFrame {
     public JLabel createTextLabel(String title, int x, int y, int width, int height){
         JLabel textLabel = new JLabel(title);
         textLabel.setFont(textLabelFont);
-        textLabel.setHorizontalAlignment(SwingConstants.CENTER);
+        textLabel.setHorizontalAlignment(SwingConstants.LEFT);
         textLabel.setVerticalAlignment(SwingConstants.CENTER);
         textLabel.setBounds(x,y,width,height);
         return textLabel;
@@ -100,5 +96,13 @@ public class BaseView extends JFrame {
         comboBox.setModel(new DefaultComboBoxModel<>(options));
         comboBox.setBounds(x,y,width,height);
         return comboBox;
+    }
+
+    protected JTextArea createJTextArea(int x, int y, int width, int height) {
+        JTextArea  t = new JTextArea();
+        t.setFont(textLabelFont);
+        t.setBounds(x,y,width,height);
+
+        return t;
     }
 }

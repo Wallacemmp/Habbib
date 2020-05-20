@@ -3,25 +3,22 @@ package Habbib.dao;
 import Habbib.connection.BaseDAO;
 import Habbib.model.Patient;
 
-
-import javax.swing.*;
 import java.sql.PreparedStatement;
 import java.sql.ResultSet;
 import java.sql.Statement;
 
 public class PatientDAO extends BaseDAO {
 
-    public PatientDAO() throws Exception
-    {
+    public PatientDAO() throws Exception {
         super();
     }
-    //TODO arrumar o DOB
-    public void addPatient(Patient patient) throws Exception {
+
+    public Patient addPatient(Patient patient) throws Exception {
         PreparedStatement stmt;
         ResultSet rs;
-        try
-        {
-            String insert = "INSERT INTO Patient VALUE(DEFAULT, ?, ?, ?, ?, ?, ?)";
+        try {
+
+            String insert = "INSERT INTO Patient VALUE (DEFAULT, ?, ?, ?, ?, ?, ?)";
 
             stmt = super.connection.prepareStatement(insert, Statement.RETURN_GENERATED_KEYS);
             stmt.setString(1, patient.getFirstName());
@@ -43,7 +40,7 @@ public class PatientDAO extends BaseDAO {
             System.out.println(e.getMessage());
             throw e;
         }
+        return patient;
     }
-
 
 }

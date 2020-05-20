@@ -6,31 +6,27 @@ import Habbib.model.Institution;
 
 import java.sql.PreparedStatement;
 import java.sql.ResultSet;
-import java.sql.SQLException;
 import java.sql.Statement;
+import java.util.ArrayList;
 
 public class InstitutionDAO extends BaseDAO {
 
-    public InstitutionDAO () throws Exception
-    {
+    public InstitutionDAO () throws Exception {
         super();
     }
 
-    // Método para pegar instituções, pesquisando por nome e retornar a instituição encontrada.
     public Institution getInstitutionByName(String name) throws Exception{
         PreparedStatement stmt;
         ResultSet rs;
         Institution institution = null;
         Address address;
 
-        // Utilizando JOIN na query para trazer o endereço ligado a instituição.
         try{
             String select = "SELECT * FROM Institution i JOIN Address a ON i.Name = ? AND Id_Address = a.Id";
             stmt = super.connection.prepareStatement(select);
             stmt.setString(1,name);
             rs = stmt.executeQuery();
 
-            // Caso encontre alguma instituição com o nome informado, os objetos institution e address são carregados com sua informações.
             if(rs.next()){
 
                 institution = new Institution();
@@ -60,21 +56,21 @@ public class InstitutionDAO extends BaseDAO {
 
         return institution;
     }
-    // Método para pegar instituções, pesquisando por CNPJ e retornar a instituição encontrada.
-    //TODO ajustar o método
+
     public Institution getInstitutionByCNPJ(String cnpj) throws Exception{
         PreparedStatement stmt;
         ResultSet rs;
-        Institution institution = new Institution();
+        Institution institution = null;
+
         try {
             String select = "SELECT * FROM Institution i JOIN Address a ON i.cnpj = ? AND i.Id_Address = a.Id";
             stmt = super.connection.prepareStatement(select);
             stmt.setString(1, cnpj);
             rs = stmt.executeQuery();
 
-
             if (rs.next()) {
 
+                institution = new Institution();
                 Address address = new Address();
 
                 institution.setId(rs.getInt("Id"));
@@ -99,7 +95,7 @@ public class InstitutionDAO extends BaseDAO {
         }
         return institution;
     }
-    // Método para remover instituição.
+
     public void removeInstitutionByName(String name) throws Exception{
         PreparedStatement stmt;
         // A query deleta tando a instituição quanto o endereço atrelado a ela.
@@ -114,7 +110,7 @@ public class InstitutionDAO extends BaseDAO {
             throw e;
         }
     }
-    // Método para adicionar um endereço que retorna a pk do registro criado.
+
     public Address addAddressInstitution(Address address) throws Exception{
         PreparedStatement stmt;
         ResultSet rs;
@@ -143,7 +139,7 @@ public class InstitutionDAO extends BaseDAO {
         }
         return address;
     }
-    // Método responsável por adicionar novas instituições.
+
     public void addInstitution(Institution institution) throws Exception{
         PreparedStatement stmt;
         try {
@@ -165,46 +161,48 @@ public class InstitutionDAO extends BaseDAO {
             throw e;
         }
     }
-    //Método para buscar instituição por Id
-    public Institution getInstitutionById(int Id) throws Exception{
 
+    public ArrayList<String> getRegisteredInstitutions() throws Exception{
         PreparedStatement stmt;
         ResultSet rs;
-        Institution institution = new Institution();
-        Address address = new Address();
-
+        ArrayList<String> institutions = new ArrayList<>();
         try {
-
-            String select = "SELECT * FROM Institution i JOIN Address a ON i.Id_Address = a.Id AND i.Id = ?";
-
+            String select = "SELECT Name FROM Institution";
             stmt = super.connection.prepareStatement(select);
-
-            stmt.setInt(1, Id);
             rs = stmt.executeQuery();
 
-            if(rs.next()){
+            while (rs.next()){
 
-                institution.setId(rs.getInt("Id"));
-                institution.setName(rs.getString("Name"));
-                institution.setCnpj(rs.getString("CNPJ"));
-                institution.setPassword(rs.getString("Password"));
-                institution.setType(rs.getString("Type"));
-                institution.setContactNumber(rs.getString("ContactNumber"));
-                address.setId(rs.getInt("Id_Address"));
-                address.setZipCode(rs.getString("ZipCode"));
-                address.setAddress(rs.getString("Address"));
-                address.setNumber(rs.getInt("AddressNumber"));
-                address.setComplement(rs.getString("Complement"));
-                address.setNeighborhood(rs.getString("Neighborhood"));
-                address.setCity(rs.getString("City"));
-                address.setUf(rs.getString("UF"));
-                institution.setAddress(address);
+                String institution = rs.getString("Name");
+
+                institutions.add(institution);
             }
-
-        } catch (Exception e) {
-            System.out.println(e);
+        } catch (Exception e){
+            System.out.println(e.getMessage());
             throw e;
         }
-        return institution;
+        return institutions;
+    }
+
+    public ArrayList<String> getRegisteredCNPJ() throws Exception{
+        PreparedStatement stmt;
+        ResultSet rs;
+        ArrayList<String> institutionsCnpj = new ArrayList<>();
+        try {
+            String select = "SELECT CNPJ FROM Institution";
+            stmt = super.connection.prepareStatement(select);
+            rs = stmt.executeQuery();
+
+            while (rs.next()){
+
+                String cnpj = rs.getString("CNPJ");
+
+                institutionsCnpj.add(cnpj);
+            }
+        } catch (Exception e){
+            System.out.println(e.getMessage());
+            throw e;
+        }
+        return institutionsCnpj;
     }
 }
