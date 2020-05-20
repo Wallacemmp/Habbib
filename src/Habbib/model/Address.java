@@ -1,13 +1,14 @@
-package com.habbib.model;
+package Habbib.model;
 
 public class Address {
     private int id;
-    private int zipCode;
-    private int number;
+    private String zipCode;
+    private String address;
+    private int addressNumber;
     private String complement;
     private String neighborhood;
-    private String City;
-    private String UF;
+    private String city;
+    private String uf;
 
     public int getId() {
         return id;
@@ -17,20 +18,28 @@ public class Address {
         this.id = id;
     }
 
-    public int getZipCode() {
+    public String getZipCode() {
         return zipCode;
     }
 
-    public void setZipCode(int zipCode) {
+    public void setZipCode(String zipCode) {
         this.zipCode = zipCode;
     }
 
+    public String getAddress() {
+        return address;
+    }
+
+    public void setAddress(String address) {
+        this.address = address;
+    }
+
     public int getNumber() {
-        return number;
+        return addressNumber;
     }
 
     public void setNumber(int number) {
-        this.number = number;
+        this.addressNumber = number;
     }
 
     public String getComplement() {
@@ -50,18 +59,18 @@ public class Address {
     }
 
     public String getCity() {
-        return City;
+        return city;
     }
 
     public void setCity(String city) {
-        City = city;
+        this.city = city;
     }
 
-    public String getUF() {
-        return UF;
+    public String getUf() {
+        return uf;
     }
 
-    public void setUF(String UF) {
-        this.UF = UF;
+    public void setUf(String uf) {
+        this.uf = uf;
     }
 }
